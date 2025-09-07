@@ -1,0 +1,355 @@
+[
+  {
+    "title": "Spaces for Ideas",
+    "images": [
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554316/originals_1_eps5ex.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554316/originals_1_eps5ex.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554316/originals_1_eps5ex.webp"
+    ],
+    "width": 18,
+    "height": 24,
+    "categories": ["oil painting", "portrait", "expressionism"],
+    "price": 1400,
+    "discount": 0,
+    "available": true,
+    "description": "This captivating oil painting, 'Bluebirds and Maiden,' is a testament to the artist's masterful technique. The vibrant blues of the birds soar against a rich cerulean backdrop, creating a striking contrast with the soft, ethereal light illuminating the subject's face. The delicate brushstrokes capture the gentle beauty of the roses and the intricate folds of her white dress, creating a harmonious and dreamlike composition that celebrates nature and feminine grace.",
+    "createdAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "title": "Bluebirds and Maiden",
+    "images": [
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554316/originals_2_gbtagx.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554316/originals_2_gbtagx.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554316/originals_2_gbtagx.webp"
+    ],
+    "width": 18,
+    "height": 24,
+    "categories": ["oil painting", "portrait", "expressionism"],
+    "price": 1400,
+    "discount": 0,
+    "available": true,
+    "description": "This captivating oil painting, 'Bluebirds and Maiden,' is a testament to the artist's masterful technique. The vibrant blues of the birds soar against a rich cerulean backdrop, creating a striking contrast with the soft, ethereal light illuminating the subject's face. The delicate brushstrokes capture the gentle beauty of the roses and the intricate folds of her white dress, creating a harmonious and dreamlike composition that celebrates nature and feminine grace.",
+    "createdAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "title": "The Quiet Vigil",
+    "images": [
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554316/originals_3_v1uvoe.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554316/originals_3_v1uvoe.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554316/originals_3_v1uvoe.webp"
+    ],
+    "width": 24,
+    "height": 36,
+    "categories": ["oil painting", "portrait", "figurative art"],
+    "price": 1699,
+    "discount": 10,
+    "available": true,
+    "description": "This poignant oil painting captures a child's unwavering hope and resilience. The soft, warm glow of the candle illuminates her face, highlighting the innocence and determination in her eyes. Expertly rendered in a palette of muted earth tones, the artwork's rich texture and sensitive brushwork convey a powerful message of perseverance in the face of adversity. This beautiful piece evokes deep emotion and reflection.",
+    "createdAt": "2025-02-01T00:00:00.000Z"
+  },
+  {
+    "title": "Enigmatic Gaze",
+    "images": [
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554316/originals_4_jlntve.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554316/originals_4_jlntve.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554316/originals_4_jlntve.webp"
+    ],
+    "width": 36,
+    "height": 48,
+    "categories": ["oil painting", "abstract"],
+    "price": 1245,
+    "discount": 10,
+    "available": true,
+    "description": "This oil painting masterfully captures a subject with a captivating and introspective expression. The warm, earthy tones of the background and the model's skin create a striking contrast with the cool, luminous highlights on her face and shoulders. The artist uses bold, confident brushstrokes to define her voluminous, curly hair and the soft curves of her form, resulting in a piece that feels both raw and refined. It's a powerful study of character and emotion, inviting the viewer to contemplate the figure's inner world.",
+    "createdAt": "2025-01-02T00:00:00.000Z"
+  },
+  {
+    "title": "Charcoal Gaze",
+    "images": [
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554317/originals_6_nciyvo.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554317/originals_6_nciyvo.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554317/originals_6_nciyvo.webp"
+    ],
+    "width": 36,
+    "height": 48,
+    "categories": ["oil painting", "charcoal", "figurative"],
+    "price": 2300,
+    "discount": 12,
+    "available": true,
+    "description": "This striking portrait is a powerful example of charcoal work. The artist has expertly used the medium to create a dynamic interplay of light and shadow, giving the subject's face a strong sense of dimension and form. The expressive, textured lines of the hair contrast with the smooth, detailed rendering of the features, drawing the viewer's eye to the intense and captivating gaze.",
+    "createdAt": "2025-02-02T00:00:00.000Z"
+  },
+  {
+    "title": "Metamorphosis",
+    "images": [
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554316/originals_5_zyzaws.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554316/originals_5_zyzaws.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554316/originals_5_zyzaws.webp"
+    ],
+    "width": 36,
+    "height": 48,
+    "categories": ["oil painting", "charcoal", "abstract"],
+    "price": 1500,
+    "discount": 10,
+    "available": true,
+    "description": "This powerful, expressive painting explores the themes of transformation and identity. One half of the subject's face is rendered with bold, confident brushstrokes, while the other is replaced by the delicate, vibrant wings of a butterfly. The rich, textured colors and symbolic imagery create a dynamic contrast between human form and natural beauty, inviting the viewer to consider the idea of change and self-discovery.",
+    "createdAt": "2025-02-03T00:00:00.000Z"
+  },
+  {
+    "_id": "507f1f77bcf86cd799439016",
+    "title": "Cultural Echoes",
+    "images": [
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554317/originals_8_qkw2uh.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554317/originals_8_qkw2uh.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554317/originals_8_qkw2uh.webp"
+    ],
+    "width": 36,
+    "height": 48,
+    "categories": ["oil painting", "portrait", "figurative", "mixed media"],
+    "price": 1245,
+    "discount": 0,
+    "available": true,
+    "description": "This vibrant mixed-media painting is a stunning fusion of portraiture and abstract design. The subject's peaceful profile is juxtaposed with a rich tapestry of geometric patterns and flowing, fiery colors that seem to burst from her form. The dynamic interplay of realistic rendering and bold, symbolic patterns creates a powerful and visually striking piece that speaks to both inner reflection and cultural identity.",
+    "createdAt": "2025-02-03T00:00:00.000Z"
+  },
+  {
+    "title": "Nice Title1",
+    "images": [
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554318/originals_9_q95pv8.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554318/originals_9_q95pv8.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554318/originals_9_q95pv8.webp"
+    ],
+    "width": 36,
+    "height": 48,
+    "categories": ["oil painting", "charcoal", "figurative"],
+    "price": 1245,
+    "discount": 10,
+    "available": true,
+    "description": "This vibrant mixed-media painting is a stunning fusion of portraiture and abstract design. The subject's peaceful profile is juxtaposed with a rich tapestry of geometric patterns and flowing, fiery colors that seem to burst from her form. The dynamic interplay of realistic rendering and bold, symbolic patterns creates a powerful and visually striking piece that speaks to both inner reflection and cultural identity.",
+    "createdAt": "2024-02-08T00:00:00.000Z"
+  },
+  {
+    "title": "Nice Title2",
+    "images": [
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554317/originals_10_aaseev.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554317/originals_10_aaseev.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554317/originals_10_aaseev.webp"
+    ],
+    "width": 18,
+    "height": 24,
+    "categories": ["oil painting", "charcoal", "expressionism", "mixed media"],
+    "price": 1245,
+    "discount": 10,
+    "available": true,
+    "description": "This vibrant mixed-media painting is a stunning fusion of portraiture and abstract design. The subject's peaceful profile is juxtaposed with a rich tapestry of geometric patterns and flowing, fiery colors that seem to burst from her form. The dynamic interplay of realistic rendering and bold, symbolic patterns creates a powerful and visually striking piece that speaks to both inner reflection and cultural identity.",
+    "createdAt": "2024-02-09T00:00:00.000Z"
+  },
+  {
+    "title": "Nice Title3",
+    "images": [
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554317/originals_7_vjhj6a.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554317/originals_7_vjhj6a.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554317/originals_7_vjhj6a.webp"
+    ],
+    "width": 18,
+    "height": 24,
+    "categories": ["oil painting", "charcoal", "expressionism", "abstract"],
+    "price": 2458,
+    "discount": 0,
+    "available": true,
+    "description": "This vibrant mixed-media painting is a stunning fusion of portraiture and abstract design. The subject's peaceful profile is juxtaposed with a rich tapestry of geometric patterns and flowing, fiery colors that seem to burst from her form. The dynamic interplay of realistic rendering and bold, symbolic patterns creates a powerful and visually striking piece that speaks to both inner reflection and cultural identity.",
+    "createdAt": "2024-05-06T00:00:00.000Z"
+  },
+  {
+    "title": "Nice Title4",
+    "images": [
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554318/originals_11_hnv9sy.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554318/originals_11_hnv9sy.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554318/originals_11_hnv9sy.webp"
+    ],
+    "width": 24,
+    "height": 36,
+    "categories": ["oil painting", "figurative", "mixed media"],
+    "price": 1233,
+    "discount": 0,
+    "available": true,
+    "description": "This vibrant mixed-media painting is a stunning fusion of portraiture and abstract design. The subject's peaceful profile is juxtaposed with a rich tapestry of geometric patterns and flowing, fiery colors that seem to burst from her form. The dynamic interplay of realistic rendering and bold, symbolic patterns creates a powerful and visually striking piece that speaks to both inner reflection and cultural identity.",
+    "createdAt": "2024-04-04T00:00:00.000Z"
+  },
+  {
+    "title": "Nice Title5",
+    "images": [
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554318/originals_12_idgbm6.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554318/originals_12_idgbm6.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554318/originals_12_idgbm6.webp"
+    ],
+    "width": 24,
+    "height": 36,
+    "categories": ["oil painting", "charcoal", "abstract", "expressionism"],
+    "price": 1233,
+    "discount": 0,
+    "available": true,
+    "description": "This vibrant mixed-media painting is a stunning fusion of portraiture and abstract design. The subject's peaceful profile is juxtaposed with a rich tapestry of geometric patterns and flowing, fiery colors that seem to burst from her form. The dynamic interplay of realistic rendering and bold, symbolic patterns creates a powerful and visually striking piece that speaks to both inner reflection and cultural identity.",
+    "createdAt": "2024-09-06T00:00:00.000Z"
+  },
+  {
+    "title": "Nice Title6",
+    "images": [
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554318/originals_13_y4cki8.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554318/originals_13_y4cki8.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554318/originals_13_y4cki8.webp"
+    ],
+    "width": 24,
+    "height": 36,
+    "categories": ["oil painting", "figurative", "mixed media"],
+    "price": 3200,
+    "discount": 5,
+    "available": true,
+    "description": "This vibrant mixed-media painting is a stunning fusion of portraiture and abstract design. The subject's peaceful profile is juxtaposed with a rich tapestry of geometric patterns and flowing, fiery colors that seem to burst from her form. The dynamic interplay of realistic rendering and bold, symbolic patterns creates a powerful and visually striking piece that speaks to both inner reflection and cultural identity.",
+    "createdAt": "2024-09-02T00:00:00.000Z"
+  },
+  {
+    "title": "Nice Title7",
+    "images": [
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554318/originals_14_h9hjgr.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554318/originals_14_h9hjgr.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554318/originals_14_h9hjgr.webp"
+    ],
+    "width": 24,
+    "height": 36,
+    "categories": ["oil painting", "expressionism"],
+    "price": 3200,
+    "discount": 20,
+    "available": true,
+    "description": "This vibrant mixed-media painting is a stunning fusion of portraiture and abstract design. The subject's peaceful profile is juxtaposed with a rich tapestry of geometric patterns and flowing, fiery colors that seem to burst from her form. The dynamic interplay of realistic rendering and bold, symbolic patterns creates a powerful and visually striking piece that speaks to both inner reflection and cultural identity.",
+    "createdAt": "2024-05-03T00:00:00.000Z"
+  },
+  {
+    "title": "Nice Title8",
+    "images": [
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554326/originals_15_y9u949.webp",
+      "originals_13.webp",
+      "originals_13.webp"
+    ],
+    "width": 18,
+    "height": 24,
+    "categories": ["oil painting", "abstract", "mixed media"],
+    "price": 2000,
+    "discount": 15,
+    "available": true,
+    "description": "This vibrant mixed-media painting is a stunning fusion of portraiture and abstract design. The subject's peaceful profile is juxtaposed with a rich tapestry of geometric patterns and flowing, fiery colors that seem to burst from her form. The dynamic interplay of realistic rendering and bold, symbolic patterns creates a powerful and visually striking piece that speaks to both inner reflection and cultural identity.",
+    "createdAt": "2024-05-01T00:00:00.000Z"
+  },
+  {
+    "title": "Nice Title9",
+    "images": [
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554326/originals_16_xkxddi.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554326/originals_16_xkxddi.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554326/originals_16_xkxddi.webp"
+    ],
+    "width": 18,
+    "height": 24,
+    "categories": ["oil painting", "charcoal", "figurative", "mixed media"],
+    "price": 1800,
+    "discount": 0,
+    "available": true,
+    "description": "This vibrant mixed-media painting is a stunning fusion of portraiture and abstract design. The subject's peaceful profile is juxtaposed with a rich tapestry of geometric patterns and flowing, fiery colors that seem to burst from her form. The dynamic interplay of realistic rendering and bold, symbolic patterns creates a powerful and visually striking piece that speaks to both inner reflection and cultural identity.",
+    "createdAt": "2024-05-02T00:00:00.000Z"
+  },
+  {
+    "title": "Nice Title10",
+    "images": [
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554326/originals_17_fzkw9d.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554326/originals_17_fzkw9d.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554326/originals_17_fzkw9d.webp"
+    ],
+    "width": 18,
+    "height": 24,
+    "categories": ["oil painting", "charcoal", "figurative", "mixed media"],
+    "price": 1800,
+    "discount": 0,
+    "available": true,
+    "description": "This vibrant mixed-media painting is a stunning fusion of portraiture and abstract design. The subject's peaceful profile is juxtaposed with a rich tapestry of geometric patterns and flowing, fiery colors that seem to burst from her form. The dynamic interplay of realistic rendering and bold, symbolic patterns creates a powerful and visually striking piece that speaks to both inner reflection and cultural identity.",
+    "createdAt": "2023-05-09T00:00:00.000Z"
+  },
+  {
+    "title": "Nice Title11",
+    "images": [
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554327/originals_18_uxfcts.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554327/originals_18_uxfcts.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554327/originals_18_uxfcts.webp"
+    ],
+    "width": 18,
+    "height": 24,
+    "categories": ["oil painting", "charcoal", "figurative", "mixed media"],
+    "price": 2500,
+    "discount": 10,
+    "available": false,
+    "description": "This vibrant mixed-media painting is a stunning fusion of portraiture and abstract design. The subject's peaceful profile is juxtaposed with a rich tapestry of geometric patterns and flowing, fiery colors that seem to burst from her form. The dynamic interplay of realistic rendering and bold, symbolic patterns creates a powerful and visually striking piece that speaks to both inner reflection and cultural identity.",
+    "createdAt": "2024-05-08T00:00:00.000Z"
+  },
+  {
+    "title": "Nice Title12",
+    "images": [
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554327/originals_19_yzhaq1.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554327/originals_19_yzhaq1.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554327/originals_19_yzhaq1.webp"
+    ],
+    "width": 18,
+    "height": 24,
+    "categories": ["oil painting", "charcoal", "figurative", "mixed media"],
+    "price": 2500,
+    "discount": 10,
+    "available": true,
+    "description": "This vibrant mixed-media painting is a stunning fusion of portraiture and abstract design. The subject's peaceful profile is juxtaposed with a rich tapestry of geometric patterns and flowing, fiery colors that seem to burst from her form. The dynamic interplay of realistic rendering and bold, symbolic patterns creates a powerful and visually striking piece that speaks to both inner reflection and cultural identity.",
+    "createdAt": "2023-05-03T00:00:00.000Z"
+  },
+  {
+    "title": "Nice Title13",
+    "images": [
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554327/originals_21_mvvge8.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554327/originals_21_mvvge8.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554327/originals_21_mvvge8.webp"
+    ],
+    "width": 18,
+    "height": 24,
+    "categories": ["oil painting", "charcoal", "figurative", "mixed media"],
+    "price": 2999,
+    "discount": 15,
+    "available": true,
+    "description": "This vibrant mixed-media painting is a stunning fusion of portraiture and abstract design. The subject's peaceful profile is juxtaposed with a rich tapestry of geometric patterns and flowing, fiery colors that seem to burst from her form. The dynamic interplay of realistic rendering and bold, symbolic patterns creates a powerful and visually striking piece that speaks to both inner reflection and cultural identity.",
+    "createdAt": "2024-02-06T00:00:00.000Z"
+  },
+  {
+    "title": "Nice Title14",
+    "images": [
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554327/originals_20_xdy2kq.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554327/originals_20_xdy2kq.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554327/originals_20_xdy2kq.webp"
+    ],
+    "width": 18,
+    "height": 24,
+    "categories": ["oil painting", "charcoal", "figurative", "mixed media"],
+    "price": 2999,
+    "discount": 0,
+    "available": true,
+    "description": "This vibrant mixed-media painting is a stunning fusion of portraiture and abstract design. The subject's peaceful profile is juxtaposed with a rich tapestry of geometric patterns and flowing, fiery colors that seem to burst from her form. The dynamic interplay of realistic rendering and bold, symbolic patterns creates a powerful and visually striking piece that speaks to both inner reflection and cultural identity.",
+    "createdAt": "2023-08-01T00:00:00.000Z"
+  },
+  {
+    "title": "Nice Title15",
+    "images": [
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554328/originals_22_awpizz.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554328/originals_22_awpizz.webp",
+      "https://res.cloudinary.com/dzqey4oms/image/upload/v1756554328/originals_22_awpizz.webp"
+    ],
+    "width": 18,
+    "height": 24,
+    "categories": ["oil painting", "charcoal", "figurative", "mixed media"],
+    "price": 1799,
+    "discount": 0,
+    "available": false,
+    "description": "This vibrant mixed-media painting is a stunning fusion of portraiture and abstract design. The subject's peaceful profile is juxtaposed with a rich tapestry of geometric patterns and flowing, fiery colors that seem to burst from her form. The dynamic interplay of realistic rendering and bold, symbolic patterns creates a powerful and visually striking piece that speaks to both inner reflection and cultural identity.",
+    "createdAt": "2023-01-05T00:00:00.000Z"
+  }
+]

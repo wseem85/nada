@@ -1,0 +1,204 @@
+[
+  {
+    "_id": "607f1f77bcf86cd799439021",
+    "review": "Absolutely stunning piece! The colors are even more vibrant in person.",
+    "rating": 5,
+    "createdAt": "2024-01-15T10:30:00.000Z",
+    "artwork": "507f1f77bcf86cd799439016",
+    "user": "507f1f77bcf86cd799439011"
+  },
+  {
+    "_id": "607f1f77bcf86cd799439022",
+    "review": "Beautiful artwork, but the shipping took longer than expected.",
+    "rating": 4,
+    "createdAt": "2024-01-20T14:22:00.000Z",
+    "artwork": "507f1f77bcf86cd799439016",
+    "user": "507f1f77bcf86cd799439012"
+  },
+  {
+    "_id": "607f1f77bcf86cd799439023",
+    "review": "The texture and detail in this painting are incredible. Worth every penny!",
+    "rating": 5,
+    "createdAt": "2024-02-05T09:15:00.000Z",
+    "artwork": "507f1f77bcf86cd799439016",
+    "user": "507f1f77bcf86cd799439013"
+  },
+  {
+    "_id": "607f1f77bcf86cd799439024",
+    "review": "Good quality, but the colors are slightly different from the photos.",
+    "rating": 3,
+    "createdAt": "2024-02-10T16:45:00.000Z",
+    "artwork": "507f1f77bcf86cd799439016",
+    "user": "507f1f77bcf86cd799439014"
+  },
+  {
+    "_id": "607f1f77bcf86cd799439025",
+    "review": "This piece transforms my living room! Absolutely love it.",
+    "rating": 5,
+    "createdAt": "2024-02-12T11:20:00.000Z",
+    "artwork": "507f1f77bcf86cd799439016",
+    "user": "507f1f77bcf86cd799439015"
+  },
+  {
+    "_id": "607f1f77bcf86cd799439026",
+    "review": "The emotional depth in this artwork is remarkable. A true masterpiece.",
+    "rating": 5,
+    "createdAt": "2024-02-18T13:10:00.000Z",
+    "artwork": "507f1f77bcf86cd799439016",
+    "user": "507f1f77bcf86cd799439016"
+  },
+  {
+    "_id": "607f1f77bcf86cd799439027",
+    "review": "Nice artwork, but the frame quality could be better.",
+    "rating": 4,
+    "createdAt": "2024-02-22T15:30:00.000Z",
+    "artwork": "507f1f77bcf86cd799439016",
+    "user": "507f1f77bcf86cd799439017"
+  },
+  {
+    "_id": "607f1f77bcf86cd799439028",
+    "review": "Exceptional craftsmanship and attention to detail. Highly recommended!",
+    "rating": 5,
+    "createdAt": "2024-03-01T09:45:00.000Z",
+    "artwork": "507f1f77bcf86cd799439016",
+    "user": "507f1f77bcf86cd799439018"
+  },
+  {
+    "_id": "607f1f77bcf86cd799439029",
+    "review": "The artwork arrived damaged, but customer service was excellent.",
+    "rating": 3,
+    "createdAt": "2024-03-05T14:20:00.000Z",
+    "artwork": "507f1f77bcf86cd799439016",
+    "user": "507f1f77bcf86cd799439019"
+  },
+  {
+    "_id": "607f1f77bcf86cd799439030",
+    "review": "Perfect addition to my collection. The artist is incredibly talented.",
+    "rating": 5,
+    "createdAt": "2024-03-10T11:30:00.000Z",
+    "artwork": "507f1f77bcf86cd799439016",
+    "user": "507f1f77bcf86cd799439020"
+  },
+
+  {
+    "_id": "607f1f77bcf86cd799439031",
+    "review": "Absolutely stunning piece! The colors are even more vibrant in person.",
+    "rating": 5,
+    "createdAt": "2024-01-15T10:30:00.000Z",
+    "artwork": "68ad800907e6cbb19d2a17dc",
+    "user": "507f1f77bcf86cd799439011"
+  },
+  {
+    "_id": "607f1f77bcf86cd799439032",
+    "review": "Beautiful artwork, but the shipping took longer than expected.",
+    "rating": 4,
+    "createdAt": "2024-01-20T14:22:00.000Z",
+    "artwork": "68ad800907e6cbb19d2a17dc",
+    "user": "507f1f77bcf86cd799439012"
+  },
+  {
+    "_id": "607f1f77bcf86cd799439033",
+    "review": "The texture and detail in this painting are incredible. Worth every penny!",
+    "rating": 5,
+    "createdAt": "2024-02-05T09:15:00.000Z",
+    "artwork": "68ad800907e6cbb19d2a17dc",
+    "user": "507f1f77bcf86cd799439013"
+  },
+  {
+    "_id": "607f1f77bcf86cd799439034",
+    "review": "Good quality, but the colors are slightly different from the photos.",
+    "rating": 3,
+    "createdAt": "2024-02-10T16:45:00.000Z",
+    "artwork": "68ad800907e6cbb19d2a17dc",
+    "user": "507f1f77bcf86cd799439014"
+  },
+  {
+    "_id": "607f1f77bcf86cd799439035",
+    "review": "This piece transforms my living room! Absolutely love it.",
+    "rating": 5,
+    "createdAt": "2024-02-12T11:20:00.000Z",
+    "artwork": "68ad800907e6cbb19d2a17dc",
+    "user": "507f1f77bcf86cd799439015"
+  },
+  {
+    "_id": "607f1f77bcf86cd799439036",
+    "review": "The emotional depth in this artwork is remarkable. A true masterpiece.",
+    "rating": 5,
+    "createdAt": "2024-02-18T13:10:00.000Z",
+    "artwork": "68ad800907e6cbb19d2a17df",
+    "user": "507f1f77bcf86cd799439016"
+  },
+  {
+    "_id": "607f1f77bcf86cd799439037",
+    "review": "Nice artwork, but the frame quality could be better.",
+    "rating": 4,
+    "createdAt": "2024-02-22T15:30:00.000Z",
+    "artwork": "68ad800907e6cbb19d2a17df",
+    "user": "507f1f77bcf86cd799439017"
+  },
+  {
+    "_id": "607f1f77bcf86cd799439038",
+    "review": "Exceptional craftsmanship and attention to detail. Highly recommended!",
+    "rating": 5,
+    "createdAt": "2024-03-01T09:45:00.000Z",
+    "artwork": "68ad800907e6cbb19d2a17df",
+    "user": "507f1f77bcf86cd799439018"
+  },
+
+  {
+    "_id": "607f1f77bcf86cd799439039",
+    "review": "Beautiful artwork, but the shipping took longer than expected.",
+    "rating": 4,
+    "createdAt": "2024-01-20T14:22:00.000Z",
+    "artwork": "68ad800907e6cbb19d2a17df",
+    "user": "507f1f77bcf86cd799439012"
+  },
+  {
+    "_id": "607f1f77bcf86cd799439040",
+    "review": "The texture and detail in this painting are incredible. Worth every penny!",
+    "rating": 5,
+    "createdAt": "2024-02-05T09:15:00.000Z",
+    "artwork": "68ad800907e6cbb19d2a17df",
+    "user": "507f1f77bcf86cd799439013"
+  },
+  {
+    "_id": "607f1f77bcf86cd799439041",
+    "review": "Good quality, but the colors are slightly different from the photos.",
+    "rating": 3,
+    "createdAt": "2024-02-10T16:45:00.000Z",
+    "artwork": "68ad800907e6cbb19d2a17e0",
+    "user": "507f1f77bcf86cd799439014"
+  },
+  {
+    "_id": "607f1f77bcf86cd799439042",
+    "review": "This piece transforms my living room! Absolutely love it.",
+    "rating": 5,
+    "createdAt": "2024-02-12T11:20:00.000Z",
+    "artwork": "68ad800907e6cbb19d2a17e0",
+    "user": "507f1f77bcf86cd799439015"
+  },
+  {
+    "_id": "607f1f77bcf86cd799439043",
+    "review": "The emotional depth in this artwork is remarkable. A true masterpiece.",
+    "rating": 5,
+    "createdAt": "2024-02-18T13:10:00.000Z",
+    "artwork": "68ad800907e6cbb19d2a17e0",
+    "user": "507f1f77bcf86cd799439016"
+  },
+  {
+    "_id": "607f1f77bcf86cd799439044",
+    "review": "Nice artwork, but the frame quality could be better.",
+    "rating": 4,
+    "createdAt": "2024-02-22T15:30:00.000Z",
+    "artwork": "68ad800907e6cbb19d2a17e0",
+    "user": "507f1f77bcf86cd799439017"
+  },
+  {
+    "_id": "607f1f77bcf86cd799439045",
+    "review": "Exceptional craftsmanship and attention to detail. Highly recommended!",
+    "rating": 5,
+    "createdAt": "2024-03-01T09:45:00.000Z",
+    "artwork": "68ad800907e6cbb19d2a17e0",
+    "user": "507f1f77bcf86cd799439018"
+  }
+]
