@@ -12,7 +12,9 @@ const AuthContextProvider = (props) => {
   axios.defaults.withCredentials = true;
   const checkAuth = async () => {
     try {
-      const response = await axios.get(backendUrl + '/api/users/me');
+      const response = await axios.get(backendUrl + '/api/users/me', {
+        withCredentials: true, // Explicitly set
+      });
 
       if (response.data.status === 'success') {
         setUser(response.data.data.user);
@@ -30,12 +32,19 @@ const AuthContextProvider = (props) => {
   }, []);
   const login = async function ({ email, password }) {
     try {
-      const { data } = await axios.post(backendUrl + '/api/users/login', {
-        email,
-        password,
-      });
+      const { data } = await axios.post(
+        backendUrl + '/api/users/login',
+        {
+          email,
+          password,
+        },
+        {
+          withCredentials: true, // Explicitly set
+        }
+      );
       if (data.status === 'success') {
         setUser(data.data.user);
+        await checkAuth();
         return { success: true, user: data.data.user };
       }
     } catch (err) {
@@ -53,8 +62,8 @@ const AuthContextProvider = (props) => {
       });
 
       if (response.data.status === 'success') {
-        console.log(response);
         setUser(response.data.data.user);
+        await checkAuth();
         return { success: true, user: response.data.user };
       }
     } catch (err) {
