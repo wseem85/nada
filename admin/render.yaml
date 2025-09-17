@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: nadaart-admin
+    env: static
+    buildCommand: npm run build
+    staticPublishPath: ./dist
+    headers:
+      - path: /*
+        name: Content-Security-Policy
+        value: "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'"
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
