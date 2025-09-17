@@ -1,6 +1,7 @@
 import React, { useState, useRef, useContext, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'react-toastify';
+import { assets } from '../assets/assets';
 import SectionTitle from '../components/SectionTitle';
 // import { assets } from '../assets/assets';
 import {
@@ -18,7 +19,9 @@ import {
   FiLock,
   FiEye,
   FiEyeOff,
+  FiUpload,
 } from 'react-icons/fi';
+
 import { AuthContext } from '../contexts/contexts';
 import { useNavigate } from 'react-router-dom';
 import MyProfileSkeleton from '../skeletons/MyProfileSkeleton';
@@ -324,20 +327,12 @@ const MyProfile = () => {
                             ? URL.createObjectURL(selectedImage)
                             : user.photo !== ''
                             ? user.photo
-                            : '../../src/assets/profile_default_pic.png'
+                            : assets.profile_default_pic
                         }
                         alt="Profile"
                         className="w-36 h-full object-cover opacity-50"
                       />
-                      <img
-                        className="absolute bottom-12 right-12"
-                        src={
-                          selectedImage
-                            ? ''
-                            : '../../src/assets/upload_icon.gif'
-                        }
-                        alt=""
-                      />
+                      <FiUpload className=" text-6xl absolute top-[50%] left-[50%] -translate-2/4 font-bold object-cover opacity-50" />
                       <input
                         ref={fileInputRef}
                         type="file"
@@ -357,7 +352,7 @@ const MyProfile = () => {
                       src={
                         user.photo !== ''
                           ? user.photo
-                          : `../../src/assets/profile_default_pic.png`
+                          : `./profile_default_pic.png`
                       }
                       alt="User Avatar"
                     />
