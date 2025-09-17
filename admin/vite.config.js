@@ -4,9 +4,16 @@ import tailwindcss from '@tailwindcss/vite';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  server: { port: 5174 },
-
   build: {
     outDir: 'dist',
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+      },
+    },
+  },
+  // This ensures the server handles SPA routing
+  server: {
+    historyApiFallback: true,
   },
 });
