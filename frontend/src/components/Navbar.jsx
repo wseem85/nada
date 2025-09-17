@@ -128,14 +128,6 @@ const Navbar = () => {
                       <li className="pl-3 w-full">
                         <NavLink
                           className="hover:text-black inline-block w-full"
-                          to="/my-cart"
-                        >
-                          Cart
-                        </NavLink>
-                      </li>
-                      <li className="pl-3 w-full">
-                        <NavLink
-                          className="hover:text-black inline-block w-full"
                           to="my-profile"
                         >
                           Profile
@@ -218,6 +210,17 @@ const Navbar = () => {
                       </p>
                     </NavLink>
                   </li>
+                  <li className="mt-4">
+                    <NavLink
+                      onClick={() => setShowMenu(false)}
+                      to="/my-cart"
+                      className="navbar-link-mobile"
+                    >
+                      <p className="px-3 py-2 rounded inline-block text-gray-600 hover:text-black">
+                        CART
+                      </p>
+                    </NavLink>
+                  </li>
                   <li>
                     <NavLink
                       className="navbar-link-mobile"
@@ -234,15 +237,6 @@ const Navbar = () => {
                   {user ? (
                     /* User is logged in - show user options */
                     <>
-                      <li className="mt-4">
-                        <NavLink
-                          onClick={() => setShowMenu(false)}
-                          to="/my-cart"
-                          className="block px-3 py-2 rounded text-gray-600 hover:text-black"
-                        >
-                          My Cart
-                        </NavLink>
-                      </li>
                       <li>
                         <NavLink
                           onClick={() => setShowMenu(false)}
