@@ -62,7 +62,11 @@ const Navbar = () => {
         </ul>
         <div className="flex items-center gap-4">
           {/* Desktop User Menu or Login Button */}
-          {isLoadingUser ? null : !isLoadingUser && user ? (
+          {isLoadingUser ? (
+            <div className=" gap-2 hidden md:flex">
+              <div className="w-8 h-8 rounded-full bg-linear-to-r from-gray-200 to-gray-100 animate-pulse "></div>
+            </div>
+          ) : !isLoadingUser && user ? (
             <div
               onMouseEnter={(e) => {
                 if (window.innerWidth >= 768) {
@@ -254,13 +258,19 @@ const Navbar = () => {
                   ) : (
                     /* User is not logged in - show login/signup */
                     <li className="mt-4 w-full px-3">
-                      <NavLink
-                        onClick={() => setShowMenu(false)}
-                        to="/login"
-                        className="block w-full text-center px-4 py-2 bg-beige-dark text-white rounded-full hover:bg-black transition-all"
-                      >
-                        Create Account
-                      </NavLink>
+                      {isLoadingUser ? (
+                        <div className="flex justify-center md:hidden gap-2">
+                          <div className="w-8 h-8 rounded-full bg-linear-to-r from-gray-200 to-gray-100 animate-pulse "></div>
+                        </div>
+                      ) : (
+                        <NavLink
+                          onClick={() => setShowMenu(false)}
+                          to="/login"
+                          className="block w-full text-center px-4 py-2 bg-beige-dark text-white rounded-full hover:bg-black transition-all"
+                        >
+                          Create Account
+                        </NavLink>
+                      )}
                     </li>
                   )}
                 </ul>

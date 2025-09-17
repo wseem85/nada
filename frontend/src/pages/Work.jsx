@@ -47,8 +47,6 @@ const Work = () => {
   }
 
   const handleRate = async (rating, review) => {
-    // Here you would typically send the rating to your backend
-
     setUserRating(rating);
     setUserReview(review);
 
@@ -63,8 +61,7 @@ const Work = () => {
         axios.get(backendUrl + `/api/artworks/${workId}/reviews`),
         axios.get(backendUrl + `/api/artworks/${workId}`), // To get updated avgRating
       ]);
-      console.log(updatedReviewsResponse);
-      console.log(updatedWorkResponse);
+
       if (updatedReviewsResponse.data.status === 'success') {
         setReviews(updatedReviewsResponse.data.data.data);
       }
