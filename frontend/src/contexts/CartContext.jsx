@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { useEffect } from 'react';
 import { getErrorMessage } from '../../utils/errorHandler.js';
 const CartContextProvider = (props) => {
-  const { user, setUser } = useContext(AppContext);
+  const { user, setUser } = useContext(AuthContext);
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [cart, setCart] = useState(
     JSON.parse(localStorage.getItem('artworksCart')) || []
@@ -16,71 +16,133 @@ const CartContextProvider = (props) => {
   const [errorGetCart, setErrorGetCart] = useState('');
   const [errorUpdateCart, setErrorUpdateCart] = useState('');
 
-  const getCartData = async () => {
-    try {
-      setIsLoadingCart(true);
-      const { data } = await axios.get(backendUrl + '/api/users/me/cart');
-      console.log(data);
-      if (data.status === 'success') {
-        // localStorage.setItem('artworkCart', JSON.stringify(data.cart));
-        setCart(data.cart);
-      }
-    } catch (err) {
-      console.log(err);
-      setErrorGetCart(err.message);
+  const getCartData = useCallback(async () => {
+    if (!user) {
+      const localCart = JSON.parse(localStorage.getItem('artworksCart')) || [];
+      setCart(localCart);
       setIsLoadingCart(false);
-    } finally {
-      setIsLoadingCart(false);
+      return;
     }
-  };
+    if (user) {
+      try {
+        setIsLoadingCart(true);
+        const { data } = await axios.get(backendUrl + '/api/users/me/cart');
+        console.log(data);
+        if (data.status === 'success') {
+          // setCart(data.cart);
+          // localStorage.setItem('artworkCart', JSON.stringify(data.cart));
+          const localCart = JSON.parse(localStorage.getItem('artworksCart'));
+          // console.log('cart:', cart);
+          const merged = [...data.cart];
+          console.log(merged);
+          localCart.forEach((localItem) => {
+            if (
+              !merged.some((item) => item.artwork._id === localItem.artwork._id)
+            ) {
+              merged.push({
+                artwork: localItem.artwork._id,
+                createdAt: localItem.createdAt,
+              });
+            }
+          });
+          console.log(merged);
+          await updateCartData(merged);
+        }
+      } catch (err) {
+        console.log(err);
+        setErrorGetCart(err.message);
+
+        setIsLoadingCart(false);
+      } finally {
+        setIsLoadingCart(false);
+      }
+    }
+  }, [user, backendUrl]);
 
   const updateCartData = async (newCart) => {
-    try {
-      setIsUpdatingCart(true);
-      const { data } = await axios.patch(backendUrl + '/api/users/me/cart', {
-        cart: newCart,
-      });
+    if (!user) {
+      localStorage.setItem('artworksCart', JSON.stringify(newCart));
+      setCart(newCart);
+    }
+    if (user) {
+      console.log('newCart:', newCart);
+      try {
+        setIsUpdatingCart(true);
+        const { data } = await axios.patch(backendUrl + '/api/users/me/cart', {
+          cart: newCart,
+        });
 
-      if (data.status === 'success') {
-        console.log(data);
-        setCart(data.data.cart);
-        console.log(data.data.cart);
+        if (data.status === 'success') {
+          console.log(data);
+          setCart(data.data.cart);
+          console.log(data.data.cart);
 
-        // localStorage.setItem(
-        //   'artworkCart',
-        //   JSON.stringify(data.updatedCart.cart)
-        // );
+          // localStorage.setItem(
+          //   'artworkCart',
+          //   JSON.stringify(data.updatedCart.cart)
+          // );
+        }
+      } catch (err) {
+        console.log(err);
+        setErrorUpdateCart(err.message);
+        setIsUpdatingCart(false);
+      } finally {
+        setIsUpdatingCart(false);
       }
-    } catch (err) {
-      console.log(err);
-      setErrorUpdateCart(err.message);
-      setIsUpdatingCart(false);
-    } finally {
-      setIsUpdatingCart(false);
     }
   };
   const addToCart = async (artID) => {
-    const newartworkCart = [...cart, { artwork: artID, addedAt: Date.now() }];
-    console.log(newartworkCart);
-    try {
-      await updateCartData(newartworkCart);
+    if (!user) {
+      try {
+        setIsUpdatingCart(true);
+        const { data } = await axios.get(backendUrl + `/api/artworks/${artID}`);
+        if (data.status === 'success') {
+          const artwork = data.data.data;
+          const newLocalCart = [...cart, { artwork, addedAt: Date.now() }];
+          localStorage.setItem('artworksCart', JSON.stringify(newLocalCart));
+          setCart(newLocalCart);
+          toast.success('Item added to cart');
+        }
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setIsUpdatingCart(false);
+      }
 
-      toast.success('Item added to cart');
-    } catch (err) {
-      console.log(err);
-      toast.error(getErrorMessage(err));
+      return;
+    }
+    if (user) {
+      const newartworkCart = [...cart, { artwork: artID, addedAt: Date.now() }];
+      console.log(newartworkCart);
+      try {
+        await updateCartData(newartworkCart);
+
+        toast.success('Item added to cart');
+      } catch (err) {
+        console.log(err);
+        toast.error(getErrorMessage(err));
+      }
     }
   };
   const removeFromCart = async (artID) => {
-    const newartworkCart = cart.filter((item) => item.artwork._id !== artID);
-
-    try {
-      await updateCartData(newartworkCart);
-
+    if (!user) {
+      const newLocalCart = cart.filter((item) => item.artwork._id !== artID);
+      localStorage.setItem('artworksCart', JSON.stringify(newLocalCart));
+      setCart(newLocalCart);
       toast.success('Item removed from cart');
-    } catch (err) {
-      console.log(err);
-      toast.error(getErrorMessage(err));
+      return;
+    }
+    if (user) {
+      const newartworkCart = cart.filter((item) => item.artwork._id !== artID);
+
+      try {
+        await updateCartData(newartworkCart);
+
+        toast.success('Item removed from cart');
+      } catch (err) {
+        console.log(err);
+        toast.error(getErrorMessage(err));
+      }
     }
   };
 
@@ -94,12 +156,26 @@ const CartContextProvider = (props) => {
     addToCart,
     removeFromCart,
   };
-  useEffect(function () {
-    async function fetchCart() {
-      await getCartData();
-    }
-    fetchCart();
-  }, []);
+  useEffect(
+    function () {
+      async function fetchCart() {
+        await getCartData();
+      }
+      fetchCart();
+    },
+    [getCartData]
+  );
+  useEffect(
+    function () {
+      async function fetchCart() {
+        await getCartData();
+      }
+      if (user) {
+        fetchCart();
+      }
+    },
+    [user, getCartData]
+  );
   return (
     <CartContext.Provider value={value}>{props.children}</CartContext.Provider>
   );

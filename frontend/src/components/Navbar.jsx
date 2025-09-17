@@ -59,6 +59,15 @@ const Navbar = () => {
               <hr className="border-none outline-none bg-beige-dark h-0.5 w-2/3 m-auto hidden" />
             </NavLink>
           </li>
+          <li className="py-1.5 px-2 ">
+            <NavLink
+              className="navbar-link flex flex-col items-center justify-center gap-1"
+              to="my-cart"
+            >
+              CART
+              <hr className="border-none outline-none bg-beige-dark h-0.5 w-2/3 m-auto hidden" />
+            </NavLink>
+          </li>
         </ul>
         <div className="flex items-center gap-4">
           {/* Desktop User Menu or Login Button */}

@@ -55,7 +55,7 @@ const Work = () => {
         backendUrl + `/api/artworks/${workId}/reviews`,
         { review, rating }
       );
-      console.log(data);
+
       // After successful submission, refetch reviews and work data
       const [updatedReviewsResponse, updatedWorkResponse] = await Promise.all([
         axios.get(backendUrl + `/api/artworks/${workId}/reviews`),
@@ -148,8 +148,9 @@ const Work = () => {
     [workId, backendUrl]
   );
   useEffect(() => {
+    console.log(cart);
     const inCart = cart.some((el) => el.artwork._id === work?._id);
-
+    console.log(inCart);
     if (inCart) setInCart(true);
     else setInCart(false);
   }, [cart, work?._id]);

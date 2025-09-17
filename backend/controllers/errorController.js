@@ -29,7 +29,7 @@ const sendErrDev = (err, res) => {
   });
 };
 module.exports = (err, req, res, next) => {
-  console.log('errrooooorrrrr', err.name);
+  console.log('errrooooorrrrr', err);
 
   err.statusCode = err.statusCode || 500;
   err.status = err.status || 'error';
