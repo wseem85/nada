@@ -29,7 +29,8 @@ const sendErrDev = (err, res) => {
   });
 };
 module.exports = (err, req, res, next) => {
-  console.log(err);
+  console.log('errrooooorrrrr', err.name);
+
   err.statusCode = err.statusCode || 500;
   err.status = err.status || 'error';
   if (process.env.NODE_ENV === 'development') {
@@ -38,11 +39,12 @@ module.exports = (err, req, res, next) => {
     let error = Object.create(err);
 
     if (error.name === 'CastError') error = handleCastErrorDB(error);
-    if (error.code === 11000) error = handleDuplicatedUniqueFieldDB(err);
-    if (error.name === 'ValidationError') error = handleValidationDB(err);
-    if (error.name === 'JsonWebTokenError') error = handleJWTError(error);
+    if (error.code === 11000) error = handleDuplicatedUniqueFieldDB(error);
+    if (error.name === 'ValidationError') error = handleValidationDB(error);
+    if (error.name === 'JsonWebTokenError') error = handleJWTError();
     if (error.name === 'TokenExpiredError')
       error = handleTokenExpiredError(error);
+    if (error.name === 'MongooseError') error = handleMongooseError();
     // console.log(err);
     sendErrProd(error, res);
   }
@@ -134,4 +136,10 @@ const handleJWTError = (err) => {
 // when token expires you will get TokenExpiredError
 const handleTokenExpiredError = () => {
   return new AppError('User token has expired, please log in again', 401);
+};
+const handleMongooseError = () => {
+  return new AppError(
+    'Opps, You cant connect our database , Check your connection and Try again',
+    401
+  );
 };

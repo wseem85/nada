@@ -29,7 +29,12 @@ const createSendLoginToken = (user, statusCode, res) => {
   });
 };
 exports.signup = catchAsync(async (req, res) => {
-  const newUser = await User.create(req.body);
+  const newUser = await User.create({
+    name: req.body.name,
+    email: req.body.email,
+    password: req.body.password,
+    passwordConfirm: req.body.passwordConfirm,
+  });
   console.log(newUser);
   createSendLoginToken(newUser, 201, res);
 });
@@ -81,6 +86,7 @@ exports.protect = catchAsync(async (req, res, next) => {
     return next(new AppError('User changed password , Log in again '));
   }
   req.user = currentUser;
+
   next();
 });
 
@@ -91,6 +97,7 @@ exports.restrictTo = (...roles) => {
         new AppError('You do not have permissions to perform this action', 403)
       );
     }
+
     next();
   };
 };

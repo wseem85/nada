@@ -1,11 +1,17 @@
 import React from 'react';
+import NadaHelmet from '../components/NadaHelmet';
 
 const ShippingPolicy = () => {
   return (
     <div>
+      <NadaHelmet
+        sections={['Shipping Policy']}
+        description="Learn about Nada Art's shipping methods, delivery times, packaging standards, and international shipping policies for artwork purchases and safe delivery."
+        keywords="nada art shipping, artwork delivery, art shipping policy, international art shipping, framing delivery, art packaging, shipping costs, delivery timeline, art care during shipping, insured art delivery"
+      />
       <div>
         <div className="flex flex-col gap-2 justify-center">
-          <h1 className="text-lg text-center font-medium">Shipping Policy</h1>
+          <p className="text-3xl text-center font-medium">Shipping Policy</p>
           <p className="text-xl text-center font-light">
             How we deliver your artwork safely and efficiently
           </p>
@@ -15,9 +21,9 @@ const ShippingPolicy = () => {
       <div className="mt-8 max-w-3xl mx-auto">
         <div>
           <div>
-            <h2 className="text-lg font-medium text-center">
+            <p className="text-2xl font-medium text-center">
               Shipping Information
-            </h2>
+            </p>
             <p className="text-sm font-light italic text-center">
               Last Updated: January 1, 2023
             </p>
@@ -29,9 +35,9 @@ const ShippingPolicy = () => {
               expect when ordering from us.
             </p>
 
-            <h3 className="font-semibold  mb-2 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
+            <p className="font-semibold  mb-2 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
               Processing Time
-            </h3>
+            </p>
             <p className="mb-2">
               All orders are processed within 2-5 business days (excluding
               weekends and holidays) after receiving your order confirmation
@@ -54,9 +60,9 @@ const ShippingPolicy = () => {
               </li>
             </ul>
 
-            <h3 className="font-semibold mt-6  mb-2 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
+            <p className="font-semibold mt-6  mb-2 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
               Domestic Shipping
-            </h3>
+            </p>
             <p>We ship throughout the United States using trusted carriers:</p>
             <ul className="list-disc pl-10">
               <li>Standard Shipping: 5-7 business days ($12 flat rate)</li>
@@ -68,9 +74,9 @@ const ShippingPolicy = () => {
               <li>Free standard shipping on orders over $300</li>
             </ul>
 
-            <h3 className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
+            <p className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
               International Shipping
-            </h3>
+            </p>
             <p>We ship to select countries internationally. Please note:</p>
             <ul className="list-disc pl-10">
               <li>
@@ -86,9 +92,9 @@ const ShippingPolicy = () => {
               </li>
             </ul>
 
-            <h3 className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
+            <p className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
               Packaging Methods
-            </h3>
+            </p>
             <p>
               We take extreme care in packaging your artwork to prevent damage
               during transit:
@@ -109,18 +115,18 @@ const ShippingPolicy = () => {
               <li>Sculptures: Custom foam cushioning and reinforced boxes</li>
             </ul>
 
-            <h3 className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
+            <p className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
               Tracking Your Order
-            </h3>
+            </p>
             <p>
               Once your order ships, you will receive an email with a tracking
               number and carrier information. You can use this tracking number
               to monitor your shipment's progress.
             </p>
 
-            <h3 className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
+            <p className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
               Delivery Issues
-            </h3>
+            </p>
             <p>If you experience any issues with delivery:</p>
             <ul className="list-disc pl-10">
               <li>
@@ -136,9 +142,9 @@ const ShippingPolicy = () => {
               </li>
             </ul>
 
-            <h3 className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
+            <p className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
               Special Instructions
-            </h3>
+            </p>
             <p>
               For special delivery instructions or specific delivery date
               requests, please contact us before placing your order. While we
@@ -147,9 +153,9 @@ const ShippingPolicy = () => {
             </p>
 
             <div>
-              <h3 className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
+              <p className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
                 Contact Us
-              </h3>
+              </p>
               <p>
                 If you have any questions about our shipping policy or need
                 assistance with an order, please contact us at:
@@ -167,7 +173,7 @@ const ShippingPolicy = () => {
 
         <div className="mt-12">
           <div className="bg-gray-50 p-5 rounded-lg">
-            <h3 className="font-semibold text-center mb-3">Important Notes</h3>
+            <p className="font-semibold text-center mb-3">Important Notes</p>
             <ul className="list-disc pl-5 space-y-2">
               <li>Shipping times are estimates and not guarantees</li>
               <li>Extreme weather conditions may delay shipments</li>

@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { AppContext } from '../contexts/contexts';
 import { getErrorMessage } from '../../utils/errorHandler';
+import NadaHelmet from '../components/NadaHelmet';
 
 const ResetPassword = () => {
   const { backendUrl } = useContext(AppContext);
@@ -58,6 +59,7 @@ const ResetPassword = () => {
         setIsSuccess(true);
         toast.success('Password reset successfully!');
         setTimeout(() => {
+          scrollTo(0, 0);
           navigate('/my-profile');
         }, 2000);
       } else {
@@ -75,6 +77,11 @@ const ResetPassword = () => {
   if (isValidToken === false) {
     return (
       <div className="min-h-screen bg-beige-light flex items-center justify-center px-4">
+        <NadaHelmet
+          sections={['Reset Password']}
+          description="Reset your Nada Art account password securely. Recover access to your art collection, profile, and exclusive member features with our password reset tool."
+          keywords="nada art password reset, recover art account, forgot password art, reset login credentials, art account recovery, password change, secure account access, art profile recovery, reset artist password, gallery account access"
+        />
         <div className="bg-white rounded-lg p-8 max-w-md w-full text-center">
           <div className="text-red-500 text-5xl mb-4">⚠️</div>
           <h2 className="text-2xl font-caveat text-text mb-4">

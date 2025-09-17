@@ -6,11 +6,11 @@ const catchAsync = require('../utils/catchAsync');
 
 const Artwork = require('../models/artworkModel');
 const AppError = require('../utils/appError');
+const { getAll, updateOne, deleteOne } = require('./handlerFactory');
 
-exports.getCheckoutSession = catchAsync(async (req, res) => {
-  const { artworkIds } = req.body;
+exports.getCheckoutSession = catchAsync(async (req, res, next) => {
+  const { artworkIds, shipping, tax } = req.body;
 
-  console.log(artworkIds);
   const artworks = await Artwork.find({ _id: { $in: artworkIds } });
   const lineItems = artworks.map((artwork) => {
     // Calculate price (consider discounts)
@@ -34,22 +34,56 @@ exports.getCheckoutSession = catchAsync(async (req, res) => {
       quantity: 1,
     };
   });
+
+  // Add shipping as a separate line item
+  if (shipping && shipping > 0) {
+    lineItems.push({
+      price_data: {
+        currency: 'usd',
+        product_data: {
+          name: 'Shipping',
+          description: 'Shipping and handling',
+        },
+        unit_amount: Math.round(shipping * 100), // Convert to cents
+      },
+      quantity: 1,
+    });
+  }
+
+  // Add tax as a separate line item
+  if (tax && tax > 0) {
+    lineItems.push({
+      price_data: {
+        currency: 'usd',
+        product_data: {
+          name: 'Tax',
+          description: 'Sales tax',
+        },
+        unit_amount: Math.round(tax * 100), // Convert to cents
+      },
+      quantity: 1,
+    });
+  }
   const tempOrder = await Order.create({
     artworks: artworkIds,
     user: req.user.id,
-    totalPrice: artworks.reduce((sum, artwork) => {
-      return (
-        sum +
-        (artwork.discount > 0
-          ? artwork.price - (artwork.price * artwork.discount) / 100
-          : artwork.price)
-      );
-    }, 0), // Capture price at this moment
-
+    totalPrice:
+      artworks.reduce((sum, artwork) => {
+        return (
+          sum +
+          (artwork.discount > 0
+            ? artwork.price - (artwork.price * artwork.discount) / 100
+            : artwork.price)
+        );
+      }, 0) +
+      (shipping || 0) +
+      (tax || 0), // Capture price at this moment
+    taxAmount: tax || 0,
+    shippingAmount: shipping || 0,
     status: 'pending',
     paymentMethod: 'card',
   });
-
+  await tempOrder.save();
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'], // Accepts credit/debit cards
     success_url: `${req.protocol}://localhost:5173/order-success?session_id={CHECKOUT_SESSION_ID}`,
@@ -155,3 +189,7 @@ exports.handleSuccessfulPayment = catchAsync(async (req, res) => {
     });
   }
 });
+
+exports.getAllOrders = getAll(Order);
+exports.updateOrder = updateOne(Order);
+exports.deleteOrder = deleteOne(Order);

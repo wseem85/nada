@@ -5,6 +5,7 @@ import { FaStar, FaArrowLeft } from 'react-icons/fa';
 import axios from 'axios';
 import StarRating from '../components/StarRating';
 import { AppContext } from '../contexts/contexts';
+import NadaHelmet from '../components/NadaHelmet';
 
 const Reviews = () => {
   const { workId } = useParams();
@@ -83,6 +84,11 @@ const Reviews = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
+      <NadaHelmet
+        sections={[`${work.title}`, 'Reviews']}
+        description="Read authentic customer reviews and testimonials for Nada Art Gallery. See what collectors and art enthusiasts say about their artwork purchases and experiences."
+        keywords="nada art reviews, artwork testimonials, customer feedback art, art gallery reviews, collector experiences, art purchase reviews, artist reviews, gallery testimonials, customer ratings, art satisfaction reviews"
+      />
       {/* Header */}
       <div className="mb-8">
         <button

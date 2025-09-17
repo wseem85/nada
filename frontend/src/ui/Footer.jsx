@@ -46,12 +46,17 @@ const Footer = () => {
           <p className="mb-2 text-xl font-semibold">Terms & Policies</p>
           <div className="flex flex-col gap-2">
             <NavLink
+              onClick={() => scrollTo(0, 0)}
               to="/policies/privacy-and-refund"
               className="underline text-sm"
             >
               Privacy & Refund Policy
             </NavLink>
-            <NavLink to="/policies/shipping" className="underline text-sm">
+            <NavLink
+              onClick={() => scrollTo(0, 0)}
+              to="/policies/shipping"
+              className="underline text-sm"
+            >
               Shipping Policy
             </NavLink>
           </div>

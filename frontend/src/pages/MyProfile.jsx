@@ -2,7 +2,7 @@ import React, { useState, useRef, useContext, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'react-toastify';
 import SectionTitle from '../components/SectionTitle';
-import { assets } from '../assets/assets';
+// import { assets } from '../assets/assets';
 import {
   FiEdit2,
   FiSave,
@@ -23,6 +23,7 @@ import { AuthContext } from '../contexts/contexts';
 import { useNavigate } from 'react-router-dom';
 import MyProfileSkeleton from '../skeletons/MyProfileSkeleton';
 import axios from 'axios';
+import NadaHelmet from '../components/NadaHelmet';
 
 const MyProfile = () => {
   const navigate = useNavigate();
@@ -281,6 +282,11 @@ const MyProfile = () => {
 
   return (
     <div className="min-h-screen">
+      <NadaHelmet
+        sections={['Me', 'My Profile']}
+        description="Manage your Nada Art profile, view your art collection, track orders, update preferences, and manage your artist portfolio and account settings."
+        keywords="nada art profile, artist profile, art collector account, my artwork collection, order history, account settings, art preferences, portfolio management, artist dashboard, profile update"
+      />
       {/* Header Section */}
       <motion.section
         initial="hidden"

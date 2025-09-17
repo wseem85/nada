@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
 import SectionTitle from '../components/SectionTitle';
-import { assets } from '../assets/assets';
+// import { assets } from '../assets/assets';
 import { FiMail, FiPhone, FiMapPin, FiSend } from 'react-icons/fi';
 import { BsInstagram, BsFacebook } from 'react-icons/bs';
-
+import { Helmet } from 'react-helmet';
+import NadaHelmet from '../components/NadaHelmet';
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -77,6 +78,11 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen">
+      <NadaHelmet
+        sections={['Contact']}
+        description="Nada art call and send mails and get in touch"
+        keywords="contact nada art, art gallery contact, commission art, art inquiries, collaborate with artists, art gallery email, art studio phone, message artists, art consultation, creative collaboration"
+      />
       {/* Hero Section */}
       <motion.section
         initial="hidden"

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FiCheckCircle, FiPackage, FiMail, FiArrowRight } from 'react-icons/fi';
+import NadaHelmet from '../components/NadaHelmet';
 
 const OrderSuccess = () => {
   const [searchParams] = useSearchParams();
@@ -63,6 +64,11 @@ const OrderSuccess = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-beige-light flex items-center justify-center px-4">
+        <NadaHelmet
+          sections={['Order Success']}
+          description="Your Nada Art order has been confirmed successfully! Thank you for your purchase. View order details, download receipt, and track your artwork delivery."
+          keywords="nada art order confirmation, art purchase successful, order completed, artwork purchase confirmed, transaction success, art order receipt, purchase confirmation, order tracking, art delivery status, thank you for your order"
+        />
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-brand border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <h2 className="text-2xl font-caveat text-text mb-2">
@@ -231,7 +237,7 @@ const OrderSuccess = () => {
           transition={{ delay: 0.6 }}
           className="bg-white rounded-lg shadow-lg p-6 mb-6"
         >
-          <h3 className="text-2xl  text-text mb-4">What's Next?</h3>
+          <p className="text-2xl  text-text mb-4">What's Next?</p>
           <div className="grid md:grid-cols-3 gap-4">
             <div className="text-center p-4">
               <FiMail className="text-3xl text-brand mx-auto mb-2" />
@@ -264,13 +270,6 @@ const OrderSuccess = () => {
           transition={{ delay: 0.8 }}
           className="flex flex-wrap gap-4 justify-center"
         >
-          <button
-            onClick={() => navigate('/my-profile')}
-            className="px-6 py-3 bg-brand hover:bg-brand-dark text-white rounded-lg transition-colors duration-200 font-medium flex items-center gap-2"
-          >
-            <FiPackage />
-            View My Orders
-          </button>
           <button
             onClick={() => navigate('/gallery')}
             className="px-6 py-3 border-2 border-brand text-brand hover:bg-brand hover:text-white rounded-lg transition-colors duration-200 font-medium"

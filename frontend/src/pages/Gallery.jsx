@@ -12,6 +12,7 @@ import { useSearchParams } from 'react-router-dom';
 import { AppContext } from '../contexts/contexts';
 import { toast } from 'react-toastify';
 import GallerySkeleton from '../skeletons/GallerySkeleton';
+import NadaHelmet from '../components/NadaHelmet';
 
 const Gallery = () => {
   const {
@@ -88,8 +89,13 @@ const Gallery = () => {
     fetchData();
   }, [filters, currentPage]);
   if (errorLoadingArtworks) {
-    return errorLoadingArtworks ? (
+    return (
       <div className="pt-8 min-h-screen  ">
+        <NadaHelmet
+          sections={['Gallery']}
+          description="the Gallery,all artworks made by Nada with detailed information"
+          keywords="gallery, Gallery, Artworks, Nada, nada, NADA, art, artworks, painting, purchase, online "
+        />
         <SectionTitle title="Art Gallery" />
         <div className="flex flex-col gap-2 justify-center items-center">
           <p className="text-red-400 text-xl text-center">
@@ -101,11 +107,16 @@ const Gallery = () => {
           </p>
         </div>
       </div>
-    ) : null;
+    );
   }
 
   return (
     <div className="pt-8">
+      <NadaHelmet
+        sections={['Gallery']}
+        description="Explore the Nada Art Gallery collection featuring contemporary paintings, sculptures, digital art, and mixed media works from emerging and established artists."
+        keywords="nada art gallery, contemporary art collection, paintings for sale, sculptures exhibition, digital art gallery, mixed media artwork, emerging artists, established painters, art collection, buy art online, gallery artworks, visual art display"
+      />
       <SectionTitle title="Art Gallery" />
       <div className="mb-8 flex  justify-between items-center mt-8">
         <button

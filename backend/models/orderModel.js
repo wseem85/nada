@@ -14,14 +14,16 @@ const orderSchema = new mongoose.Schema({
       required: [true, 'Order must have at least one artwork'],
     },
   ],
+  taxAmount: { type: Number },
+  shippingAmount: { type: Number },
   totalPrice: {
     type: Number,
     required: [true, 'Order must have a total price'],
   },
   status: {
     type: String,
-    enum: ['unpaid', 'paid', 'pending', 'delivered', 'cancelled', 'fullfilled'],
-    default: 'unpaid',
+    enum: ['pending', 'paid', 'cancelled', 'delivered'],
+    default: 'pending',
   },
   paymentMethod: String,
   paidAt: Date,

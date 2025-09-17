@@ -44,10 +44,10 @@ const artworkSchema = mongoose.Schema(
       type: Number,
       validate: {
         validator: function (val) {
-          return val < this.price;
+          return val < 100;
         },
         message:
-          'Discount must be less than price, , you provided ({VALUE}) as discount ',
+          'Discount is a percentage and must be less than 100, you provided ({VALUE}) as discount ',
       },
     },
     available: {
@@ -73,6 +73,11 @@ const artworkSchema = mongoose.Schema(
       type: Date,
       default: Date.now(),
     },
+    deleted: {
+      type: Boolean,
+      default: false,
+    },
+    deletedAt: Date,
   },
   { toJSON: { virtuals: true, getters: true }, toObject: { virtuals: true } }
 );
@@ -85,6 +90,29 @@ artworkSchema.pre('save', function (next) {
   this.slug = slugify(this.title, { lower: true });
   next();
 });
+// artworkSchema.pre(/^find/, function (next) {
+//   // Only apply this filter if it's not explicitly disabled
+//   if (!this.getOptions().includeDeleted) {
+//     this.where({ deleted: false });
+//   }
+//   next();
+// });
+
+artworkSchema.pre('remove', async function (next) {
+  // Remove this artwork from all orders that reference it
+  await Order.updateMany(
+    { artworks: this._id },
+    { $pull: { artworks: this._id } }
+  );
+  next();
+});
+artworkSchema.statics.includeDeleted = function () {
+  return this.find().setOptions({ includeDeleted: true });
+};
+artworkSchema.statics.active = function () {
+  // Return artworks where deleted is not true (false or missing)
+  return this.find({ deleted: { $ne: true } });
+};
 
 const Artwork = mongoose.model('Artwork', artworkSchema);
 

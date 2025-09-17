@@ -13,13 +13,14 @@ import { toast } from 'react-toastify';
 import WorkMobileSkeleton from '../skeletons/WorkMobileSkeleton';
 import WorkDesktopSkeleton from '../skeletons/WorkDesktopSkeleton';
 import { getErrorMessage } from '../../utils/errorHandler';
+import NadaHelmet from '../components/NadaHelmet';
 
 const Work = () => {
   const navigate = useNavigate();
   const { cart, addToCart, removeFromCart } = useContext(CartContext);
   const { user } = useContext(AuthContext);
-
   const [work, setWork] = useState(undefined);
+
   const [reviews, setReviews] = useState();
   const [inCart, setInCart] = useState(
     cart?.find((el) => el.artwork._id === work?._id) || false
@@ -57,13 +58,13 @@ const Work = () => {
         { review, rating }
       );
       console.log(data);
-
       // After successful submission, refetch reviews and work data
       const [updatedReviewsResponse, updatedWorkResponse] = await Promise.all([
         axios.get(backendUrl + `/api/artworks/${workId}/reviews`),
         axios.get(backendUrl + `/api/artworks/${workId}`), // To get updated avgRating
       ]);
-
+      console.log(updatedReviewsResponse);
+      console.log(updatedWorkResponse);
       if (updatedReviewsResponse.data.status === 'success') {
         setReviews(updatedReviewsResponse.data.data.data);
       }
@@ -192,6 +193,11 @@ const Work = () => {
   }
   return (
     <div>
+      <NadaHelmet
+        sections={['Artwork', work.title]}
+        description={`${work.description} Explore this unique piece by Nada art available at Nada Art Gallery. Learn about the technique, dimensions, and story behind this work.`}
+        keywords={`${work.title}, Nada work, ${work.categories[0]}  art, ${work.categories[1]} painting, original art for sale, limited edition art, art investment piece, gallery artwork, collectible art, nada collection`}
+      />
       {/* Mobile  View */}
 
       <div className="max-w-6xl mx-auto p-6 md:hidden">

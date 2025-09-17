@@ -61,7 +61,7 @@ const CartContextProvider = (props) => {
   };
   const addToCart = async (artID) => {
     const newartworkCart = [...cart, { artwork: artID, addedAt: Date.now() }];
-
+    console.log(newartworkCart);
     try {
       await updateCartData(newartworkCart);
 

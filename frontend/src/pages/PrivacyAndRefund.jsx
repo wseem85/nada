@@ -1,13 +1,19 @@
 import React from 'react';
+import NadaHelmet from '../components/NadaHelmet';
 
 const PrivacyAndRefund = () => {
   return (
     <div>
+      <NadaHelmet
+        sections={['Privacy & Refund']}
+        description="Review Nada Art's privacy policy, data protection practices, refund policy, return procedures, and customer satisfaction guarantee for art purchases."
+        keywords="nada art privacy policy, art refund policy, data protection art, artwork returns, customer satisfaction guarantee, privacy agreement, refund process, art purchase protection, return shipping art, privacy compliance"
+      />
       <div>
         <div className="flex flex-col gap-2 justify-center">
-          <h1 className="text-lg text-center font-medium">
+          <p className="text-3xl text-center font-medium">
             Privacy & Refund Policies
-          </h1>
+          </p>
           <p className="text-xl text-center font-light">
             Protecting your information and ensuring your satisfaction
           </p>
@@ -17,7 +23,7 @@ const PrivacyAndRefund = () => {
       <div className="mt-8 max-w-3xl mx-auto">
         <div>
           <div>
-            <h2 className="text-lg font-medium text-center">Privacy Policy</h2>
+            <p className="text-2xl font-medium text-center">Privacy Policy</p>
             <p className="text-sm font-light italic text-center">
               Last Updated: January 1, 2023
             </p>
@@ -29,9 +35,9 @@ const PrivacyAndRefund = () => {
               you visit our website or make a purchase.
             </p>
 
-            <h3 className="font-semibold  mb-2 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
+            <p className="font-semibold  mb-2 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
               Information We Collect
-            </h3>
+            </p>
             <p className="mb-2">
               We may collect the following types of information:
             </p>
@@ -52,9 +58,9 @@ const PrivacyAndRefund = () => {
               </li>
             </ul>
 
-            <h3 className="font-semibold mt-6  mb-2 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
+            <p className="font-semibold mt-6  mb-2 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
               How We Use Your Information
-            </h3>
+            </p>
             <p>We use your information for the following purposes:</p>
             <ul className="list-disc pl-10">
               <li>To process and fulfill your orders for artwork</li>
@@ -70,9 +76,9 @@ const PrivacyAndRefund = () => {
               <li>To prevent fraud and ensure the security of our website</li>
             </ul>
 
-            <h3 className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
+            <p className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
               Data Protection
-            </h3>
+            </p>
             <p>
               We implement appropriate security measures to protect your
               personal information against unauthorized access, alteration,
@@ -80,9 +86,9 @@ const PrivacyAndRefund = () => {
               using SSL technology.
             </p>
 
-            <h3 className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
+            <p className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
               Third-Party Sharing
-            </h3>
+            </p>
             <p>
               We do not sell your personal information to third parties. We may
               share your information with:
@@ -97,18 +103,18 @@ const PrivacyAndRefund = () => {
               <li>When required by law or to protect our legal rights</li>
             </ul>
 
-            <h3 className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
+            <p className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
               Cookies
-            </h3>
+            </p>
             <p>
               Our website uses cookies to enhance your browsing experience,
               analyze site traffic, and personalize content. You can control
               cookies through your browser settings.
             </p>
 
-            <h3 className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
+            <p className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
               Your Rights
-            </h3>
+            </p>
             <p>You have the right to:</p>
             <ul className="list-disc pl-10">
               <li>Access the personal information we hold about you</li>
@@ -119,9 +125,9 @@ const PrivacyAndRefund = () => {
             </ul>
 
             <div>
-              <h3 className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
+              <p className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
                 Contact Us
-              </h3>
+              </p>
               <p>
                 If you have any questions about this Privacy Policy or your
                 personal data, please contact us at:
@@ -150,9 +156,9 @@ const PrivacyAndRefund = () => {
               understand your rights and our procedures.
             </p>
 
-            <h3 className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
+            <p className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
               Damaged or Defective Artwork
-            </h3>
+            </p>
             <p>
               If your artwork arrives damaged or with defects not described in
               the listing:
@@ -169,9 +175,9 @@ const PrivacyAndRefund = () => {
               </li>
             </ul>
 
-            <h3 className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
+            <p className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
               Returns for Change of Mind
-            </h3>
+            </p>
             <p>
               Due to the nature of artwork as unique items, we generally do not
               accept returns for change of mind. However, in exceptional
@@ -190,26 +196,26 @@ const PrivacyAndRefund = () => {
               </li>
             </ul>
 
-            <h3 className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
+            <p className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
               Custom and Commissioned Artwork
-            </h3>
+            </p>
             <p>
               Due to their personalized nature, all custom and commissioned
               artwork sales are final and not eligible for return or refund
               unless damaged in transit.
             </p>
 
-            <h3 className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
+            <p className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
               Digital Products
-            </h3>
+            </p>
             <p>
               All digital artwork purchases are final and non-refundable once
               downloaded.
             </p>
 
-            <h3 className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
+            <p className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
               Refund Processing
-            </h3>
+            </p>
             <p>
               Approved refunds will be processed within 7-10 business days and
               issued to the original payment method. Depending on your financial
@@ -218,9 +224,9 @@ const PrivacyAndRefund = () => {
             </p>
 
             <div>
-              <h3 className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
+              <p className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
                 Important Notes
-              </h3>
+              </p>
               <p>
                 • Original shipping fees are non-refundable unless the return is
                 due to our error or damaged goods
@@ -236,9 +242,9 @@ const PrivacyAndRefund = () => {
             </div>
 
             <div>
-              <h3 className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
+              <p className="font-semibold mt-6  mb-1 relative after:absolute after:bottom-2.5  after:h-2  after:-left-4 after:top-[6px] after:border-t-5 after:border-t-transparent after:border-b-5 after:border-b-transparent after:border-l-8 after:border-l-[#501414]">
                 Contact Us
-              </h3>
+              </p>
               <p>
                 If you have any questions about our Refund Policy or need to
                 initiate a return, please contact us at:

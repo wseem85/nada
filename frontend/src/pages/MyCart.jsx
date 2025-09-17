@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 import { loadStripe } from '@stripe/stripe-js';
 import SectionTitle from '../components/SectionTitle';
-import { artworks } from '../assets/assets';
+// import { artworks } from '../assets/assets';
 import { NavLink } from 'react-router-dom';
 import {
   FiMinus,
@@ -22,13 +22,15 @@ import { AppContext, CartContext } from '../contexts/contexts';
 import axios from 'axios';
 import { getErrorMessage } from '../../utils/errorHandler';
 import MyCartSkeleton from '../skeletons/MyCartSkeleton';
+import NadaHelmet from '../components/NadaHelmet';
 
 const MyCart = () => {
-  const { cart, errorGetCart, isLoadingCart, updateCartData, removeFromCart } =
+  const { cart, errorGetCart, isLoadingCart, removeFromCart } =
     useContext(CartContext);
   // Mock cart data - in a real app, this would come from context or API
   const { backendUrl } = useContext(AppContext);
   const [isLoading, setIsLoading] = useState(false);
+
   const [promoCode, setPromoCode] = useState('');
   const [appliedPromo, setAppliedPromo] = useState(null);
 
@@ -78,9 +80,10 @@ const MyCart = () => {
     setAppliedPromo(null);
     toast.success('Promo code removed');
   };
-  console.log(cart);
+
   const handleCheckout = async () => {
     try {
+      setIsLoading(true);
       const stripe = await loadStripe(
         import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
       );
@@ -88,13 +91,17 @@ const MyCart = () => {
 
       const session = await axios.post(
         backendUrl + `/api/users/checkout-session`,
-        { artworkIds }
+        { artworkIds, shipping, tax }
       );
       await stripe.redirectToCheckout({
         sessionId: session.data.session.id,
       });
     } catch (err) {
       console.log(err);
+      toast.error(getErrorMessage(err));
+      setIsLoading(false);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -122,6 +129,11 @@ const MyCart = () => {
   if (cart.length === 0) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center">
+        <NadaHelmet
+          sections={['Me', 'My Cart']}
+          description="Review your selected artworks in the Nada Art shopping cart. Manage your art collection before checkout and apply discount codes for your purchase."
+          keywords="nada art cart, art shopping cart, artwork cart, art purchase items, checkout artworks, art collection cart, manage art cart, art cart review, pending art purchase, save for later art"
+        />
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -149,6 +161,11 @@ const MyCart = () => {
 
   return (
     <div className="min-h-screen">
+      <NadaHelmet
+        sections={['Me', 'My Cart']}
+        description="Review your selected artworks in the Nada Art shopping cart. Manage your art collection before checkout and apply discount codes for your purchase."
+        keywords="nada art cart, art shopping cart, artwork cart, art purchase items, checkout artworks, art collection cart, manage art cart, art cart review, pending art purchase, save for later art"
+      />
       {/* Header */}
       <motion.section
         initial="hidden"

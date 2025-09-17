@@ -11,7 +11,6 @@ const users = JSON.parse(fs.readFileSync(`${__dirname}/users.json`));
 const reviews = JSON.parse(fs.readFileSync(`${__dirname}/reviews.json`));
 const orders = JSON.parse(fs.readFileSync(`${__dirname}/orders.json`));
 
-connectDB();
 const importData = async () => {
   try {
     await Artwork.create(artworks);
@@ -22,6 +21,7 @@ const importData = async () => {
     process.exit();
   } catch (err) {
     console.log(`Err importing Data: ${err}`);
+    process.exit(1);
   }
 };
 
@@ -38,9 +38,14 @@ const deleteData = async () => {
   }
 };
 
-if (process.argv[2] === '--import') {
-  importData();
-}
-if (process.argv[2] === '--delete') {
-  deleteData();
-}
+const run = async () => {
+  await connectDB();
+  if (process.argv[2] === '--import') {
+    await importData();
+  }
+  if (process.argv[2] === '--delete') {
+    await deleteData();
+  }
+};
+
+run();

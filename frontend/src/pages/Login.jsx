@@ -7,6 +7,7 @@ import SectionTitle from '../components/SectionTitle';
 import Logo from '../components/Logo';
 import { getErrorMessage } from '../../utils/errorHandler';
 import { toast } from 'react-toastify';
+import NadaHelmet from '../components/NadaHelmet';
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(false);
@@ -134,6 +135,7 @@ const Login = () => {
 
       if (result.success) {
         // Redirect immediately on success
+        scrollTo(0, 0);
         navigate('/my-profile');
       }
       // Navigate to home or dashboard on success
@@ -174,21 +176,27 @@ const Login = () => {
       setIsSendingResetEmail(true);
 
       const response = await forgotPassword(forgotPasswordMail);
-
+      console.log(response);
       if (response?.data?.status === 'success') {
         toast.success('Check Youe Email Address');
+        scrollTo(0, 0);
         navigate('/');
       }
     } catch (err) {
-      toast.error(err.message);
-      setErrorForgotPasswordMail(err.message);
-      setForgotPasswordMail('');
+      toast.error(getErrorMessage(err));
+      setErrorForgotPasswordMail(getErrorMessage(err));
+      // setForgotPasswordMail('');
     } finally {
       setIsSendingResetEmail(false);
     }
   };
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#f7ecec] via-beige-light to-[#faf7f0] flex items-center justify-center px-4 py-8">
+      <NadaHelmet
+        sections={['Login']}
+        description="Sign in to your Nada Art account to access your profile, wishlist, and exclusive member features. "
+        keywords="nada art login, sign in, artist account, member login, art gallery account, access account, art community login, creative portfolio login"
+      />
       <motion.div
         variants={containerVariants}
         initial="hidden"

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { artworks } from '../assets/assets';
+// import { artworks } from '../assets/assets';
 import NewArtwork from '../components/NewArtwork';
 import { motion } from 'framer-motion';
 import SectionTitle from '../components/SectionTitle';

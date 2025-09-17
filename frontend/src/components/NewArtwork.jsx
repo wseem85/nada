@@ -6,17 +6,21 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext, CartContext } from '../contexts/contexts';
 
 const NewArtwork = ({ artwork }) => {
+  console.log(artwork);
   const { cart, addToCart, removeFromCart } = useContext(CartContext);
+  console.log(cart);
   const [inCart, setInCart] = useState(
-    cart.find((el) => el.artwork._id === artwork._id)
+    cart.find((el) => el.artwork?._id === artwork?._id)
   );
   const [imageAspect, setImageAspect] = useState('landscape'); // default to landscape
   const navigate = useNavigate();
 
   useEffect(() => {
-    const inCart = cart.some((el) => el.artwork._id === artwork._id);
-    if (inCart) setInCart(true);
-    else setInCart(false);
+    if (cart.length !== 0) {
+      const inCart = cart.some((el) => el.artwork?._id === artwork._id);
+      if (inCart) setInCart(true);
+      else setInCart(false);
+    }
   }, [cart, artwork._id]);
 
   // Determine if image is portrait or landscape

@@ -7,12 +7,15 @@ const rateLimit = require('express-rate-limit');
 // const mongoSanitize = require('express-mongo-sanitize');
 const cookieParser = require('cookie-parser');
 const xss = require('xss-clean');
+// const multer = require('multer');
 const connectDB = require('./config/mongodb');
 const connectCloudinary = require('./config/cloudinary');
 const { webhookCheckout } = require('./controllers/webhookController');
 const artworkRouter = require('./routes/artworkRouter');
 const userRouter = require('./routes/userRouter');
 const reviewRouter = require('./routes/reviewRouter');
+const adminRouter = require('./routes/adminRouter');
+const orderRouter = require('./routes/orderRouter');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -38,10 +41,26 @@ app.use(
 app.use(cookieParser());
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true }));
+
+// Configure multer for file uploads
+// const storage = multer.memoryStorage();
+// const upload = multer({
+//   storage: storage,
+//   limits: {
+//     fileSize: 5 * 1024 * 1024, // 5MB limit
+//   },
+//   fileFilter: (req, file, cb) => {
+//     if (file.mimetype.startsWith('image/')) {
+//       cb(null, true);
+//     } else {
+//       cb(new Error('Only image files are allowed'), false);
+//     }
+//   },
+// });
 app.use(
   cors({
-    origin: 'http://localhost:5173', // Your frontend URL
-    credentials: true, // If you're using cookies/auth tokens
+    origin: ['http://localhost:5173', 'http://localhost:5174'],
+    credentials: true,
     optionsSuccessStatus: 200,
   })
 );
@@ -87,6 +106,8 @@ app.use('/api', limitter);
 app.use('/api/artworks', artworkRouter);
 app.use('/api/users', userRouter);
 app.use('/api/admin/reviews', protect, restrictTo('admin'), reviewRouter);
+app.use('/api/admin', adminRouter);
+app.use('/api/orders', orderRouter);
 
 // handle unhandled routes
 // any request reach this point  means there is no match route for it
