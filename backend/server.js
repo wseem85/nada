@@ -40,8 +40,9 @@ app.get('/api/user/test-webhook', (req, res) => {
     timestamp: new Date().toISOString(),
   });
 });
-app.use(
+app.post(
   '/api/user/stripe-webhook',
+
   express.raw({ type: 'application/json' }),
   webhookCheckout
 );

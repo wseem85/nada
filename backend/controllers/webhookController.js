@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 
 exports.webhookCheckout = async (req, res, next) => {
   // Set a timeout for the entire webhook processing
+  console.log('webhokk handler');
 
   const sig = req.headers['stripe-signature'];
   let event;
