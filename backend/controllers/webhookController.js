@@ -4,11 +4,8 @@ const Order = require('../models/orderModel');
 const Artwork = require('../models/artworkModel');
 const mongoose = require('mongoose');
 
-// Track processed sessions to avoid duplicate processing
-
 exports.webhookCheckout = async (req, res, next) => {
-  // Set a timeout for the entire webhook processing
-  console.log('webhokk handler');
+  console.log('🔔 Webhook handler called');
 
   const sig = req.headers['stripe-signature'];
   let event;
@@ -19,73 +16,88 @@ exports.webhookCheckout = async (req, res, next) => {
       sig,
       process.env.STRIPE_WEBHOOK_SECRET
     );
+    console.log('✅ Event verified:', event.type);
   } catch (err) {
-    console.log(err);
+    console.error('❌ Webhook signature verification failed:', err.message);
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
-  if (event.type === 'checkout.session.completed') {
-    console.log('💳 Processing checkout.session.completed event');
-    const session = event.data.object;
-    console.log(session.client_reference_id);
-    console.log('🆔 Client reference ID:', session.client_reference_id);
-    console.log('📊 Session metadata:', session.metadata);
+  try {
+    if (event.type === 'checkout.session.completed') {
+      console.log('💳 Processing checkout.session.completed event');
+      const session = event.data.object;
 
-    // Update order with timeout
-    console.log('📝 Updating order...');
+      console.log('🆔 Client reference ID:', session.client_reference_id);
+      console.log('📊 Session metadata:', session.metadata);
 
-    const updatedOrder = await Order.findByIdAndUpdate(
-      session.client_reference_id,
-      { status: 'paid', paymentMethod: 'card' },
-      { new: true }
-    );
+      if (!session.client_reference_id) {
+        console.log('❌ No client reference ID found in session');
+        return res.status(400).json({ error: 'No order ID found' });
+      }
 
-    if (!updatedOrder) {
-      console.log('❌ Order not found:', session.client_reference_id);
+      // Update order
+      console.log('📝 Updating order...');
+      const updatedOrder = await Order.findByIdAndUpdate(
+        session.client_reference_id,
+        { status: 'paid', paymentMethod: 'card' },
+        { new: true }
+      );
 
-      return res.status(404).json({
-        error: 'Order not found',
-        orderId: session.client_reference_id,
-      });
-    }
-    console.log('✅ Order updated:', updatedOrder._id);
+      if (!updatedOrder) {
+        console.log('❌ Order not found:', session.client_reference_id);
+        return res.status(404).json({
+          error: 'Order not found',
+          orderId: session.client_reference_id,
+        });
+      }
+      console.log('✅ Order updated:', updatedOrder._id);
 
-    // Update artworks with timeout
-    console.log('🎨 Updating artworks...');
-    const artworkIds = session.metadata.artworkIds.split(',');
-    console.log('🎨 Artwork IDs:', artworkIds);
+      // Update artworks
+      if (session.metadata && session.metadata.artworkIds) {
+        console.log('🎨 Updating artworks...');
+        const artworkIds = session.metadata.artworkIds.split(',');
+        console.log('🎨 Artwork IDs:', artworkIds);
 
-    const artworkUpdate = await Artwork.updateMany(
-      { _id: { $in: artworkIds } },
-      { available: false }
-    );
+        const artworkUpdate = await Artwork.updateMany(
+          { _id: { $in: artworkIds } },
+          { available: false }
+        );
 
-    console.log(
-      '🎨 Artworks updated:',
-      artworkUpdate.modifiedCount,
-      'artworks'
-    );
+        console.log(
+          '🎨 Artworks updated:',
+          artworkUpdate.modifiedCount,
+          'artworks'
+        );
+      }
 
-    // Clear user cart with timeout
-    console.log('🛒 Clearing user cart...');
-    const userId = session.metadata.userId;
-    console.log('👤 User ID:', userId);
+      // Clear user cart
+      if (session.metadata && session.metadata.userId) {
+        console.log('🛒 Clearing user cart...');
+        const userId = session.metadata.userId;
+        console.log('👤 User ID:', userId);
 
-    const userUpdate = await Promise.race([
-      User.findByIdAndUpdate(userId, { cart: [] }, { new: true }),
-      new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('User update timeout')), 5000)
-      ),
-    ]);
+        const userUpdate = await User.findByIdAndUpdate(
+          userId,
+          { cart: [] },
+          { new: true }
+        );
 
-    if (!userUpdate) {
-      console.log('❌ User not found:', userId);
+        if (!userUpdate) {
+          console.log('❌ User not found:', userId);
+        } else {
+          console.log('✅ User cart cleared for user ID:', userId);
+        }
+      }
+
+      console.log('🎉 Webhook processing completed successfully');
     } else {
-      console.log('✅ User cart cleared for user ID:', userId);
+      console.log('🔄 Received event type:', event.type);
     }
 
-    console.log('🎉 Webhook processing completed successfully');
+    // IMPORTANT: Always send a response to Stripe
+    res.status(200).json({ received: true });
+  } catch (error) {
+    console.error('❌ Error processing webhook:', error);
+    res.status(500).json({ error: 'Webhook processing failed' });
   }
-
-  // Clear timeout and send success response
 };
