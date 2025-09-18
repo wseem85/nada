@@ -44,7 +44,7 @@ const AuthContextProvider = (props) => {
       );
       if (data.status === 'success') {
         setUser(data.data.user);
-        // await checkAuth();
+
         return { success: true, user: data.data.user };
       }
     } catch (err) {
@@ -63,7 +63,7 @@ const AuthContextProvider = (props) => {
 
       if (response.data.status === 'success') {
         setUser(response.data.data.user);
-        // await checkAuth();
+
         return { success: true, user: response.data.user };
       }
     } catch (err) {
