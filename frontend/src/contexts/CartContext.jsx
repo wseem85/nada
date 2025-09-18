@@ -90,6 +90,7 @@ const CartContextProvider = (props) => {
           }
           console.log('mergedcart:', merged);
           await updateCartData(merged);
+          localStorage.removeItem('artworksCart');
         }
       } catch (err) {
         console.log(err);
@@ -183,6 +184,7 @@ const CartContextProvider = (props) => {
       }
       if (user) {
         fetchCart();
+        localStorage.removeItem('artworksCart');
       }
     },
     [user, getCartData]
