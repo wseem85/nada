@@ -21,6 +21,7 @@ const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 const { protect, restrictTo } = require('./controllers/authController');
 const app = express();
+app.set('trust proxy', true);
 // app.use(mongoSanitize());
 app.set('query parser', (str) => {
   return qs.parse(str, {
@@ -33,20 +34,14 @@ app.set('query parser', (str) => {
 const PORT = process.env.PORT || 4000;
 connectDB();
 connectCloudinary();
-app.get('/api/user/test-webhook', (req, res) => {
-  console.log('✅ Test endpoint was hit!');
-  res.json({
-    message: 'Webhook endpoint is working!',
-    timestamp: new Date().toISOString(),
-  });
-});
-app.use(express.json({ limit: '10kb' }));
+
 app.post(
   '/api/user/stripe-webhook',
 
-  // express.raw({ type: 'application/json' }),
+  express.raw({ type: 'application/json' }),
   webhookCheckout
 );
+app.use(express.json({ limit: '10kb' }));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
