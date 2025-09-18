@@ -551,21 +551,22 @@ const Work = () => {
                 )}
               </div>
               <div className="text-center mt-6">
-                {!inCart ? (
+                {!inCart && work.available ? (
                   <button
                     onClick={() => addToCart(work._id)}
                     className="hover:bg-white hover:border-beige-dark transition-all duration-200 bg-transparent rounded-sm border border-beige px-12 py-4 mx-auto w-full"
                   >
                     Add To Cart
                   </button>
-                ) : (
+                ) : null}
+                {inCart && work.available ? (
                   <button
                     onClick={() => removeFromCart(work._id)}
                     className="hover:bg-white hover:border-beige-dark transition-all duration-200 bg-transparent rounded-sm border border-beige px-12 py-4 mx-auto w-full"
                   >
                     Remove From Cart
                   </button>
-                )}
+                ) : null}
               </div>
               <div className="flex flex-col gap-4 mt-4">
                 <p>
