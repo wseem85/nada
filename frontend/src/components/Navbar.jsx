@@ -100,9 +100,7 @@ const Navbar = () => {
               <img
                 className="w-6 h-6 rounded-full border border-beige-dark"
                 src={
-                  user.photo !== ''
-                    ? user.photo
-                    : '../../src/assets/profile_default_pic.png'
+                  user.photo !== '' ? user.photo : assets.profile_default_pic
                 }
                 alt=""
               />

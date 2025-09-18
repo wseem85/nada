@@ -10,7 +10,7 @@ const { getAll, updateOne, deleteOne } = require('./handlerFactory');
 
 exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   const { artworkIds, shipping, tax } = req.body;
-
+  const isProduction = process.env.NODE_ENV;
   const artworks = await Artwork.find({ _id: { $in: artworkIds } });
   const lineItems = artworks.map((artwork) => {
     // Calculate price (consider discounts)
@@ -86,8 +86,14 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   await tempOrder.save();
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'], // Accepts credit/debit cards
-    success_url: `${req.protocol}://localhost:5173/order-success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${req.protocol}://localhost:5173/`,
+    success_url: `${req.protocol}://${
+      isProduction
+        ? 'nadaart.onrender.com/order-success?session_id={CHECKOUT_SESSION_ID}'
+        : 'localhost:5173/order-success?session_id={CHECKOUT_SESSION_ID}'
+    }`,
+    cancel_url: `${req.protocol}://${
+      isProduction ? 'nadaart.onrender.com' : 'localhost:5173/'
+    }`,
     customer_email: req.user.email, // Pre-fills email in Stripe Checkout
     client_reference_id: tempOrder._id.toString(), // we place this in this custom field because we nned it later to do the booking on databasr
     metadata: {

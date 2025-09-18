@@ -224,7 +224,7 @@ const Contact = () => {
           className="order-1 lg:order-2 space-y-8"
         >
           {/* Contact Details */}
-          <div className="bg-gradient-to-br from-brand-light/10 to-beige-light rounded-2xl p-8 border border-beige">
+          <div className="bg-gradient-to-br from-brand/10 to-beige-light rounded-2xl p-8 border border-beige">
             <p className="text-2xl mb-6 font-medium">Let's Connect</p>
 
             <div className="space-y-4">
@@ -238,7 +238,7 @@ const Contact = () => {
                     href="mailto:nada@artgallery.com"
                     className="text-brand hover:text-brand-dark transition-colors"
                   >
-                    nada@artgallery.com
+                    admin@nadaart.com
                   </a>
                 </div>
               </div>

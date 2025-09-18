@@ -110,9 +110,14 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   if (!user) {
     return next(new AppError('There is no account belong to this email', 404));
   }
+  const isProduction = process.env.NODE_ENV === 'production';
   const resetToken = user.createPasswordResetToken();
   await user.save({ validateBeforeSave: false });
-  const resetUrl = `${req.protocol}://localhost:5173/reset-password/${resetToken}`;
+  const resetUrl = `${req.protocol}://${
+    isProduction
+      ? 'https://nadaart.onrender.com/reset-password'
+      : 'localhost:5173/reset-password'
+  }/${resetToken}`;
 
   const message = `Forgot Your password? Follow the link ${resetUrl}.\n ANd submit your new password and the passwordConfirm ,If you didnt forgot your password please ignore this message`;
   try {

@@ -35,7 +35,7 @@ const MyProfileSkeleton = () => {
         <SectionTitle title="My Profile" />
         <motion.div
           variants={itemVariants}
-          className="h-6 bg-gray-200 rounded-lg max-w-2xl mx-auto mt-2 animate-pulse"
+          className="h-6 bg-beige-light rounded-lg max-w-2xl mx-auto mt-2 animate-pulse"
         ></motion.div>
       </motion.section>
 
@@ -50,9 +50,9 @@ const MyProfileSkeleton = () => {
           <div className="bg-white rounded-2xl shadow-lg p-8 border border-beige sticky top-4">
             {/* Profile Image Skeleton */}
             <div className="text-center mb-6">
-              <div className="w-32 h-32 mx-auto bg-gray-200 rounded-full animate-pulse mb-4"></div>
-              <div className="h-8 bg-gray-200 rounded-lg animate-pulse mb-2"></div>
-              <div className="h-4 bg-gray-200 rounded-lg animate-pulse w-1/2 mx-auto"></div>
+              <div className="w-32 h-32 mx-auto bg-beige-light rounded-full animate-pulse mb-4"></div>
+              <div className="h-8 bg-beige-light rounded-lg animate-pulse mb-2"></div>
+              <div className="h-4 bg-beige-light rounded-lg animate-pulse w-1/2 mx-auto"></div>
             </div>
 
             {/* Stats Skeleton */}
@@ -70,7 +70,7 @@ const MyProfileSkeleton = () => {
             </div>
 
             {/* Button Skeleton */}
-            <div className="h-12 bg-gray-200 rounded-lg animate-pulse"></div>
+            <div className="h-12 bg-beige-light rounded-lg animate-pulse"></div>
           </div>
         </motion.div>
 
@@ -78,11 +78,11 @@ const MyProfileSkeleton = () => {
         <motion.div variants={itemVariants} className="lg:col-span-2 space-y-8">
           {/* Personal Information Skeleton */}
           <div className="bg-white rounded-2xl shadow-lg p-8 border border-beige">
-            <div className="h-7 bg-gray-200 rounded-lg mb-6 w-1/3 animate-pulse"></div>
+            <div className="h-7 bg-beige-light rounded-lg mb-6 w-1/3 animate-pulse"></div>
             <div className="grid md:grid-cols-2 gap-6">
               {[...Array(6)].map((_, index) => (
                 <div key={index}>
-                  <div className="h-4 bg-gray-200 rounded-lg mb-2 w-3/4 animate-pulse"></div>
+                  <div className="h-4 bg-beige-light rounded-lg mb-2 w-3/4 animate-pulse"></div>
                   <div className="h-12 bg-gray-100 rounded-lg animate-pulse"></div>
                 </div>
               ))}
@@ -91,18 +91,18 @@ const MyProfileSkeleton = () => {
 
           {/* Bio Section Skeleton */}
           <div className="bg-white rounded-2xl shadow-lg p-8 border border-beige">
-            <div className="h-7 bg-gray-200 rounded-lg mb-6 w-1/4 animate-pulse"></div>
+            <div className="h-7 bg-beige-light rounded-lg mb-6 w-1/4 animate-pulse"></div>
             <div className="h-24 bg-gray-100 rounded-lg animate-pulse"></div>
           </div>
 
           {/* Favorite Artists Skeleton */}
           <div className="bg-white rounded-2xl shadow-lg p-8 border border-beige">
-            <div className="h-7 bg-gray-200 rounded-lg mb-6 w-1/3 animate-pulse"></div>
+            <div className="h-7 bg-beige-light rounded-lg mb-6 w-1/3 animate-pulse"></div>
             <div className="flex flex-wrap gap-2">
               {[...Array(4)].map((_, index) => (
                 <div
                   key={index}
-                  className="w-20 h-8 bg-gray-200 rounded-full animate-pulse"
+                  className="w-20 h-8 bg-beige-light rounded-full animate-pulse"
                 ></div>
               ))}
             </div>
@@ -117,7 +117,7 @@ const MyProfileSkeleton = () => {
         transition={{ duration: 0.6, delay: 0.6 }}
         className="mt-12"
       >
-        <div className="h-7 bg-gray-200 rounded-lg mb-6 w-1/4 mx-auto animate-pulse"></div>
+        <div className="h-7 bg-beige-light rounded-lg mb-6 w-1/4 mx-auto animate-pulse"></div>
         <div className="bg-white rounded-2xl shadow-lg p-8 border border-beige">
           <div className="space-y-4">
             {[...Array(3)].map((_, index) => (

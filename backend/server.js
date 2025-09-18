@@ -33,13 +33,13 @@ app.set('query parser', (str) => {
 const PORT = process.env.PORT || 4000;
 connectDB();
 connectCloudinary();
+app.use(express.json({ limit: '10kb' }));
 app.use(
   '/api/user/stripe-webhook',
   express.raw({ type: 'application/json' }),
   webhookCheckout
 );
 app.use(cookieParser());
-app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true }));
 
 // Configure multer for file uploads

@@ -18,7 +18,7 @@ import OrderSuccess from './pages/OrderSuccess';
 import ResetPassword from './pages/ResetPassword';
 const App = () => {
   return (
-    <div className="mx-2 xs:mx-8 sm:mx-[3%]">
+    <div className="mx-2 xs:mx-8 sm:mx-[3%]  ">
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
