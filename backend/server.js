@@ -40,13 +40,13 @@ app.get('/api/user/test-webhook', (req, res) => {
     timestamp: new Date().toISOString(),
   });
 });
+app.use(express.json({ limit: '10kb' }));
 app.post(
   '/api/user/stripe-webhook',
 
-  express.raw({ type: 'application/json' }),
+  // express.raw({ type: 'application/json' }),
   webhookCheckout
 );
-app.use(express.json({ limit: '10kb' }));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
