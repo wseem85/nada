@@ -184,7 +184,7 @@ const CartContextProvider = (props) => {
       }
       if (user) {
         fetchCart();
-        localStorage.removeItem('artworksCart');
+        // localStorage.removeItem('artworksCart');
       }
     },
     [user, getCartData]
