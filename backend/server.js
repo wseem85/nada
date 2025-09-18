@@ -33,7 +33,13 @@ app.set('query parser', (str) => {
 const PORT = process.env.PORT || 4000;
 connectDB();
 connectCloudinary();
-
+app.get('/api/user/test-webhook', (req, res) => {
+  console.log('✅ Test endpoint was hit!');
+  res.json({
+    message: 'Webhook endpoint is working!',
+    timestamp: new Date().toISOString(),
+  });
+});
 app.use(
   '/api/user/stripe-webhook',
   express.raw({ type: 'application/json' }),
