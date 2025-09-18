@@ -72,17 +72,20 @@ const CartContextProvider = (props) => {
           const localCart = JSON.parse(localStorage.getItem('artworksCart'));
           console.log('server cart:', data.cart);
           const merged = [...data.cart];
-
-          localCart.forEach((localItem) => {
-            if (
-              !merged.some((item) => item.artwork._id === localItem.artwork._id)
-            ) {
-              merged.push({
-                artwork: localItem.artwork._id,
-                createdAt: localItem.createdAt,
-              });
-            }
-          });
+          if (localCart.length) {
+            localCart.forEach((localItem) => {
+              if (
+                !merged.some(
+                  (item) => item.artwork._id === localItem.artwork._id
+                )
+              ) {
+                merged.push({
+                  artwork: localItem.artwork._id,
+                  createdAt: localItem.createdAt,
+                });
+              }
+            });
+          }
           console.log('mergedcart:', merged);
           await updateCartData(merged);
         }
