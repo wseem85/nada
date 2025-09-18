@@ -21,10 +21,6 @@ const createSendLoginToken = (user, statusCode, res) => {
     maxAge: 60 * 24 * 60 * 60 * 1000,
   };
 
-  if (isProduction) {
-    cookieOptions.domain = '.onrender.com'; // The dot makes it work across subdomains
-  }
-
   res.cookie('jwt', token, cookieOptions);
   user.password = undefined;
   res.status(statusCode).json({
@@ -191,9 +187,12 @@ exports.getMe = catchAsync(async (req, res, next) => {
 });
 
 exports.logout = (req, res) => {
+  const isProduction = process.env.NODE_ENV === 'production';
+
   res.cookie('jwt', 'dummynotvalidcookie', {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: isProduction,
+    sameSite: isProduction ? 'none' : 'lax',
     maxAge: 10 * 1000, // 10 seconds
   });
 
