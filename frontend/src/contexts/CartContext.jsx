@@ -69,8 +69,10 @@ const CartContextProvider = (props) => {
         if (data.status === 'success') {
           // setCart(data.cart);
           // localStorage.setItem('artworkCart', JSON.stringify(data.cart));
-          const localCart = JSON.parse(localStorage.getItem('artworksCart'));
+          const localCart =
+            JSON.parse(localStorage.getItem('artworksCart')) || [];
           console.log('server cart:', data.cart);
+
           const merged = [...data.cart];
           if (localCart.length) {
             localCart.forEach((localItem) => {
