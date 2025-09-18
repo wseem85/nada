@@ -15,26 +15,64 @@ const CartContextProvider = (props) => {
   const [isUpdatingCart, setIsUpdatingCart] = useState(true);
   const [errorGetCart, setErrorGetCart] = useState('');
   const [errorUpdateCart, setErrorUpdateCart] = useState('');
+  const updateCartData = useCallback(
+    async (newCart) => {
+      if (!user) {
+        localStorage.setItem('artworksCart', JSON.stringify(newCart));
+        setCart(newCart);
+      }
+      if (user) {
+        try {
+          setIsUpdatingCart(true);
+          const { data } = await axios.patch(
+            backendUrl + '/api/users/me/cart',
+            {
+              cart: newCart,
+            }
+          );
 
+          if (data.status === 'success') {
+            setCart(data.data.cart);
+            console.log(data.data.cart);
+
+            // localStorage.setItem(
+            //   'artworkCart',
+            //   JSON.stringify(data.updatedCart.cart)
+            // );
+          }
+        } catch (err) {
+          console.log(err);
+          setErrorUpdateCart(err.message);
+          setIsUpdatingCart(false);
+        } finally {
+          setIsUpdatingCart(false);
+        }
+      }
+    },
+    [backendUrl, user]
+  );
   const getCartData = useCallback(async () => {
+    console.log('getCartData runs');
     if (!user) {
+      console.log('getCartData runs:There is no user ');
       const localCart = JSON.parse(localStorage.getItem('artworksCart')) || [];
       setCart(localCart);
       setIsLoadingCart(false);
       return;
     }
     if (user) {
+      console.log('getCartData runs:There a user ');
       try {
         setIsLoadingCart(true);
         const { data } = await axios.get(backendUrl + '/api/users/me/cart');
-        console.log(data);
+
         if (data.status === 'success') {
           // setCart(data.cart);
           // localStorage.setItem('artworkCart', JSON.stringify(data.cart));
           const localCart = JSON.parse(localStorage.getItem('artworksCart'));
           // console.log('cart:', cart);
           const merged = [...data.cart];
-          console.log(merged);
+
           localCart.forEach((localItem) => {
             if (
               !merged.some((item) => item.artwork._id === localItem.artwork._id)
@@ -45,7 +83,7 @@ const CartContextProvider = (props) => {
               });
             }
           });
-          console.log(merged);
+
           await updateCartData(merged);
         }
       } catch (err) {
@@ -57,40 +95,8 @@ const CartContextProvider = (props) => {
         setIsLoadingCart(false);
       }
     }
-  }, [user, backendUrl]);
+  }, [user, backendUrl, updateCartData]);
 
-  const updateCartData = async (newCart) => {
-    if (!user) {
-      localStorage.setItem('artworksCart', JSON.stringify(newCart));
-      setCart(newCart);
-    }
-    if (user) {
-      console.log('newCart:', newCart);
-      try {
-        setIsUpdatingCart(true);
-        const { data } = await axios.patch(backendUrl + '/api/users/me/cart', {
-          cart: newCart,
-        });
-
-        if (data.status === 'success') {
-          console.log(data);
-          setCart(data.data.cart);
-          console.log(data.data.cart);
-
-          // localStorage.setItem(
-          //   'artworkCart',
-          //   JSON.stringify(data.updatedCart.cart)
-          // );
-        }
-      } catch (err) {
-        console.log(err);
-        setErrorUpdateCart(err.message);
-        setIsUpdatingCart(false);
-      } finally {
-        setIsUpdatingCart(false);
-      }
-    }
-  };
   const addToCart = async (artID) => {
     if (!user) {
       try {
