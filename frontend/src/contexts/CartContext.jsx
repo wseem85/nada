@@ -70,7 +70,7 @@ const CartContextProvider = (props) => {
           // setCart(data.cart);
           // localStorage.setItem('artworkCart', JSON.stringify(data.cart));
           const localCart = JSON.parse(localStorage.getItem('artworksCart'));
-          // console.log('cart:', cart);
+          console.log('server cart:', data.cart);
           const merged = [...data.cart];
 
           localCart.forEach((localItem) => {
@@ -83,7 +83,7 @@ const CartContextProvider = (props) => {
               });
             }
           });
-
+          console.log('mergedcart:', merged);
           await updateCartData(merged);
         }
       } catch (err) {
