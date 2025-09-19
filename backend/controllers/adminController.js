@@ -20,7 +20,7 @@ const createSendLoginToken = (user, statusCode, res) => {
     sameSite: isProduction ? 'none' : 'lax', // 'none' for cross-origin
     maxAge: 60 * 24 * 60 * 60 * 1000,
   };
-
+  res.cookie('jwt', token, cookieOptions);
   user.password = undefined;
   res.status(statusCode).json({
     status: 'success',
