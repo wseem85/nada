@@ -13,12 +13,13 @@ const signToken = (id) =>
 
 const createSendLoginToken = (user, statusCode, res) => {
   const token = signToken(user._id);
-  res.cookie('jwt', token, {
-    httpOnly: process.env.NODE_ENV === 'production',
-    secure: false,
-    sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
-    maxAge: 60 * 24 * 60 * 60 * 1000, // 60 days
-  });
+  const isProduction = process.env.NODE_ENV === 'production';
+  const cookieOptions = {
+    httpOnly: true,
+    secure: isProduction, // true in production
+    sameSite: isProduction ? 'none' : 'lax', // 'none' for cross-origin
+    maxAge: 60 * 24 * 60 * 60 * 1000,
+  };
 
   user.password = undefined;
   res.status(statusCode).json({
