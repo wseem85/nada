@@ -10,15 +10,16 @@ const AdminContextProvider = (props) => {
   const [admin, setAdmin] = useState(null);
   const [isLoggingAdmin, setIsLoggingAdmin] = useState(false);
   const [errorLogin, setErrorLogin] = useState('');
-  const [isLoadingAdmin, setIsLoadingAdmin] = useState(false);
+  const [isLoadingAdmin, setIsLoadingAdmin] = useState(true); // Initialize to true
   const [authenticationError, setAuthenticationError] = useState('');
   const [logoutError, setLogoutError] = useState('');
   const [isLoggingOut, setIsLoggingOut] = useState('');
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   axios.defaults.withCredentials = true;
+
   const checkAuth = useCallback(async () => {
     try {
-      setIsLoadingAdmin(true);
+      // Don't set loading to true here since it's already true on initial load
       const response = await axios.get(backendUrl + '/api/admin');
 
       if (
@@ -29,21 +30,22 @@ const AdminContextProvider = (props) => {
       }
     } catch (error) {
       setAdmin(null);
-      toast.warning(
-        'You need to login using admin credentials in order to access dashboard'
-      );
+      // Only show toast if this isn't the initial auth check
+      if (admin !== null) {
+        toast.warning(
+          'You need to login using admin credentials in order to access dashboard'
+        );
+      }
       setAuthenticationError(getErrorMessage(error));
     } finally {
       setIsLoadingAdmin(false);
     }
-  }, [backendUrl]);
+  }, [backendUrl, admin]);
 
   useEffect(() => {
-    async function getAdmin() {
-      await checkAuth();
-    }
-    getAdmin();
-  }, [checkAuth]);
+    checkAuth();
+  }, []); // Remove checkAuth from dependencies to avoid unnecessary re-runs
+
   const login = async ({ email, password }) => {
     try {
       setIsLoggingAdmin(true);

@@ -10,6 +10,13 @@ const AppContextProvider = (props) => {
   const [serverConnected, setServerConnected] = useState(false);
   const [errorGettingArtworks, setErrorGettingArtworks] = useState('');
   const [loadingArtworks, setLoadingArtworks] = useState(true);
+  const [artworksFilter, setArtworksFilter] = useState({
+    available: false,
+    soldOut: false,
+    deleted: false,
+    inStock: false,
+    all: true,
+  });
   // const [userData, setUserData] = useState(false);
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -19,7 +26,7 @@ const AppContextProvider = (props) => {
       setErrorGettingArtworks('');
       setLoadingArtworks(true);
       const response = await axios.get(
-        backendUrl + `/api/artworks/admin/artworks`
+        backendUrl + `/api/artworks/admin/artworks?sort=-createdAt`
       );
       if (response.data.status === 'success') {
         setArtworks(response.data.data.data);
@@ -51,6 +58,8 @@ const AppContextProvider = (props) => {
     loadingArtworks,
     fetchArtworks,
     serverConnected,
+    artworksFilter,
+    setArtworksFilter,
   };
   return (
     <AppContext.Provider value={value}>{props.children}</AppContext.Provider>

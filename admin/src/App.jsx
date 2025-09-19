@@ -23,7 +23,20 @@ const App = () => {
   const { serverConnected } = useContext(AppContext);
   const { admin, isLoadingAdmin } = useContext(AdminContext);
 
-  if (!serverConnected && !isLoadingAdmin) {
+  // Show loading screen while checking authentication
+  if (isLoadingAdmin) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-[#f7ecec] via-beige-light to-[#faf7f0] flex items-center justify-center">
+        <div className="text-center">
+          <Logo />
+          <div className="w-8 h-8 border-4 border-brand border-t-transparent rounded-full animate-spin mx-auto mt-8 mb-4"></div>
+          <p className="text-gray-600">Checking authentication...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!serverConnected) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#f7ecec] via-beige-light to-[#faf7f0] flex  flex-col gap-12 items-center justify-center px-4 py-8 ">
         <Logo />
@@ -41,6 +54,7 @@ const App = () => {
       </div>
     );
   }
+
   return !admin?._id ? (
     <>
       <ToastContainer style={{ zIndex: 99999 }} />
@@ -59,13 +73,13 @@ const App = () => {
         <div className=" flex-1 md:ml-60 pl-[20px] ml-4">
           <Routes>
             {/* Admin Routes */}
-            <Route path="/" element={<Navigate to="/dashboard" replace />} />
             <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/all-artworks" element={<AllWorks />} />
             <Route path="/all-artworks/:workId" element={<Work />} />
             <Route path="/upload-artwork" element={<UploadWork />} />
             <Route path="/orders" element={<Orders />} />
+            <Route path="/" element={<Navigate to="/dashboard" replace />} />
             <Route path="*" element={<Navigate to="/dashboard" replace />} />
           </Routes>
         </div>

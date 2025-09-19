@@ -7,28 +7,6 @@ import { getErrorMessage } from '../utils/errorHandler';
 import { AppContext } from '../contexts/contexts';
 import FullScreenSpinner from '../components/FullScreenSpinner';
 // Mock customer data - in real app, this would come from API
-const mockCustomers = {
-  '507f1f77bcf86cd799439011': {
-    name: 'Sarah Johnson',
-    email: 'sarah.johnson@email.com',
-    phone: '+1 (555) 123-4567',
-  },
-  '507f1f77bcf86cd799439012': {
-    name: 'Michael Chen',
-    email: 'michael.chen@email.com',
-    phone: '+1 (555) 234-5678',
-  },
-  '507f1f77bcf86cd799439013': {
-    name: 'Emily Rodriguez',
-    email: 'emily.rodriguez@email.com',
-    phone: '+1 (555) 345-6789',
-  },
-  '507f1f77bcf86cd799439014': {
-    name: 'David Thompson',
-    email: 'david.thompson@email.com',
-    phone: '+1 (555) 456-7890',
-  },
-};
 
 const StatusBadge = ({ status }) => {
   const statusConfig = {
@@ -101,7 +79,7 @@ const OrderCard = ({ order, customer, orderArtworks, onStatusUpdate }) => {
       minute: '2-digit',
     });
   };
-  console.log(order);
+
   return (
     <div className="bg-white/80 border border-beige rounded-2xl p-6 mb-4 shadow-sm hover:shadow-md transition-shadow">
       {/* Header */}
@@ -115,7 +93,7 @@ const OrderCard = ({ order, customer, orderArtworks, onStatusUpdate }) => {
         <StatusBadge status={order.status} />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
         {/* Customer Information */}
         <div className="space-y-3">
           <p className="font-medium text-text">Customer Details</p>
@@ -129,13 +107,21 @@ const OrderCard = ({ order, customer, orderArtworks, onStatusUpdate }) => {
             <p className="text-sm">
               <span className="text-text/60">Phone:</span> {customer.phone}
             </p>
+            <p className="text-sm flex items-center gap-2">
+              <span className="text-text/60">Phone:</span>
+              <img
+                className="w-6 h-6 rounded-full"
+                src={customer.photo}
+                alt={`Customer ${customer.name} Photo`}
+              />
+            </p>
           </div>
         </div>
 
         {/* Artwork Information */}
         <div className="space-y-3">
           <p className="font-medium text-text">Artwork Details</p>
-          <div className="space-y-3">
+          <div className="space-y-3 xs:flex xs:gap-4 ">
             {orderArtworks.map((artwork, index) => (
               <div key={artwork._id || index} className="flex gap-3">
                 <img
@@ -246,10 +232,11 @@ const Orders = () => {
   // Combine order data with customer and artwork information
   const enrichedOrders = useMemo(() => {
     return orders.map((order) => {
-      const customer = mockCustomers[order.user] || {
-        name: 'Unknown Customer',
-        email: 'unknown@email.com',
-        phone: 'N/A',
+      const customer = {
+        name: order.user.name,
+        phone: order.user.phone,
+        email: order.user.email,
+        photo: order.user.photo,
       };
 
       const orderArtworks = order.artworks
@@ -304,7 +291,7 @@ const Orders = () => {
     },
     [backendUrl]
   );
-  z;
+
   if (loadingOrders) {
     return <FullScreenSpinner />;
   }
@@ -321,13 +308,13 @@ const Orders = () => {
 
   return (
     <div className="space-y-6 px-6 py-8">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-        <h2 className="text-2xl font-bold font-caveat text-brand">
+      <div className="flex flex-col sm:items-center sm:justify-between gap-4">
+        <h3 className="text-2xl tracking-widest  text-brand">
           Orders Management
-        </h2>
+        </h3>
 
         {/* Status Filter */}
-        <div className="flex gap-2 mt-4 sm:mt-0">
+        <div className="flex flex-wrap sm:flex-nowrap gap-2 mt-4 sm:mt-0">
           {[
             { key: 'all', label: 'All', count: enrichedOrders.length },
             { key: 'paid', label: 'Paid', count: statusCounts.paid || 0 },

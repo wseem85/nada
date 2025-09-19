@@ -14,8 +14,10 @@ import {
   FiEye,
 } from 'react-icons/fi';
 import { getErrorMessage } from '../utils/errorHandler';
+import { useNavigate } from 'react-router-dom';
 
 const UploadWork = () => {
+  const navigate = useNavigate();
   const { backendUrl } = useContext(AdminContext);
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef(null);
@@ -163,15 +165,7 @@ const UploadWork = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-    // for (let pair of formData.entries()) {
-    //   console.log(
-    //     pair[0] +
-    //       ': ' +
-    //       (pair[1] instanceof File
-    //         ? pair[1].name + ' (' + pair[1].size + ' bytes)'
-    //         : pair[1])
-    //   );
-    // }
+
     const payload = {
       ...formData,
       categories: formData.categories
@@ -211,6 +205,7 @@ const UploadWork = () => {
         });
         setImagePreviews([]);
         setErrors({});
+        navigate(`${backendUrl}//all-artworks/${response.data.data.data._id}`);
       }
     } catch (error) {
       console.error('Upload failed:', error);

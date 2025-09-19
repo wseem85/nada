@@ -5,21 +5,12 @@ import EditArtworkModal from '../components/EditArtworkModal';
 import DeleteArtworkModal from '../components/DeleteArtworkModal';
 import { useContext } from 'react';
 import { AppContext } from '../contexts/contexts';
-import { useEffect } from 'react';
-import { useCallback } from 'react';
-import axios from 'axios';
-import { toast } from 'react-toastify';
-import { getErrorMessage } from '../utils/errorHandler';
+
 import AllWorksSkeleton from '../skeletons/AllWorksSkeleton';
 import RestoreArtworkModel from '../components/RestoreArtworkModel';
 const AllWorks = () => {
-  const {
-    backendUrl,
-    artworks,
-    errorGettingArtworks,
-    loadingArtworks,
-    fetchArtworks,
-  } = useContext(AppContext);
+  const { artworks, errorGettingArtworks, loadingArtworks, fetchArtworks } =
+    useContext(AppContext);
 
   const [selectedArtwork, setSelectedArtwork] = useState(null);
   const [showEdit, setShowEdit] = useState(false);
@@ -65,7 +56,7 @@ const AllWorks = () => {
   }
   return (
     <div className="px-6 py-6">
-      <h3 className="text-2xl font-bold text-center mb-6">All Artworks</h3>
+      <h3 className="text-2xl  text-center mb-6 ">All Artworks</h3>
       <div className="">
         {pagedArtworks.map((item) => (
           <ArtworkLine

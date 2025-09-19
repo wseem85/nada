@@ -1,15 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { calculateData } from '../utils/helpers';
+import { assets } from '../assets/assets';
+
 import { AppContext } from '../contexts/contexts';
 import DashboardSkeleton from '../skeletons/DashboardSkeleton';
 import { getErrorMessage } from '../utils/errorHandler';
 import { useCallback } from 'react';
+import Stars from '../components/Stars';
 // import { AdminContext } from '../../context/contexts';
 // import { assets } from '../../assets/assets';
 const Dashboard = () => {
-  const data = calculateData();
   const { backendUrl } = useContext(AppContext);
   const [storeStats, setStoreStats] = useState({});
   const [errorGettingStats, setErrorGettingStats] = useState('');
@@ -56,13 +57,15 @@ const Dashboard = () => {
   }
   return (
     <div className="m-5 flex-1 px-4 max-w-2xl xl:max-w-3xl mx-auto ">
-      <div className="flex flex-col gap-3 ">
-        <h3 className="text-2xl font-bold text-center mt-6">Artworks</h3>
+      <div className="flex flex-col gap-3 pb-10 border-b border-b-white ">
+        <h3 className="text-xl uppercase tracking-widest text-brand font-light  text-center mt-6">
+          Artworks
+        </h3>
         <div className="grid grid-cols-2 gap-3 justify-center ">
           <div className="flex items-center gap-2 bg-white p-4 min-w-40 rounded border-2 border-gray-100 cursor-pointer hover:scale-105 transition-all">
             <div className="space-y-6 w-full">
               <div className="flex gap-4 items-center justify-between">
-                <img className="w-12" src="../../src/assets/artwork.png" />
+                <img className="w-12" src={assets.artwork} />
                 <p className="text-xl font-semibold text-gray-600">
                   {storeStats.artworksStats[0].total}
                 </p>
@@ -71,10 +74,9 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="flex items-center gap-2 bg-white p-4 min-w-40 rounded border-2 border-gray-100 cursor-pointer hover:scale-105 transition-all">
-            {/* <img className="w-14" src={assets.doctor_icon} alt="" /> */}
             <div className="space-y-6 w-full">
               <div className="flex gap-4 items-center justify-between">
-                <img className="w-8" src="../../src/assets/soldout.png" />
+                <img className="w-8" src={assets.soldOut} />
                 <p className="text-xl font-semibold text-gray-600">
                   {storeStats.artworksStats[0].soldOut}
                 </p>
@@ -85,7 +87,7 @@ const Dashboard = () => {
           <div className="flex items-center gap-2 bg-white p-4 min-w-40 rounded border-2 border-gray-100 cursor-pointer hover:scale-105 transition-all">
             <div className="space-y-6 w-full">
               <div className="flex gap-4 items-center justify-between">
-                <img className="w-8 " src="../../src/assets/instock.png" />
+                <img className="w-8 " src={assets.inStock} />
                 <p className="text-xl font-semibold text-gray-600">
                   {storeStats.artworksStats[0].inStore}
                 </p>
@@ -96,7 +98,7 @@ const Dashboard = () => {
           <div className="flex items-center gap-2 bg-white p-4 min-w-40 rounded border-2 border-gray-100 cursor-pointer hover:scale-105 transition-all">
             <div className="space-y-6 w-full">
               <div className="flex gap-4 items-center justify-between">
-                <img className="w-8" src="../../src/assets/onsale.png" alt="" />
+                <img className="w-8" src={assets.deleted} alt="" />
                 <p className="text-xl font-semibold text-gray-600">
                   {storeStats.artworksStats[0].deleted}
                 </p>
@@ -106,13 +108,15 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-3">
-        <h3 className="text-2xl font-bold text-center mt-6">Orders</h3>
+      <div className="flex flex-col gap-3 pb-10 border-b border-b-white ">
+        <h3 className="text-xl uppercase tracking-widest text-brand font-light  text-center mt-6">
+          Orders
+        </h3>
         <div className="grid grid-cols-2 gap-3 justify-center  ">
           <div className="flex items-center gap-2 bg-white p-4 min-w-40 rounded border-2 border-gray-100 cursor-pointer hover:scale-105 transition-all">
             <div className="space-y-6 w-full">
               <div className="flex gap-4 items-center justify-between">
-                <img className="w-8" src="../../src/assets/orders.png" alt="" />
+                <img className="w-8" src={assets.orders} alt="" />
 
                 <p className="text-xl font-semibold text-gray-600">
                   {storeStats.ordersStats[0].total}
@@ -124,11 +128,7 @@ const Dashboard = () => {
           <div className="flex items-center gap-2 bg-white p-4 min-w-40 rounded border-2 border-gray-100 cursor-pointer hover:scale-105 transition-all">
             <div className="space-y-6 w-full">
               <div className="flex gap-4 items-center justify-between">
-                <img
-                  className="w-8 h-8"
-                  src="../../src/assets/delivered.png"
-                  alt=""
-                />
+                <img className="w-8 h-8" src={assets.delivered} alt="" />
 
                 <p className="text-xl font-semibold text-gray-600">
                   {storeStats.ordersStats[0].delevered}
@@ -140,11 +140,7 @@ const Dashboard = () => {
           <div className="flex items-center gap-2 bg-white p-4 min-w-40 rounded border-2 border-gray-100 cursor-pointer hover:scale-105 transition-all">
             <div className="space-y-6 w-full">
               <div className="flex gap-4 items-center justify-between">
-                <img
-                  className="w-8 h-8"
-                  src="../../src/assets/paid.png"
-                  alt=""
-                />
+                <img className="w-8 h-8" src={assets.paid} alt="" />
                 <p className="text-xl font-semibold text-gray-600">
                   {storeStats.ordersStats[0].paid}
                 </p>
@@ -155,11 +151,7 @@ const Dashboard = () => {
           <div className="flex items-center gap-2 bg-white p-4 min-w-40 rounded border-2 border-gray-100 cursor-pointer hover:scale-105 transition-all">
             <div className="space-y-6 w-full">
               <div className="flex gap-4 items-center justify-between">
-                <img
-                  className="w-8 h-8"
-                  src="../../src/assets/pending.png"
-                  alt=""
-                />
+                <img className="w-8 h-8" src={assets.pending} alt="" />
                 <p className="text-xl font-semibold text-gray-600">
                   {storeStats.ordersStats[0].pending}
                 </p>
@@ -169,17 +161,15 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-3">
-        <h3 className="text-2xl font-bold text-center mt-6">Users</h3>
+      <div className="flex flex-col gap-3 pb-10 border-b border-b-white ">
+        <h3 className="text-xl uppercase tracking-widest text-brand font-light  text-center mt-6">
+          Users
+        </h3>
         <div className="grid grid-cols-1 gap-3 justify-center  ">
           <div className="flex items-center gap-2 bg-white p-4 min-w-40 rounded border-2 border-gray-100 cursor-pointer hover:scale-105 transition-all">
             <div className="space-y-6 w-full">
               <div className="flex gap-12 items-center  ">
-                <img
-                  className="w-8 h-8"
-                  src="../../src/assets/users.png"
-                  alt=""
-                />
+                <img className="w-8 h-8" src={assets.users} alt="" />
                 <p className="text-xl font-semibold text-gray-600">
                   {storeStats.totalUsers[0].total}
                 </p>
@@ -197,9 +187,7 @@ const Dashboard = () => {
                   <div className="flex gap-1 items-center">
                     <img
                       src={`${
-                        item.photo
-                          ? item.photo
-                          : '../../src/assets/profile_default_pic.png'
+                        item.photo ? item.photo : assets.profile_default_pic
                       }`}
                       className="w-8 h-8 rounded-full"
                     />
@@ -223,9 +211,7 @@ const Dashboard = () => {
                   <div className="flex gap-1 items-center">
                     <img
                       src={`${
-                        item.photo
-                          ? item.photo
-                          : '../../src/assets/profile_default_pic.png'
+                        item.photo ? item.photo : assets.profile_default_pic
                       }`}
                       className="w-8 h-8 rounded-full"
                     />
@@ -243,17 +229,15 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="flex flex-col gap-3">
-        <h3 className="text-2xl font-bold text-center mt-6">Reviews</h3>
+      <div className="flex flex-col gap-3 pb-10 border-b border-b-white ">
+        <h3 className="text-xl uppercase tracking-widest text-brand font-light  text-center mt-6">
+          Reviews & Ratings
+        </h3>
         <div className="grid grid-cols-2 gap-3 justify-center">
           <div className="flex items-center gap-2 bg-white p-4 min-w-40 rounded border-2 border-gray-100 cursor-pointer hover:scale-105 transition-all">
             <div className="space-y-6 w-full">
               <div className="flex gap-4 items-center justify-between">
-                <img
-                  className="w-8 h-8"
-                  src="../../src/assets/review.png"
-                  alt=""
-                />
+                <img className="w-8 h-8" src={assets.review} alt="" />
 
                 <p className="text-xl font-semibold text-gray-600">
                   {storeStats.ratingStats[0].total}
@@ -265,11 +249,7 @@ const Dashboard = () => {
           <div className="flex items-center gap-2 bg-white p-4 min-w-40 rounded border-2 border-gray-100 cursor-pointer hover:scale-105 transition-all">
             <div className="space-y-6 w-full">
               <div className="flex gap-4 items-center justify-between">
-                <img
-                  className="w-8 h-8"
-                  src="../../src/assets/5stars.png"
-                  alt=""
-                />
+                <Stars num={5} />
                 <p className="text-xl font-semibold text-gray-600">
                   {storeStats.ratingStats[0].rating5}
                 </p>
@@ -280,11 +260,7 @@ const Dashboard = () => {
           <div className="flex items-center gap-2 bg-white p-4 min-w-40 rounded border-2 border-gray-100 cursor-pointer hover:scale-105 transition-all">
             <div className="space-y-6 w-full">
               <div className="flex gap-4 items-center justify-between">
-                <img
-                  className="w-8 h-8"
-                  src="../../src/assets/4stars.png"
-                  alt=""
-                />
+                <Stars num={4} />
                 <p className="text-xl font-semibold text-gray-600">
                   {storeStats.ratingStats[0].rating4}
                 </p>
@@ -295,11 +271,7 @@ const Dashboard = () => {
           <div className="flex items-center gap-2 bg-white p-4 min-w-40 rounded border-2 border-gray-100 cursor-pointer hover:scale-105 transition-all">
             <div className="space-y-6 w-full">
               <div className="flex gap-4 items-center justify-between">
-                <img
-                  className="w-8 h-8"
-                  src="../../src/assets/3stars.png"
-                  alt=""
-                />
+                <Stars num={3} />
                 <p className="text-xl font-semibold text-gray-600">
                   {storeStats.ratingStats[0].rating3}
                 </p>

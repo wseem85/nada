@@ -45,6 +45,7 @@ exports.resizeANdUploadEditedArtworks = async function (req, res, next) {
   let bodyData = req.body || {};
   console.log('req.body:', req.body);
   console.log('req.files:', req.files);
+
   if (req.is('multipart/form-data') && bodyData.data) {
     try {
       bodyData = JSON.parse(bodyData.data);
@@ -98,6 +99,7 @@ exports.resizeANdUploadEditedArtworks = async function (req, res, next) {
   const filesArray = Array.isArray(imageFiles) ? imageFiles : [imageFiles];
   console.log('imageFiles:', imageFiles);
   console.log('filesArray:', filesArray);
+
   // If both arrays length mismatch, pair by min length
   const pairCount = Math.min(indices.length, filesArray.length);
 
@@ -107,13 +109,16 @@ exports.resizeANdUploadEditedArtworks = async function (req, res, next) {
     const fileObj = filesArray[k];
     if (typeof idx !== 'number' || !fileObj) continue;
     console.log(fileObj);
+
     const resizedBuffer = await sharp(fileObj.buffer)
       .resize(800, 950)
       .toFormat('webp')
       .toBuffer();
+
     // Upload new image to Cloudinary (multer stores in memory as buffer)
     const uploadResult = await uploadToCloudinary(resizedBuffer);
     console.log(uploadResult);
+
     // Attempt to delete old image if exists
     // const oldUrl = updatedImages[idx];
     // if (oldUrl) {
@@ -131,21 +136,26 @@ exports.resizeANdUploadEditedArtworks = async function (req, res, next) {
     updatedImages[idx] = uploadResult.secure_url;
   }
 
-  // // Build update payload
-  // const updatePayload = {
-  //   ...bodyData,
-  // };
-  if (pairCount > 0) {
-    req.body.images = updatedImages;
+  // Build the final update payload
+  // Start with the parsed body data
+  const updatePayload = { ...bodyData };
 
-    // updatePayload.images = updatedImages;
+  // Add images if we processed any
+  if (pairCount > 0) {
+    updatePayload.images = updatedImages;
   }
+
+  // Set the complete update payload as req.body
+  req.body = updatePayload;
+
+  console.log('Final req.body being passed to updateOne:', req.body);
+
   next();
-};
-// RESIZE AND UPLOAD NEW ARTWORKS
+}; // RESIZE AND UPLOAD NEW ARTWORKS
 exports.resizeANdUploadNewArtworks = async function (req, res, next) {
   // Body may be JSON (no image updates) or multipart (with optional images)
   console.log('reaizing and uploading');
+  console.log(req.body);
   let bodyData = req.body || {};
   // console.log('req.body:', req.body);
   // console.log('req.files:', req.files);
