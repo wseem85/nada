@@ -21,7 +21,7 @@ const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 const { protect, restrictTo } = require('./controllers/authController');
 const app = express();
-app.set('trust proxy', true);
+// app.set('trust proxy', true);
 // app.use(mongoSanitize());
 app.set('query parser', (str) => {
   return qs.parse(str, {

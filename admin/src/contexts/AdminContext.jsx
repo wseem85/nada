@@ -59,6 +59,7 @@ const AdminContextProvider = (props) => {
         navigate('/dashboard');
       }
     } catch (error) {
+      console.log(error);
       toast.error(getErrorMessage(error));
       setErrorLogin(getErrorMessage(error));
     } finally {

@@ -18,13 +18,14 @@ const Dashboard = () => {
     try {
       setLoadingstats(true);
       const data = await axios.get(backendUrl + '/api/admin/store-stats');
-      console.log(data.data.data);
+      console.log(data.data);
       if (data.data.status === 'success') {
         setStoreStats(data.data.data);
       } else {
         toast.error('Failed to fetch artworks stats');
       }
     } catch (error) {
+      console.log(error);
       toast.error('Failed to fetch artworks stats');
       setErrorGettingStats(getErrorMessage(error));
     } finally {
@@ -41,9 +42,10 @@ const Dashboard = () => {
   if (loadingStats) {
     return <DashboardSkeleton />;
   }
+  // return null;
   if (errorGettingStats) {
     return (
-      <div className="h-screen flex justify-center items-center">
+      <div className="h-screen flex flex-col gap-8 justify-center items-center">
         <p className="text-2xl tracking-widest text-center text-gray-600">
           {' '}
           Something Went Wrong!
