@@ -233,6 +233,7 @@ exports.getAllArtworksAdmin = catchAsync(async (req, res, next) => {
   if (!req.query.sort) {
     query = query.sort({ deleted: 1, createdAt: -1 }); // Non-deleted first, then by creation date
   }
+  console.log(req.query.sort);
   const features = new APIFeatures(query, req.query)
     .filter()
     .sort()

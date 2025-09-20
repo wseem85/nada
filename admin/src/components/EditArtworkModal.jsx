@@ -31,7 +31,7 @@ const EditArtworkModal = ({ open, artwork, onClose, onSave }) => {
   });
   const [isEditing, setIsEditing] = useState(false);
   const [errorEditing, setErrorEditing] = useState('');
-  const { backendUrl } = useContext(AppContext);
+  const { backendUrl, setArtworksChanges } = useContext(AppContext);
   useEffect(() => {
     if (open && artwork) {
       setForm({
@@ -105,6 +105,7 @@ const EditArtworkModal = ({ open, artwork, onClose, onSave }) => {
         );
       } else toast.success('Artwork updated successfully!');
       onClose?.();
+      setArtworksChanges((prev) => !prev);
       navigate('/all-artworks/:workId'.replace(':workId', artwork._id));
     } catch (err) {
       console.log(err);

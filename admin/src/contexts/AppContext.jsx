@@ -7,6 +7,7 @@ import axios from 'axios';
 const AppContextProvider = (props) => {
   const worksPerPage = 6;
   const [artworks, setArtworks] = useState([]);
+  const [artworksChanges, setArtworksChanges] = useState(false);
   const [serverConnected, setServerConnected] = useState(false);
   const [errorGettingArtworks, setErrorGettingArtworks] = useState('');
   const [loadingArtworks, setLoadingArtworks] = useState(true);
@@ -26,7 +27,7 @@ const AppContextProvider = (props) => {
       setErrorGettingArtworks('');
       setLoadingArtworks(true);
       const response = await axios.get(
-        backendUrl + `/api/artworks/admin/artworks?sort=-createdAt`
+        backendUrl + `/api/artworks/admin/artworks?sort=deleted,-createdAt`
       );
       if (response.data.status === 'success') {
         setArtworks(response.data.data.data);
@@ -50,7 +51,7 @@ const AppContextProvider = (props) => {
       await fetchArtworks();
     };
     fetchData();
-  }, [fetchArtworks, backendUrl]);
+  }, [fetchArtworks, backendUrl, artworksChanges]);
   const value = {
     backendUrl,
     artworks,
@@ -60,6 +61,7 @@ const AppContextProvider = (props) => {
     serverConnected,
     artworksFilter,
     setArtworksFilter,
+    setArtworksChanges,
   };
   return (
     <AppContext.Provider value={value}>{props.children}</AppContext.Provider>

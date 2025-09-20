@@ -1,7 +1,7 @@
 import React, { useState, useContext, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'react-toastify';
-import { AdminContext } from '../contexts/contexts';
+import { AdminContext, AppContext } from '../contexts/contexts';
 import axios from 'axios';
 import {
   FiUpload,
@@ -15,10 +15,12 @@ import {
 } from 'react-icons/fi';
 import { getErrorMessage } from '../utils/errorHandler';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const UploadWork = () => {
   const navigate = useNavigate();
   const { backendUrl } = useContext(AdminContext);
+  const { setArtworksChanges } = useContext(AppContext);
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef(null);
 
@@ -205,7 +207,11 @@ const UploadWork = () => {
         });
         setImagePreviews([]);
         setErrors({});
-        navigate(`${backendUrl}//all-artworks/${response.data.data.data._id}`);
+        setArtworksChanges((prev) => !prev);
+        console.log(
+          `${backendUrl}/all-artworks/${response.data.data.data._id}`
+        );
+        navigate(`/all-artworks/${response.data.data.data._id}`);
       }
     } catch (error) {
       console.error('Upload failed:', error);
@@ -214,7 +220,9 @@ const UploadWork = () => {
       setIsLoading(false);
     }
   };
-
+  useEffect(() => {
+    scrollTo(0, 0);
+  });
   return (
     <div className="min-h-screen  p-4 sm:p-6 lg:p-8">
       <div className="max-w-4xl mx-auto">
@@ -224,9 +232,9 @@ const UploadWork = () => {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-8"
         >
-          <h1 className="text-3xl md:text-4xl font-caveat font-bold text-brand mb-2">
+          <h3 className="text-2xl tracking-widest  text-brand">
             Upload New Artwork
-          </h1>
+          </h3>
           <p className="text-text/70 text-lg">
             Add a new piece to your gallery collection
           </p>

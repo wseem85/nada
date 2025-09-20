@@ -26,7 +26,7 @@ const DeleteArtworkModal = ({ open, artworkTitle, artworkId, onClose }) => {
 
   const [isDeleting, setIsDeleting] = useState(false);
   const [errorDeleting, setErrorDeleting] = useState('');
-  const { backendUrl } = useContext(AppContext);
+  const { backendUrl, setArtworksChanges } = useContext(AppContext);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -35,7 +35,8 @@ const DeleteArtworkModal = ({ open, artworkTitle, artworkId, onClose }) => {
       console.log(artworkId);
       await axios.delete(backendUrl + `/api/artworks/${artworkId}`);
       onClose?.();
-      navigate('/all-artworks');
+      setArtworksChanges((prev) => !prev);
+      navigate(`/all-artworks/${artworkId}`);
     } catch (err) {
       toast.error(getErrorMessage(err));
       setErrorDeleting(getErrorMessage(err));
@@ -77,4 +78,3 @@ const DeleteArtworkModal = ({ open, artworkTitle, artworkId, onClose }) => {
 };
 
 export default DeleteArtworkModal;
-

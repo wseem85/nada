@@ -66,7 +66,7 @@ const SideBar = () => {
       </div>
       {/* Mobile View */}
       <div className="md:hidden">
-        <div className="min-h-full shadow-md fixed  z-30 top-16    ">
+        <div className="min-h-full shadow-md fixed  z-9999 top-16    ">
           <motion.button
             onClick={() => setShowSideBar(true)}
             className="bg-transparent  top-20 text-sm  md:hidden pt-3 pr-2 pl-1" // Added md:hidden to hide on desktop
@@ -108,7 +108,7 @@ const SideBar = () => {
                     ease: 'easeInOut',
                     duration: 0.3,
                   }}
-                  className="fixed top-[60px] left-0 h-full z-30 md:hidden"
+                  className="fixed top-[60px] left-0 h-full z-9999 md:hidden"
                 >
                   <motion.ul className="text-text pt-3 w-[200px] min-h-full flex flex-col shadow-sm bg-white">
                     <button

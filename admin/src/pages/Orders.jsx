@@ -291,7 +291,9 @@ const Orders = () => {
     },
     [backendUrl]
   );
-
+  useEffect(() => {
+    scrollTo(0, 0);
+  });
   if (loadingOrders) {
     return <FullScreenSpinner />;
   }
