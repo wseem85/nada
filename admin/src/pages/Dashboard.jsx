@@ -39,9 +39,7 @@ const Dashboard = () => {
     }
     getData();
   }, [getStoreStats]);
-  useEffect(() => {
-    scrollTo(0, 0);
-  });
+
   if (loadingStats) {
     return <DashboardSkeleton />;
   }

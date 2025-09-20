@@ -84,9 +84,7 @@ const AllWorks = () => {
     // Reset to first page when filters change
     setCurrentPage(1);
   };
-  useEffect(() => {
-    scrollTo(0, 0);
-  });
+
   if (loadingArtworks) {
     return <AllWorksSkeleton />;
   }

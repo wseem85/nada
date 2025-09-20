@@ -98,31 +98,33 @@ const Work = () => {
   }
   return (
     <div className="relative">
-      <div className="absolute inset-0 bg-black/30 backdrop-blur-xs z-40">
-        <div className="absolute top-6 lg:top-12 left-[50%] translate-x-[-50%] px-4 lg:px-12 py-4 lg:py-12 z-20 bg-white">
-          <p className="mb-3 text-text/80 text-sm  md:text-base lg:text-xl ">
-            You delete This Artwork , Users can no longer sees it on Store{' '}
-          </p>
-          <p className="text-text/50  text-xs lg:text-lg mb-4">
-            If You deside to get it into Stock again, find it on{' '}
-            <span
-              onClick={() => navigate('all-artworks')}
-              className="text-blue-500 underline cursor-pointer hover:text-blue-600 transition-all duration-150"
-            >
-              All Artworks
-            </span>{' '}
-            And Click Restore
-          </p>
-          <div className="flex justify-center">
-            <button
-              onClick={() => navigate('/all-artworks')}
-              className="px-6 inline-block mx-auto text-sm py-1 border rounded-lg bg-blue-500 text-white text-blue-600 border-white hover:border-blue-700 transition-all duration-150"
-            >
-              ok
-            </button>
+      {work.deleted ? (
+        <div className="absolute inset-0 bg-black/30 backdrop-blur-xs z-40">
+          <div className="absolute top-6 lg:top-12 left-[50%] translate-x-[-50%] px-4 lg:px-12 py-4 lg:py-12 z-20 bg-white">
+            <p className="mb-3 text-text/80 text-sm  md:text-base lg:text-xl ">
+              You delete This Artwork , Users can no longer sees it on Store{' '}
+            </p>
+            <p className="text-text/50  text-xs lg:text-lg mb-4">
+              If You deside to get it into Stock again, find it on{' '}
+              <span
+                onClick={() => navigate('all-artworks')}
+                className="text-blue-500 underline cursor-pointer hover:text-blue-600 transition-all duration-150"
+              >
+                All Artworks
+              </span>{' '}
+              And Click Restore
+            </p>
+            <div className="flex justify-center">
+              <button
+                onClick={() => navigate('/all-artworks')}
+                className="px-6 inline-block mx-auto text-sm py-1 border rounded-lg bg-blue-500 text-white text-blue-600 border-white hover:border-blue-700 transition-all duration-150"
+              >
+                ok
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      ) : null}
       <div
         className={`pl-6 pt-8 pr-4 pb-4 ${
           work.deleted ? 'bg-red-50 opacity-40' : ''

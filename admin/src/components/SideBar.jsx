@@ -24,6 +24,7 @@ const SideBar = () => {
                 }`
               }
               to={'/dashboard'}
+              onClick={() => scrollTo(0, 0)}
             >
               {/* <img src={assets.home_icon} alt="Home Icon" /> */}
               <p>Dashboard</p>
@@ -35,6 +36,7 @@ const SideBar = () => {
                 }`
               }
               to={'/all-artworks'}
+              onClick={() => scrollTo(0, 0)}
             >
               {/* <img src={assets.appointment_icon} alt="Home Icon" /> */}
               <p>All Artworks</p>
@@ -57,6 +59,7 @@ const SideBar = () => {
                 }`
               }
               to={'/upload-artwork'}
+              onClick={() => scrollTo(0, 0)}
             >
               {/* <img src={assets.people_icon} alt="Home Icon" /> */}
               <p>Upload Artwork</p>
@@ -126,7 +129,10 @@ const SideBar = () => {
                         }`
                       }
                       to={'/dashboard'}
-                      onClick={() => setShowSideBar(false)}
+                      onClick={() => {
+                        setShowSideBar(false);
+                        scrollTo(0, 0);
+                      }}
                     >
                       <p>Dashboard</p>
                     </NavLink>
@@ -139,7 +145,10 @@ const SideBar = () => {
                         }`
                       }
                       to={'/all-artworks'}
-                      onClick={() => setShowSideBar(false)}
+                      onClick={() => {
+                        setShowSideBar(false);
+                        scrollTo(0, 0);
+                      }}
                     >
                       <p>All Artworks</p>
                     </NavLink>
@@ -152,7 +161,10 @@ const SideBar = () => {
                         }`
                       }
                       to={'/orders'}
-                      onClick={() => setShowSideBar(false)}
+                      onClick={() => {
+                        setShowSideBar(false);
+                        scrollTo(0, 0);
+                      }}
                     >
                       <p>Orders</p>
                     </NavLink>
@@ -165,7 +177,10 @@ const SideBar = () => {
                         }`
                       }
                       to={'/upload-artwork'}
-                      onClick={() => setShowSideBar(false)}
+                      onClick={() => {
+                        setShowSideBar(false);
+                        scrollTo(0, 0);
+                      }}
                     >
                       <p>Upload Artwork</p>
                     </NavLink>
