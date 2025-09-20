@@ -369,9 +369,9 @@ const Work = () => {
                   <p>
                     {work.categories.map((el, index, arr) =>
                       index !== arr.length - 1 ? (
-                        <span key={el}>{el} | </span>
+                        <span key={el}> {el} | </span>
                       ) : (
-                        <span key={el}>{el} </span>
+                        <span key={el}>{el}. </span>
                       )
                     )}
                   </p>
