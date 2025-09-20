@@ -41,12 +41,12 @@ const ArtworkLine = ({ artwork, onEdit, onDelete, onRestore }) => {
             )}
           </div>
 
-          <div className="flex gap-2">
+          <div className="space-x-2">
             {artwork.categories.map((category, i, catogories) => {
               if (i === catogories.length - 1) {
-                return <p key={i}> {category}.</p>;
+                return <span key={i}> {category}.</span>;
               } else {
-                return <p key={i}> {category}, </p>;
+                return <span key={i}> {category}| </span>;
               }
             })}
           </div>

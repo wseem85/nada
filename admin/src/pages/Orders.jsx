@@ -6,6 +6,7 @@ import axios from 'axios';
 import { getErrorMessage } from '../utils/errorHandler';
 import { AppContext } from '../contexts/contexts';
 import FullScreenSpinner from '../components/FullScreenSpinner';
+import { assets } from '../assets/assets';
 // Mock customer data - in real app, this would come from API
 
 const StatusBadge = ({ status }) => {
@@ -108,10 +109,12 @@ const OrderCard = ({ order, customer, orderArtworks, onStatusUpdate }) => {
               <span className="text-text/60">Phone:</span> {customer.phone}
             </p>
             <p className="text-sm flex items-center gap-2">
-              <span className="text-text/60">Phone:</span>
+              <span className="text-text/60">Photo:</span>
               <img
                 className="w-6 h-6 rounded-full"
-                src={customer.photo}
+                src={
+                  customer.photo ? customer.photo : assets.profile_default_pic
+                }
                 alt={`Customer ${customer.name} Photo`}
               />
             </p>
