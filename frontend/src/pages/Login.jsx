@@ -18,10 +18,10 @@ const Login = () => {
 
   const [showForgotPasswordForm, setShowForgotPasswordForm] = useState(false);
   const [formData, setFormData] = useState({
-    name: 'test',
-    email: 'test@test.com',
-    password: '12345678',
-    passwordConfirm: '12345678',
+    name: '',
+    email: '',
+    password: '',
+    passwordConfirm: '',
   });
   const [errors, setErrors] = useState({});
   const [isSigning, setIsSigning] = useState(false);
