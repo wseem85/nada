@@ -19,7 +19,6 @@ const AdminContextProvider = (props) => {
 
   const checkAuth = useCallback(async () => {
     try {
-      // Don't set loading to true here since it's already true on initial load
       const response = await axios.get(backendUrl + '/api/admin');
 
       if (

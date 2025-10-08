@@ -51,9 +51,11 @@ exports.loginAdmin = catchAsync(async (req, res, next) => {
 });
 
 exports.logoutAdmin = (req, res) => {
+  const isProduction = process.env.NODE_ENV === 'production';
   res.cookie('jwt', 'dummynotvalidcookie', {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: isProduction,
+    sameSite: isProduction ? 'none' : 'lax',
     maxAge: 10 * 1000, // 10 seconds
   });
   req.user.role = undefined;

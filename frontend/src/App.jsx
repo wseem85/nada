@@ -1,44 +1,45 @@
 import React from 'react';
+import LanguageSwitcher from './components/LanguageSwitcher.jsx';
+import useLanguage from './hooks/useLanguage.js';
 import { Route, Routes } from 'react-router-dom';
+// Import i18n configuration
+import Home from './pages/Home.jsx';
+import Layout from './pages/Layout.jsx';
+import Dashboard from './pages/Dashboard.jsx';
+import GenerateArticle from './pages/GenerateArticle.jsx';
+import ArticleTitles from './pages/ArticleTitles.jsx';
+import GenerateImages from './pages/GenerateImages.jsx';
+import RemoveBackground from './pages/RemoveBackground.jsx';
+import RemoveObject from './pages/RemoveObject.jsx';
+import AnalayseResume from './pages/AnalayseResume.jsx';
 
-import Home from './pages/Home';
-import Gallery from './pages/Gallery';
-import Contact from './pages/Contact';
-import Login from './pages/Login';
-import MyCart from './pages/MyCart';
-import MyProfile from './pages/MyProfile';
-import Work from './pages/Work';
-import Navbar from './components/Navbar';
-import Footer from './ui/Footer';
-import PrivacyAndRefund from './pages/PrivacyAndRefund';
-import ShippingPolicy from './pages/ShippingPolicy';
-import { ToastContainer } from 'react-toastify';
-import Reviews from './pages/Reviews';
-import OrderSuccess from './pages/OrderSuccess';
-import ResetPassword from './pages/ResetPassword';
 const App = () => {
+  const { isRTL } = useLanguage();
+
   return (
-    <div className="mx-2 xs:mx-8 sm:mx-[3%]  ">
-      <Navbar />
+    <div
+      className={`
+      text-3xl text-brand px-2 md:px-6 max-w-3xl
+      /* Account for fixed sidebar on desktop */
+      ${isRTL ? 'md:mr-64' : 'md:ml-64'} 
+      /* Account for fixed navbar */
+      pt-16
+      /* Add some margin for better spacing */
+      md:mx-8
+    `}
+    >
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/gallery" element={<Gallery />} />
-        <Route path="/gallery/:workId" element={<Work />} />
-        <Route path="/gallery/:workId/reviews" element={<Reviews />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/my-cart" element={<MyCart />} />
-        <Route path="/my-profile" element={<MyProfile />} />
-        <Route path="/order-success" element={<OrderSuccess />} />
-        <Route path="/reset-password/:token" element={<ResetPassword />} />
-        <Route
-          path="/policies/privacy-and-refund"
-          element={<PrivacyAndRefund />}
-        />
-        <Route path="/policies/shipping" element={<ShippingPolicy />} />
+        <Route path="/ai" element={<Layout />}>
+          <Route index element={<Dashboard />} />
+          <Route path="generate-article" element={<GenerateArticle />} />
+          <Route path="generate-article-title" element={<ArticleTitles />} />
+          <Route path="generate-image" element={<GenerateImages />} />
+          <Route path="remove-background" element={<RemoveBackground />} />
+          <Route path="remove-object" element={<RemoveObject />} />
+          <Route path="analayse-resume" element={<AnalayseResume />} />
+        </Route>
       </Routes>
-      <Footer />
-      <ToastContainer />
     </div>
   );
 };
