@@ -72,9 +72,7 @@ exports.webhookCheckout = async (req, res, next) => {
 
       // Clear user cart
       if (session.metadata && session.metadata.userId) {
-        console.log('🛒 Clearing user cart...');
         const userId = session.metadata.userId;
-        console.log('👤 User ID:', userId);
 
         const userUpdate = await User.findByIdAndUpdate(
           userId,

@@ -94,7 +94,6 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 
   // 3) Handle photo upload if present
   if (req.file) {
-    console.log(req.file);
     try {
       const uploadResult = await uploadToCloudinary(req.file);
       filteredBody.photo = uploadResult.secure_url;
@@ -135,14 +134,13 @@ exports.getCart = catchAsync(async (req, res, next) => {
   });
 
   const cart = userCart.cart;
-  console.log(cart);
+
   res.status(200).json({
     status: 'success',
     cart,
   });
 });
 exports.updateCart = catchAsync(async (req, res, next) => {
-  console.log(req.body.cart);
   const cart = await User.findByIdAndUpdate(
     req.user._id,
     { cart: req.body.cart },

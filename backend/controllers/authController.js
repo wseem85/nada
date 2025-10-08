@@ -38,18 +38,17 @@ exports.signup = catchAsync(async (req, res) => {
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
   });
-  console.log(newUser);
+
   createSendLoginToken(newUser, 201, res);
 });
 
 exports.login = catchAsync(async (req, res, next) => {
-  console.log(req.body);
   const { email, password } = req.body;
   if (!email || !password) {
     return next(new AppError('Please Provide your email and password ', 400));
   }
   const user = await User.findOne({ email }).select('+password');
-  console.log(user);
+
   if (!user || !(await user.correctPassword(password, user.password))) {
     return next(new AppError('Invalid Email or Passowrd', 401));
   }
@@ -61,7 +60,6 @@ exports.protect = catchAsync(async (req, res, next) => {
 
   // 1. First, check for token in HTTP-only cookie (your current approach)
   if (req.cookies && req.cookies.jwt) {
-    console.log(req.cookies.jwt);
     token = req.cookies.jwt;
   } else if (
     req.headers.authorization &&
@@ -77,9 +75,10 @@ exports.protect = catchAsync(async (req, res, next) => {
     token,
     process.env.JWT_SECRET
   );
-  console.log(decodedToken);
+
   // check if the user still exist
   const currentUser = await User.findById({ _id: decodedToken.id });
+
   if (!currentUser) {
     return next(new AppError('This user is not exist anymore', 401));
   }
@@ -144,7 +143,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
     .createHash('sha256')
     .update(req.params.token)
     .digest('hex');
-  console.log(hashedToken);
+
   const user = await User.findOne({
     passwordResetToken: hashedToken,
     passwordResetTokenExpires: { $gt: Date.now() },

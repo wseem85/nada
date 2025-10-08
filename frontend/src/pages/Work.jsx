@@ -21,7 +21,7 @@ const Work = () => {
   const { user } = useContext(AuthContext);
   const [work, setWork] = useState(undefined);
 
-  const [reviews, setReviews] = useState();
+  const [reviews, setReviews] = useState([]);
   const [inCart, setInCart] = useState(
     cart?.find((el) => el.artwork._id === work?._id) || false
   );
@@ -61,11 +61,12 @@ const Work = () => {
         axios.get(backendUrl + `/api/artworks/${workId}/reviews`),
         axios.get(backendUrl + `/api/artworks/${workId}`), // To get updated avgRating
       ]);
-
+      console.log('updatedReviewsResponse', updatedReviewsResponse);
+      console.log('updatedWorkResponse', updatedWorkResponse);
       if (updatedReviewsResponse.data.status === 'success') {
-        setReviews(updatedReviewsResponse.data.data.data);
+        setReviews(updatedReviewsResponse.data.data.reviews);
       }
-
+      console.log;
       if (updatedWorkResponse.data.status === 'success') {
         setWork(updatedWorkResponse.data.data.data);
       }
@@ -125,6 +126,7 @@ const Work = () => {
             ]);
           const data = artworkResponse.data;
           const similars = similarsResponse.data;
+
           const currentReviews = reviewsResponse.data;
           if (data.status === 'success') {
             setWork(data.data.data);
@@ -133,7 +135,7 @@ const Work = () => {
             setSimilars(similars.data.data);
           }
           if (currentReviews.status === 'success') {
-            setReviews(currentReviews.data.data);
+            setReviews(currentReviews.data.reviews);
           }
         } catch (error) {
           console.error('Error fetching artworks:', error);
@@ -360,7 +362,7 @@ const Work = () => {
               error={errorRating}
             />
           </div>
-          {reviews.length ? (
+          {reviews?.length ? (
             <div className="flex flex-col gap-3 mt-5 bg-gray-50 p-4 md:hidden">
               {!userRating && topReview ? (
                 <div className="flex flex-col gap-3">
@@ -608,7 +610,7 @@ const Work = () => {
                 />
               </div>
 
-              {reviews.length ? (
+              {reviews?.length ? (
                 <div className=" flex-col gap-3 mt-5 bg-gray-50 p-4 hidden md:flex">
                   {!userRating && topReview ? (
                     <div className="flex flex-col gap-3">

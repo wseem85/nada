@@ -19,7 +19,7 @@ const Reviews = () => {
 
   // Calculate rating statistics
   const calculateRatingStats = () => {
-    if (!reviews.length) return { average: 0, distribution: [0, 0, 0, 0, 0] };
+    if (!reviews?.length) return { average: 0, distribution: [0, 0, 0, 0, 0] };
 
     const total = reviews.reduce((sum, review) => sum + review.rating, 0);
     const average = total / reviews.length;
@@ -48,7 +48,7 @@ const Reviews = () => {
         }
 
         if (reviewsResponse.data.status === 'success') {
-          setReviews(reviewsResponse.data.data.data);
+          setReviews(reviewsResponse.data.data.reviews);
         }
       } catch (err) {
         setError('Failed to load reviews');
@@ -119,7 +119,7 @@ const Reviews = () => {
       </div>
 
       {/* Reviews Summary */}
-      {reviews.length > 0 && (
+      {reviews?.length > 0 && (
         <div className="bg-gray-50 p-6 rounded-lg mb-8">
           <div className="flex flex-col md:flex-row gap-6 items-start">
             <div className="text-center">
@@ -165,7 +165,7 @@ const Reviews = () => {
 
       {/* Reviews List */}
       <div className="space-y-6">
-        {reviews.length === 0 ? (
+        {reviews?.length === 0 ? (
           <div className="text-center py-12">
             <div className="text-gray-500 text-lg mb-2">No reviews yet</div>
             <div className="text-gray-400">
@@ -173,7 +173,7 @@ const Reviews = () => {
             </div>
           </div>
         ) : (
-          reviews.map((review, index) => (
+          reviews?.map((review, index) => (
             <motion.div
               key={review._id || index}
               className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm"

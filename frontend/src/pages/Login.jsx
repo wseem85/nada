@@ -132,7 +132,7 @@ const Login = () => {
           setIsSigning(false);
         }
       }
-
+      console.log(result);
       if (result.success) {
         // Redirect immediately on success
         scrollTo(0, 0);

@@ -13,17 +13,15 @@ const {
 } = require('./handlerFactory');
 
 const uploadToCloudinary = (buffer) => {
-  console.log('start uploading');
   return new Promise((resolve, reject) => {
     const stream = cloudinary.uploader.upload_stream(
       { resource_type: 'image', format: 'webp' },
       (error, result) => {
         if (error) {
-          console.log('errrror');
           console.log(error);
           return reject(error);
         }
-        console.log('success');
+
         resolve(result);
       }
     );
@@ -43,8 +41,6 @@ exports.resizeANdUploadEditedArtworks = async function (req, res, next) {
 
   // Body may be JSON (no image updates) or multipart (with optional images)
   let bodyData = req.body || {};
-  console.log('req.body:', req.body);
-  console.log('req.files:', req.files);
 
   if (req.is('multipart/form-data') && bodyData.data) {
     try {
@@ -97,18 +93,14 @@ exports.resizeANdUploadEditedArtworks = async function (req, res, next) {
   const imageFiles = req.files?.['images[]'] || [];
 
   const filesArray = Array.isArray(imageFiles) ? imageFiles : [imageFiles];
-  console.log('imageFiles:', imageFiles);
-  console.log('filesArray:', filesArray);
 
   // If both arrays length mismatch, pair by min length
   const pairCount = Math.min(indices.length, filesArray.length);
 
   for (let k = 0; k < pairCount; k += 1) {
-    console.log(`Processing pair ${k + 1}/${pairCount}`);
     const idx = indices[k];
     const fileObj = filesArray[k];
     if (typeof idx !== 'number' || !fileObj) continue;
-    console.log(fileObj);
 
     const resizedBuffer = await sharp(fileObj.buffer)
       .resize(800, 950)
@@ -117,7 +109,6 @@ exports.resizeANdUploadEditedArtworks = async function (req, res, next) {
 
     // Upload new image to Cloudinary (multer stores in memory as buffer)
     const uploadResult = await uploadToCloudinary(resizedBuffer);
-    console.log(uploadResult);
 
     // Attempt to delete old image if exists
     // const oldUrl = updatedImages[idx];
@@ -148,18 +139,13 @@ exports.resizeANdUploadEditedArtworks = async function (req, res, next) {
   // Set the complete update payload as req.body
   req.body = updatePayload;
 
-  console.log('Final req.body being passed to updateOne:', req.body);
-
   next();
 }; // RESIZE AND UPLOAD NEW ARTWORKS
 exports.resizeANdUploadNewArtworks = async function (req, res, next) {
   // Body may be JSON (no image updates) or multipart (with optional images)
-  console.log('reaizing and uploading');
-  console.log(req.body);
+
   let bodyData = req.body || {};
-  // console.log('req.body:', req.body);
-  // console.log('req.files:', req.files);
-  // console.log(req.is('multipart/form-data'));
+
   if (req.is('multipart/form-data') && bodyData.data) {
     try {
       bodyData = JSON.parse(bodyData.data);
@@ -185,17 +171,15 @@ exports.resizeANdUploadNewArtworks = async function (req, res, next) {
   const imageFiles = req.files?.['images[]'] || [];
 
   const filesArray = Array.isArray(imageFiles) ? imageFiles : [imageFiles];
-  console.log('imageFiles:', imageFiles);
-  console.log('filesArray:', filesArray);
+
   // If both arrays length mismatch, pair by min length
   const pairCount = Math.min(indices.length, filesArray.length);
 
   for (let k = 0; k < pairCount; k += 1) {
-    console.log(`Processing pair ${k + 1}/${pairCount}`);
     const idx = indices[k];
-    console.log(indices[k]);
+
     const fileObj = filesArray[k];
-    console.log(fileObj);
+
     if (typeof idx !== 'number' || !fileObj) continue;
 
     const resizedBuffer = await sharp(fileObj.buffer)
@@ -208,7 +192,6 @@ exports.resizeANdUploadNewArtworks = async function (req, res, next) {
 
     // console.log('upllllooooooad result');
 
-    console.log(uploadResult);
     // console.log('upllllooooooad result');
     // Replace with new secure URL
     uploadedImages[idx] = uploadResult.secure_url;
@@ -233,7 +216,6 @@ exports.getAllArtworksAdmin = catchAsync(async (req, res, next) => {
   if (!req.query.sort) {
     query = query.sort({ deleted: 1, createdAt: -1 }); // Non-deleted first, then by creation date
   }
-  console.log(req.query.sort);
   const features = new APIFeatures(query, req.query)
     .filter()
     .sort()
@@ -249,7 +231,6 @@ exports.getAllArtworksAdmin = catchAsync(async (req, res, next) => {
   });
 });
 exports.restoreArtwork = catchAsync(async (req, res, next) => {
-  console.log(req.params.id);
   const artwork = await Artwork.includeDeleted().findByIdAndUpdate(
     req.params.id,
     {

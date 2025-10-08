@@ -1,7 +1,9 @@
 const express = require('express');
 const artworksController = require('../controllers/artworksController');
 const authController = require('../controllers/authController');
-const reviewRouter = require('./reviewRouter');
+const { protect, restrictTo } = authController;
+const { setWorkAndUserIds } = require('../controllers/reviewController');
+const reviewController = require('../controllers/reviewController');
 const multer = require('multer');
 
 // Configure multer for artwork image uploads
@@ -21,7 +23,15 @@ const upload = multer({
 });
 
 const router = express.Router({ mergeParams: true });
-router.use('/:workId/reviews', reviewRouter);
+router
+  .route('/:workId/reviews')
+  .get(reviewController.getArtworkReviews)
+  .post(
+    protect,
+    restrictTo('admin', 'user'),
+    setWorkAndUserIds,
+    reviewController.createReview
+  );
 router.route('/admin/artworks').get(artworksController.getAllArtworksAdmin);
 router
   .route('/')

@@ -11,7 +11,9 @@ const {
 
 exports.setWorkAndUserIds = (req, res, next) => {
   if (!req.body.artwork) req.body.artwork = req.params.workId;
-  if (!req.body.user) req.body.user = req.user.id;
+
+  if (!req.body.user) req.body.user = req.user._id;
+
   next();
 };
 exports.getAllReviews = getAll(Review);

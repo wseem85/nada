@@ -198,7 +198,6 @@ const MyCart = () => {
             <div className="divide-y divide-beige">
               <AnimatePresence>
                 {cart.map((item) => {
-                  console.log(item);
                   const discountedPrice =
                     item.artwork.discount > 0
                       ? item.artwork.price -
