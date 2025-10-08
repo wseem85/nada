@@ -52,7 +52,8 @@ exports.loginAdmin = catchAsync(async (req, res, next) => {
 
 exports.logoutAdmin = (req, res) => {
   const isProduction = process.env.NODE_ENV === 'production';
-  res.cookie('jwt', 'dummynotvalidcookie', {
+  const dummyToken = 'dummynotvalidcookie';
+  res.cookie('jwt', dummyToken, {
     httpOnly: true,
     secure: isProduction,
     sameSite: isProduction ? 'none' : 'lax',
@@ -62,6 +63,7 @@ exports.logoutAdmin = (req, res) => {
 
   res.status(200).json({
     status: 'success',
+    dummyToken: dummyToken,
   });
 };
 

@@ -18,7 +18,7 @@ router.post('/login', loginAdmin);
 router.use(protect);
 router.use(restrictTo('admin'));
 router.get('/', authController.getMe);
-router.get('/logout', logoutAdmin);
+router.post('/logout', logoutAdmin);
 router.get('/store-stats', getStoreStats);
 
 module.exports = router;

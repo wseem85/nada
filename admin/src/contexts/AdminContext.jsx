@@ -71,12 +71,19 @@ const AdminContextProvider = (props) => {
   const logout = async () => {
     try {
       setIsLoggingOut(true);
-      await axios.get(backendUrl + '/api/admin/logout', {
-        withCredentials: true,
-      });
-      toast.success('Admin logout successfully');
-      setAdmin(null);
-      navigate('/login');
+      const response = await axios.post(
+        backendUrl + '/api/admin/logout',
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(response);
+      if (response.data.status === 'success') {
+        toast.success('Admin logout successfully');
+        setAdmin(null);
+        navigate('/login');
+      }
     } catch (e) {
       console.log(e);
       toast.error(getErrorMessage(e));
