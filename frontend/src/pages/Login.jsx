@@ -228,7 +228,7 @@ const Login = () => {
             />
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <AnimatePresence mode="wait">
               {!isLogin && (
                 <motion.div
@@ -245,7 +245,7 @@ const Login = () => {
                       value={formData.name}
                       onChange={handleInputChange}
                       placeholder="Full Name"
-                      className={`w-full pl-10 pr-4 py-3 border rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand bg-white/70 ${
+                      className={`w-full pl-10 pr-4 py-1.5 border rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand bg-white/70 ${
                         errors.name ? 'border-red-400' : 'border-beige'
                       }`}
                     />
@@ -270,7 +270,7 @@ const Login = () => {
                 value={formData.email}
                 onChange={handleInputChange}
                 placeholder="Email Address"
-                className={`w-full pl-10 pr-4 py-3 border rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand bg-white/70 ${
+                className={`w-full pl-10 pr-4 py-1.5 border rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand bg-white/70 ${
                   errors.email ? 'border-red-400' : 'border-beige'
                 }`}
               />
@@ -292,7 +292,7 @@ const Login = () => {
                 value={formData.password}
                 onChange={handleInputChange}
                 placeholder="Password"
-                className={`w-full pl-10 pr-12 py-3 border rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand bg-white/70 ${
+                className={`w-full pl-10 pr-12 py-1.5 border rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand bg-white/70 ${
                   errors.password ? 'border-red-400' : 'border-beige'
                 }`}
               />
@@ -329,7 +329,7 @@ const Login = () => {
                       value={formData.passwordConfirm}
                       onChange={handleInputChange}
                       placeholder="Confirm Password"
-                      className={`w-full pl-10 pr-4 py-3 border rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand bg-white/70 ${
+                      className={`w-full pl-10 pr-4 py-1.5 border rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand bg-white/70 ${
                         errors.passwordConfirm
                           ? 'border-red-400'
                           : 'border-beige'
@@ -382,7 +382,7 @@ const Login = () => {
                           setForgotPasswordMail(e.target.value);
                         }}
                         placeholder="Provide Mail Address"
-                        className={`w-full pl-10 pr-4 py-3 border rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand bg-white/70 ${
+                        className={`w-full pl-10 pr-4 py-1.5 border rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand bg-white/70 ${
                           errorForgotPasswordMail
                             ? 'border-red-400'
                             : 'border-beige'
@@ -435,11 +435,11 @@ const Login = () => {
               )}
             </div>
             {errorSigning && (
-              <p className="text-red-400 text-sm my-3">{errorSigning}</p>
+              <p className="text-red-400 text-sm my-1.5">{errorSigning}</p>
             )}
 
             {errorLogining && (
-              <p className="text-red-400 text-sm m3-2">{errorLogining}</p>
+              <p className="text-red-400 text-sm my-1.5">{errorLogining}</p>
             )}
 
             <motion.button
@@ -447,7 +447,7 @@ const Login = () => {
               disabled={isSigning || isLogining}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className={`w-full py-3 px-6 rounded-xl font-medium text-white transition-all duration-200 ${
+              className={`w-full py-2 px-6 rounded-xl font-medium text-white transition-all duration-200 ${
                 isSigning || isLogining
                   ? 'bg-brand/50 cursor-not-allowed'
                   : 'bg-brand hover:bg-brand-dark active:bg-brand-dark'

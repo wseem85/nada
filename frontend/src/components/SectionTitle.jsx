@@ -36,7 +36,7 @@ const SectionTitle = ({ title, interval = 8000 }) => {
     <AnimatePresence mode="wait">
       <motion.h3
         key={key}
-        className="text-3xl font-medium text-[#501414] uppercase tracking-wide text-center mb-6"
+        className="text-2xl font-medium text-[#501414] uppercase tracking-wide text-center mb-6"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
