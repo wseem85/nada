@@ -2,62 +2,43 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { assets } from '../assets/assets';
 import { NavLink, useNavigate } from 'react-router-dom';
-
+const contentSets = [
+  {
+    bgImage: `url("${
+      window.innerWidth >= 768 ? assets.hero_img_1 : assets.hero_mobile_img_1
+    }")`,
+    heading: 'Where Emotion Meets Canvas',
+    subheading: 'Contemporary Art That Speaks to the Soul',
+    buttonText: 'Explore the Collection →',
+    link: '/gallery',
+    buttonVariant: 'hover:bg-opacity-90 bg-white text-black', // Added styling option
+  },
+  {
+    bgImage: `url("${
+      window.innerWidth >= 768 ? assets.hero_img_2 : assets.hero_mobile_img_2
+    }")`,
+    heading: "Let's Create Something Extraordinary",
+    subheading: 'Commission Your Personal Masterpiece',
+    buttonText: 'Start Your Art Journey',
+    link: '/contact',
+    buttonVariant: 'hover:bg-opacity-90 bg-brand text-white',
+  },
+  {
+    bgImage: `url("${
+      window.innerWidth >= 768 ? assets.hero_img_3 : assets.hero_mobile_img_3
+    }")`,
+    heading: 'Join the Artistic Conversation',
+    subheading: 'Exclusive Access to Studio Stories',
+    buttonText: 'Become a Member',
+    link: '/login',
+    buttonVariant: 'hover:bg-opacity-90 bg-beige-dark text-white',
+  },
+];
 export const HomeLanding = () => {
-  const contentSets = [
-    {
-      bgImage: `url("${
-        window.innerWidth >= 768 ? assets.hero_img_1 : assets.hero_mobile_img_1
-      }")`,
-      heading: 'Where Emotion Meets Canvas',
-      subheading: 'Contemporary Art That Speaks to the Soul',
-      buttonText: 'Explore the Collection →',
-      link: '/gallery',
-      buttonVariant: 'hover:bg-opacity-90 bg-white text-black', // Added styling option
-    },
-    {
-      bgImage: `url("${
-        window.innerWidth >= 768 ? assets.hero_img_2 : assets.hero_mobile_img_2
-      }")`,
-      heading: "Let's Create Something Extraordinary",
-      subheading: 'Commission Your Personal Masterpiece',
-      buttonText: 'Start Your Art Journey',
-      link: '/contact',
-      buttonVariant: 'hover:bg-opacity-90 bg-brand text-white',
-    },
-    {
-      bgImage: `url("${
-        window.innerWidth >= 768 ? assets.hero_img_3 : assets.hero_mobile_img_3
-      }")`,
-      heading: 'Join the Artistic Conversation',
-      subheading: 'Exclusive Access to Studio Stories',
-      buttonText: 'Become a Member',
-      link: '/login',
-      buttonVariant: 'hover:bg-opacity-90 bg-beige-dark text-white',
-    },
-  ];
   const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState(0);
-  const [autoRotate, setAutoRotate] = useState(true);
-
-  // Auto-rotation effect
-  useEffect(() => {
-    if (!autoRotate) return;
-
-    const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % contentSets.length);
-    }, 8000); // Change slide every 5 seconds
-
-    return () => clearInterval(interval);
-  }, [autoRotate, contentSets.length]);
-
-  // Handle manual toggle (resets auto-rotation timer)
   const handleToggle = (index) => {
     setActiveIndex(index);
-    setAutoRotate(false); // Pause auto-rotation on manual interaction
-
-    // Resume auto-rotation after 10 seconds of inactivity
-    setTimeout(() => setAutoRotate(true), 10000);
   };
 
   return (
