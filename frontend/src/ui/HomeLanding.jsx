@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { assets } from '../assets/assets';
 import { NavLink, useNavigate } from 'react-router-dom';
-const contentSets = [
+const IMAGE_SETS = [
   {
-    bgImage: `url("${
-      window.innerWidth >= 768 ? assets.hero_img_1 : assets.hero_mobile_img_1
-    }")`,
+    desktop: assets.hero_img_1,
+    mobile: assets.hero_mobile_img_1,
     heading: 'Where Emotion Meets Canvas',
     subheading: 'Contemporary Art That Speaks to the Soul',
     buttonText: 'Explore the Collection →',
@@ -14,9 +13,8 @@ const contentSets = [
     buttonVariant: 'hover:bg-opacity-90 bg-white text-black', // Added styling option
   },
   {
-    bgImage: `url("${
-      window.innerWidth >= 768 ? assets.hero_img_2 : assets.hero_mobile_img_2
-    }")`,
+    desktop: assets.hero_img_2,
+    mobile: assets.hero_mobile_img_2,
     heading: "Let's Create Something Extraordinary",
     subheading: 'Commission Your Personal Masterpiece',
     buttonText: 'Start Your Art Journey',
@@ -24,9 +22,8 @@ const contentSets = [
     buttonVariant: 'hover:bg-opacity-90 bg-brand text-white',
   },
   {
-    bgImage: `url("${
-      window.innerWidth >= 768 ? assets.hero_img_3 : assets.hero_mobile_img_3
-    }")`,
+    desktop: assets.hero_img_3,
+    mobile: assets.hero_mobile_img_3,
     heading: 'Join the Artistic Conversation',
     subheading: 'Exclusive Access to Studio Stories',
     buttonText: 'Become a Member',
@@ -36,48 +33,108 @@ const contentSets = [
 ];
 export const HomeLanding = () => {
   const navigate = useNavigate();
+  const [isDesktop, setIsDesktop] = useState(true);
+  const [loadedImages, setLoadedImages] = useState(new Set());
   const [activeIndex, setActiveIndex] = useState(0);
   const handleToggle = (index) => {
     setActiveIndex(index);
   };
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsDesktop(window.innerWidth >= 768);
+    };
 
+    checkScreenSize();
+    const resizeListener = () => {
+      requestAnimationFrame(checkScreenSize);
+    };
+
+    window.addEventListener('resize', resizeListener);
+    return () => window.removeEventListener('resize', resizeListener);
+  }, []);
+
+  // Preload images - CRITICAL FOR PERFORMANCE
+  useEffect(() => {
+    const preloadImages = () => {
+      IMAGE_SETS.forEach((set, index) => {
+        const imageUrl = isDesktop ? set.desktop : set.mobile;
+
+        // Only preload if not already loaded
+        if (!loadedImages.has(imageUrl)) {
+          const img = new Image();
+          img.src = imageUrl;
+          img.onload = () => {
+            setLoadedImages((prev) => new Set(prev).add(imageUrl));
+          };
+        }
+      });
+    };
+
+    preloadImages();
+  }, [isDesktop, loadedImages]);
+
+  // Memoized content sets with proper image URLs
+  const contentSets = useMemo(() => {
+    return IMAGE_SETS.map((set) => ({
+      ...set,
+      bgImage: `url("${isDesktop ? set.desktop : set.mobile}")`,
+      isLoaded: loadedImages.has(isDesktop ? set.desktop : set.mobile),
+    }));
+  }, [isDesktop, loadedImages]);
+
+  const currentContent = contentSets[activeIndex];
   return (
-    <section className="relative h-screen overflow-hidden -mt-5 -mx-2  xs:-mx-8  sm:-mx-[3%] bg-beige-light">
-      {/* Background Image with Fade Transition */}
+    <section className="relative h-screen overflow-hidden -mt-5 -mx-2 xs:-mx-8 sm:-mx-[3%] bg-beige-light">
+      {/* Optimized Background with Loading State */}
       <div
         className="absolute inset-0 bg-cover bg-center transition-all duration-1000"
         style={{
-          backgroundImage: contentSets[activeIndex].bgImage,
-          opacity: 0.9,
+          backgroundImage: currentContent.bgImage,
+          opacity: currentContent.isLoaded ? 0.9 : 0.6,
+          backgroundColor: currentContent.isLoaded ? 'transparent' : '#f5f0eb', // Loading color
+          transition: 'opacity 0.5s ease-in-out',
         }}
       />
 
-      {/* Content Overlay with Animation */}
-      <div className="absolute inset-0 bg-transparent  flex items-center justify-center">
+      {/* Loading Skeleton */}
+      {!currentContent.isLoaded && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="text-center px-4 max-w-4xl">
+            <div className="h-12 bg-gray-300 rounded mb-4 animate-pulse max-w-2xl mx-auto"></div>
+            <div className="h-6 bg-gray-300 rounded mb-6 animate-pulse max-w-xl mx-auto"></div>
+            <div className="h-12 w-48 bg-gray-300 rounded-full animate-pulse mx-auto"></div>
+          </div>
+        </div>
+      )}
+
+      {/* Content Overlay - Only show when image is loaded */}
+      <div className="absolute inset-0 bg-transparent flex items-center justify-center">
         <AnimatePresence mode="wait">
-          <motion.div
-            key={activeIndex}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5 }}
-            className="text-center px-4 text-[#f7ecec] max-w-4xl"
-          >
-            <h1 className="text-4xl md:text-6xl font-bold bg-[rgba(0,0,0,0.1)] mb-2">
-              {contentSets[activeIndex].heading}
-            </h1>
-            {contentSets[activeIndex].subheading && (
-              <p className="text-xl md:text-2xl mb-6 bg-[rgba(0,0,0,0.3)] py-2 font-light">
-                {contentSets[activeIndex].subheading}
-              </p>
-            )}
-            <button
-              onClick={() => navigate(contentSets[activeIndex].link)}
-              className={`inline-block px-8 py-3 rounded-full text-lg font-medium transition-all hover:scale-x-105 duration-200 ${contentSets[activeIndex].buttonVariant}`}
+          {currentContent.isLoaded && (
+            <motion.div
+              key={activeIndex}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5 }}
+              className="text-center px-4 text-[#f7ecec] max-w-4xl"
             >
-              {contentSets[activeIndex].buttonText}
-            </button>
-          </motion.div>
+              <h1 className="text-4xl md:text-6xl font-bold bg-[rgba(0,0,0,0.1)] mb-2">
+                {currentContent.heading}
+              </h1>
+              {currentContent.subheading && (
+                <p className="text-xl md:text-2xl mb-6 bg-[rgba(0,0,0,0.3)] py-2 font-light">
+                  {currentContent.subheading}
+                </p>
+              )}
+              <button
+                onClick={() => navigate(currentContent.link)}
+                className={`inline-block px-8 py-3 rounded-full text-lg font-medium transition-all hover:scale-105 duration-200 ${currentContent.buttonVariant}`}
+              >
+                {currentContent.buttonText}
+              </button>
+            </motion.div>
+          )}
         </AnimatePresence>
       </div>
 
