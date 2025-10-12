@@ -9,11 +9,11 @@ const GallerySkeleton = () => {
           key={index}
           className="w-full max-w-sm bg-white rounded-lg shadow-md "
         >
-          <div className="w-full h-64 bg-beige rounded-t-lg animate-pulse"></div>
+          <div className="w-full h-96 bg-beige rounded-t-lg animate-pulse"></div>
           <div className="p-4">
-            <div className="w-3/4 h-5 bg-beige rounded animate-pulse mb-2"></div>
-            <div className="w-1/2 h-4 bg-beige rounded animate-pulse"></div>
-            <div className="w-1/3 h-4 bg-beige rounded animate-pulse mt-2"></div>
+            <div className="w-3/4 h-5 bg-beige-light rounded animate-pulse mb-2"></div>
+            <div className="w-1/2 h-4 bg-beige-light rounded animate-pulse"></div>
+            <div className="w-1/3 h-4 bg-beige-light rounded animate-pulse mt-2"></div>
           </div>
         </div>
       ))}

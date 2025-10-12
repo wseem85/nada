@@ -4,12 +4,12 @@ import { motion } from 'framer-motion';
 import { FiLock, FiCheckCircle } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import { AppContext } from '../contexts/contexts';
+
 import { getErrorMessage } from '../../utils/errorHandler';
 import NadaHelmet from '../components/NadaHelmet';
 
 const ResetPassword = () => {
-  const { backendUrl } = useContext(AppContext);
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [errorResetingPassword, setErrorResettingPassword] = useState('');

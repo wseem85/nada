@@ -83,7 +83,7 @@ export const HomeLanding = () => {
             transition={{ duration: 0.5 }}
             className="text-center px-4 text-[#f7ecec] max-w-4xl"
           >
-            <h1 className="text-4xl md:text-6xl font-bold bg-[rgba(0,0,0,0.1)] mb-2">
+            <h1 className="text-4xl font-caveat md:text-6xl font-bold bg-[rgba(0,0,0,0.1)] mb-2">
               {currentContent.heading}
             </h1>
             {currentContent.subheading && (

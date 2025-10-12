@@ -6,9 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext, CartContext } from '../contexts/contexts';
 
 const NewArtwork = ({ artwork }) => {
-  console.log(artwork);
   const { cart, addToCart, removeFromCart } = useContext(CartContext);
-  console.log(cart);
+
   const [inCart, setInCart] = useState(
     cart.find((el) => el.artwork?._id === artwork?._id)
   );

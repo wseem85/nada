@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -6,38 +6,60 @@ import StarRating from '../components/StarRating';
 import RatingModal from '../components/RatingModal';
 
 // import { reviews } from '../assets/assets';
-import { FaStar } from 'react-icons/fa';
-import { AppContext, AuthContext, CartContext } from '../contexts/contexts';
-import axios from 'axios';
+import {
+  FaStar,
+  FaHeart,
+  FaShare,
+  FaExpand,
+  FaChevronLeft,
+  FaChevronRight,
+  FaArrowLeft,
+} from 'react-icons/fa';
+import { AuthContext, CartContext } from '../contexts/contexts';
 import { toast } from 'react-toastify';
 import WorkMobileSkeleton from '../skeletons/WorkMobileSkeleton';
 import WorkDesktopSkeleton from '../skeletons/WorkDesktopSkeleton';
-import { getErrorMessage } from '../../utils/errorHandler';
 import NadaHelmet from '../components/NadaHelmet';
+import {
+  useArtwork,
+  useSimilarArtworks,
+  useArtworkReviews,
+  useSubmitReview,
+} from '../hooks/useArtworkData';
 
 const Work = () => {
   const navigate = useNavigate();
   const { cart, addToCart, removeFromCart } = useContext(CartContext);
   const { user } = useContext(AuthContext);
-  const [work, setWork] = useState(undefined);
-
-  const [reviews, setReviews] = useState([]);
-  const [inCart, setInCart] = useState(
-    cart?.find((el) => el.artwork._id === work?._id) || false
-  );
-
-  const [similars, setSimilars] = useState([]);
-  const [isLoadingWork, setIsLoadingWork] = useState(true);
-  const [errorLoadingWork, setErrorLoadingWork] = useState('');
   const { workId } = useParams();
 
-  // const work = artworks.find((el) => el._id === workId);
-  const { backendUrl } = useContext(AppContext);
+  // TanStack Query hooks
+  const {
+    data: work,
+    isLoading: isLoadingWork,
+    error: errorLoadingWork,
+  } = useArtwork(workId);
 
+  const { data: similars = [], isLoading: isLoadingSimilars } =
+    useSimilarArtworks(workId);
+
+  const { data: reviews = [], isLoading: isLoadingReviews } =
+    useArtworkReviews(workId);
+
+  const submitReviewMutation = useSubmitReview();
+
+  // Local state for UI interactions
+  const [inCart, setInCart] = useState(false);
   const [isRatingModalOpen, setIsRatingModalOpen] = useState(false);
   const [userRating, setUserRating] = useState(0);
   const [userReview, setUserReview] = useState('');
   const [errorRating, setErrorRating] = useState('');
+  const [isWishlisted, setIsWishlisted] = useState(false);
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+  const [isAddingToCart, setIsAddingToCart] = useState(false);
+  const [isRemovingFromCart, setIsRemovingFromCart] = useState(false);
+  const [imageZoom, setImageZoom] = useState(1);
+  const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 });
 
   let topReview;
   if (reviews?.length) {
@@ -46,38 +68,81 @@ const Work = () => {
     }, reviews[0]);
   }
 
-  const handleRate = async (rating, review) => {
-    setUserRating(rating);
-    setUserReview(review);
+  const handleRate = useCallback(
+    (rating, review) => {
+      setUserRating(rating);
+      setUserReview(review);
 
+      submitReviewMutation.mutate({
+        workId,
+        rating,
+        review,
+      });
+    },
+    [workId, submitReviewMutation]
+  );
+
+  // Enhanced cart handling functions
+  const handleAddToCart = useCallback(async () => {
+    if (!work?.available) return;
+
+    setIsAddingToCart(true);
     try {
-      const { data } = await axios.post(
-        backendUrl + `/api/artworks/${workId}/reviews`,
-        { review, rating }
-      );
-
-      // After successful submission, refetch reviews and work data
-      const [updatedReviewsResponse, updatedWorkResponse] = await Promise.all([
-        axios.get(backendUrl + `/api/artworks/${workId}/reviews`),
-        axios.get(backendUrl + `/api/artworks/${workId}`), // To get updated avgRating
-      ]);
-      console.log('updatedReviewsResponse', updatedReviewsResponse);
-      console.log('updatedWorkResponse', updatedWorkResponse);
-      if (updatedReviewsResponse.data.status === 'success') {
-        setReviews(updatedReviewsResponse.data.data.reviews);
-      }
-      console.log;
-      if (updatedWorkResponse.data.status === 'success') {
-        setWork(updatedWorkResponse.data.data.data);
-      }
-
-      // Show success message
-      toast.success('Review submitted successfully!');
-    } catch (err) {
-      toast.error(getErrorMessage(err));
-      console.log(err);
+      await addToCart(work._id);
+      setInCart(true);
+    } catch (error) {
+      console.error('Error adding to cart:', error);
+    } finally {
+      setIsAddingToCart(false);
     }
-  };
+  }, [work, addToCart]);
+
+  const handleRemoveFromCart = useCallback(async () => {
+    setIsRemovingFromCart(true);
+    try {
+      await removeFromCart(work._id);
+      setInCart(false);
+    } catch (error) {
+      console.error('Error removing from cart:', error);
+    } finally {
+      setIsRemovingFromCart(false);
+    }
+  }, [work, removeFromCart]);
+
+  // Wishlist functionality
+  const handleWishlistToggle = useCallback(() => {
+    if (!user) {
+      toast.info('Please login to add items to your wishlist');
+      return;
+    }
+    setIsWishlisted(!isWishlisted);
+    toast.success(isWishlisted ? 'Removed from wishlist' : 'Added to wishlist');
+  }, [user, isWishlisted]);
+
+  // Social sharing functionality
+  const handleShare = useCallback(() => {
+    if (navigator.share) {
+      navigator.share({
+        title: work.title,
+        text: work.description,
+        url: window.location.href,
+      });
+    } else {
+      // Fallback: copy to clipboard
+      navigator.clipboard.writeText(window.location.href);
+      toast.success('Link copied to clipboard!');
+    }
+  }, [work]);
+
+  // Image zoom and pan functionality
+  const handleImageZoom = useCallback((event) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+
+    setImagePosition({ x, y });
+    setImageZoom((prev) => (prev === 1 ? 2 : 1));
+  }, []);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentIndexMdscreens, setCurrentIndexMdScreens] = useState(0);
@@ -112,43 +177,7 @@ const Work = () => {
     imagePositions = getImagePositions();
   }
 
-  useEffect(
-    function () {
-      const fetchData = async () => {
-        try {
-          setIsLoadingWork(true);
-
-          const [artworkResponse, similarsResponse, reviewsResponse] =
-            await Promise.all([
-              axios.get(backendUrl + `/api/artworks/${workId}`),
-              axios.get(backendUrl + `/api/artworks/${workId}/similars`),
-              axios.get(backendUrl + `/api/artworks/${workId}/reviews`),
-            ]);
-          const data = artworkResponse.data;
-          const similars = similarsResponse.data;
-
-          const currentReviews = reviewsResponse.data;
-          if (data.status === 'success') {
-            setWork(data.data.data);
-          }
-          if (similars.status === 'success') {
-            setSimilars(similars.data.data);
-          }
-          if (currentReviews.status === 'success') {
-            setReviews(currentReviews.data.reviews);
-          }
-        } catch (error) {
-          console.error('Error fetching artworks:', error);
-          setErrorLoadingWork(error.message);
-          toast.error(error.message);
-        } finally {
-          setIsLoadingWork(false);
-        }
-      };
-      fetchData();
-    },
-    [workId, backendUrl]
-  );
+  // Update cart status when work or cart changes
   useEffect(() => {
     console.log(cart);
     const inCart = cart.some((el) => el.artwork._id === work?._id);
@@ -172,23 +201,30 @@ const Work = () => {
     scrollTo(0, 0);
   });
 
-  // if (work) {
-  //   const similars = getSimilarWorks(work, artworks);
-  // }
+  // Handle loading and error states
   if (errorLoadingWork) {
     return (
       <div className="min-h-screen flex justify-center items-center">
         <p className="text-3xl text-beige-dark">Something Went Wrong</p>
-        <p className="text-red-400">{errorLoadingWork}</p>
+        <p className="text-red-400">{errorLoadingWork.message}</p>
       </div>
     );
   }
+
   if (isLoadingWork) {
     return (
       <>
         <WorkDesktopSkeleton />
         <WorkMobileSkeleton />
       </>
+    );
+  }
+
+  if (!work) {
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        <p className="text-3xl text-beige-dark">Artwork not found</p>
+      </div>
     );
   }
   return (
@@ -199,6 +235,15 @@ const Work = () => {
         keywords={`${work.title}, Nada work, ${work.categories[0]}  art, ${work.categories[1]} painting, original art for sale, limited edition art, art investment piece, gallery artwork, collectible art, nada collection`}
       />
       {/* Mobile  View */}
+      <button
+        onClick={() => {
+          navigate(-1);
+        }}
+        className="flex items-center underline gap-2 text-brand hover:text-brand-dark mb-4"
+      >
+        <FaArrowLeft />
+        <span>Back to Gallery</span>
+      </button>
 
       <div className="max-w-6xl mx-auto p-6 md:hidden">
         {/* Gallery Container */}
@@ -305,23 +350,50 @@ const Work = () => {
               </p>
             )}
           </div>
-          <div className="text-center mt-6">
-            {!inCart && work.available ? (
+          <div className="text-center mt-6 space-y-3">
+            {/* Action buttons */}
+            <div className="flex gap-3">
+              {!inCart && work.available ? (
+                <button
+                  onClick={handleAddToCart}
+                  disabled={isAddingToCart}
+                  className="flex-1 hover:bg-white hover:border-beige-dark transition-all duration-200 bg-transparent rounded-sm border border-beige px-6 py-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isAddingToCart ? 'Adding...' : 'Add To Cart'}
+                </button>
+              ) : null}
+              {inCart && work.available ? (
+                <button
+                  onClick={handleRemoveFromCart}
+                  disabled={isRemovingFromCart}
+                  className="flex-1 hover:bg-white hover:border-beige-dark transition-all duration-200 bg-transparent rounded-sm border border-beige px-6 py-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isRemovingFromCart ? 'Removing...' : 'Remove From Cart'}
+                </button>
+              ) : null}
+
+              {/* Wishlist button */}
               <button
-                onClick={() => addToCart(work._id)}
-                className="hover:bg-white hover:border-beige-dark transition-all duration-200 bg-transparent rounded-sm border border-beige px-12 py-4 mx-auto w-full"
+                onClick={handleWishlistToggle}
+                className={`p-4 rounded-sm border transition-all duration-200 ${
+                  isWishlisted
+                    ? 'bg-red-50 border-red-300 text-red-600'
+                    : 'bg-transparent border-beige hover:bg-white hover:border-beige-dark'
+                }`}
               >
-                Add To Cart
+                <FaHeart
+                  className={isWishlisted ? 'fill-current' : 'stroke-current'}
+                />
               </button>
-            ) : null}
-            {inCart && work.available ? (
+
+              {/* Share button */}
               <button
-                onClick={() => removeFromCart(work._id)}
-                className="hover:bg-white hover:border-beige-dark transition-all duration-200 bg-transparent rounded-sm border border-beige px-12 py-4 mx-auto w-full"
+                onClick={handleShare}
+                className="p-4 rounded-sm border border-beige bg-transparent hover:bg-white hover:border-beige-dark transition-all duration-200"
               >
-                Remove From Cart
+                <FaShare />
               </button>
-            ) : null}
+            </div>
           </div>
           <div className="flex flex-col gap-4 mt-4 text-lg tracking-wide">
             <p>
@@ -496,12 +568,60 @@ const Work = () => {
             </div>
 
             {/* Middle Column - Main Image */}
-            <div className="   rounded-lg  p-4">
-              <img
-                src={`${work.images[currentIndexMdscreens]}`}
-                alt={`Artwork view ${currentIndexMdscreens + 1}`}
-                className="max-h-full w-full object-contain"
-              />
+            <div className="rounded-lg p-4 relative">
+              <div className="relative group">
+                <img
+                  src={`${work.images[currentIndexMdscreens]}`}
+                  alt={`Artwork view ${currentIndexMdscreens + 1}`}
+                  className="max-h-full w-full object-contain cursor-pointer transition-transform duration-200 hover:scale-105"
+                  onClick={handleImageZoom}
+                  style={{
+                    transform: `scale(${imageZoom})`,
+                    transformOrigin: `${imagePosition.x}px ${imagePosition.y}px`,
+                  }}
+                />
+
+                {/* Image overlay with zoom icon */}
+                <div className="absolute inset-0 bg-transparent bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-200 flex items-center justify-center">
+                  <button
+                    onClick={() => setIsImageModalOpen(true)}
+                    className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-white bg-opacity-80 p-3 rounded-full hover:bg-opacity-100"
+                  >
+                    <FaExpand className="text-gray-700" />
+                  </button>
+                </div>
+
+                {/* Navigation arrows */}
+                {work.images.length > 1 && (
+                  <>
+                    <button
+                      onClick={() =>
+                        goToImage1(
+                          currentIndexMdscreens > 0
+                            ? currentIndexMdscreens - 1
+                            : work.images.length - 1
+                        )
+                      }
+                      className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                    >
+                      <FaChevronLeft className="text-gray-700" />
+                    </button>
+                    <button
+                      onClick={() =>
+                        goToImage1(
+                          currentIndexMdscreens < work.images.length - 1
+                            ? currentIndexMdscreens + 1
+                            : 0
+                        )
+                      }
+                      className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                    >
+                      <FaChevronRight className="text-gray-700" />
+                    </button>
+                  </>
+                )}
+              </div>
+
               <div className="mt-8 text-sm">
                 <p>{work.description}</p>
               </div>
@@ -552,23 +672,52 @@ const Work = () => {
                   </p>
                 )}
               </div>
-              <div className="text-center mt-6">
-                {!inCart && work.available ? (
+              <div className="text-center mt-6 space-y-3">
+                {/* Action buttons */}
+                <div className="flex gap-3">
+                  {!inCart && work.available ? (
+                    <button
+                      onClick={handleAddToCart}
+                      disabled={isAddingToCart}
+                      className="flex-1 hover:bg-white hover:border-beige-dark transition-all duration-200 bg-transparent rounded-sm border border-beige px-6 py-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {isAddingToCart ? 'Adding...' : 'Add To Cart'}
+                    </button>
+                  ) : null}
+                  {inCart && work.available ? (
+                    <button
+                      onClick={handleRemoveFromCart}
+                      disabled={isRemovingFromCart}
+                      className="flex-1 hover:bg-white hover:border-beige-dark transition-all duration-200 bg-transparent rounded-sm border border-beige px-6 py-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {isRemovingFromCart ? 'Removing...' : 'Remove From Cart'}
+                    </button>
+                  ) : null}
+
+                  {/* Wishlist button */}
                   <button
-                    onClick={() => addToCart(work._id)}
-                    className="hover:bg-white hover:border-beige-dark transition-all duration-200 bg-transparent rounded-sm border border-beige px-12 py-4 mx-auto w-full"
+                    onClick={handleWishlistToggle}
+                    className={`p-4 rounded-sm border transition-all duration-200 ${
+                      isWishlisted
+                        ? 'bg-red-50 border-red-300 text-red-600'
+                        : 'bg-transparent border-beige hover:bg-white hover:border-beige-dark'
+                    }`}
                   >
-                    Add To Cart
+                    <FaHeart
+                      className={
+                        isWishlisted ? 'fill-current' : 'stroke-current'
+                      }
+                    />
                   </button>
-                ) : null}
-                {inCart && work.available ? (
+
+                  {/* Share button */}
                   <button
-                    onClick={() => removeFromCart(work._id)}
-                    className="hover:bg-white hover:border-beige-dark transition-all duration-200 bg-transparent rounded-sm border border-beige px-12 py-4 mx-auto w-full"
+                    onClick={handleShare}
+                    className="p-4 rounded-sm border border-beige bg-transparent hover:bg-white hover:border-beige-dark transition-all duration-200"
                   >
-                    Remove From Cart
+                    <FaShare />
                   </button>
-                ) : null}
+                </div>
               </div>
               <div className="flex flex-col gap-4 mt-4">
                 <p>
@@ -703,40 +852,114 @@ const Work = () => {
         </div>
       </div>
 
-      {!isLoadingWork ? (
-        <div className="mt-6">
-          <p className="  text-xl tracking-wide mb-6 font-medium text-center  ">
-            Similar Artworks On Stock
-          </p>
-          <div className="xl:flex gap-8">
-            {similars.length ? (
-              <div className="flex flex-wrap place-center mx-auto justify-center  gap-3 gap-y-6 md:gap-x-6 ">
-                {similars.slice(0, 5).map((el) => (
-                  <NavLink
-                    key={el._id}
-                    to={`/gallery/${el._id}`}
-                    onClick={() => scrollTo(0, 0)}
-                  >
-                    <div className="flex flex-col mx-auto justify-center  p-2 rounded-md">
-                      <div className="mb-2 ">
-                        <img
-                          className="w-32 inline-block mx-auto"
-                          src={`${el.images[0]}`}
-                          alt=""
-                        />
-                      </div>
-                      <p className=" font-semibold mb-1 text-center">
-                        {el.title}
-                      </p>
-                      <p className="text-center text-lg">$ {el.price}</p>
+      <div className="mt-6">
+        <p className="text-xl tracking-wide mb-6 font-medium text-center">
+          Similar Artworks On Stock
+        </p>
+        <div className="xl:flex gap-8">
+          {isLoadingSimilars ? (
+            <div className="flex justify-center">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-beige"></div>
+            </div>
+          ) : similars.length ? (
+            <div className="flex flex-wrap place-center mx-auto justify-center gap-3 gap-y-6 md:gap-x-6">
+              {similars.slice(0, 5).map((el) => (
+                <NavLink
+                  key={el._id}
+                  to={`/gallery/${el._id}`}
+                  onClick={() => scrollTo(0, 0)}
+                >
+                  <div className="flex flex-col mx-auto justify-center p-2 rounded-md">
+                    <div className="mb-2">
+                      <img
+                        className="w-32 inline-block mx-auto"
+                        src={`${el.images[0]}`}
+                        alt=""
+                      />
                     </div>
-                  </NavLink>
-                ))}
-              </div>
-            ) : null}
-          </div>
+                    <p className="font-semibold mb-1 text-center">{el.title}</p>
+                    <p className="text-center text-lg">$ {el.price}</p>
+                  </div>
+                </NavLink>
+              ))}
+            </div>
+          ) : (
+            <p className="text-center text-gray-500">
+              No similar artworks found
+            </p>
+          )}
         </div>
-      ) : null}
+      </div>
+
+      {/* Image Modal for Full Screen Viewing */}
+      <AnimatePresence>
+        {isImageModalOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4"
+            onClick={() => setIsImageModalOpen(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.8 }}
+              className="relative max-w-4xl max-h-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img
+                src={`${work.images[currentIndexMdscreens]}`}
+                alt={`Artwork view ${currentIndexMdscreens + 1}`}
+                className="max-w-full max-h-full object-contain"
+              />
+
+              {/* Close button */}
+              <button
+                onClick={() => setIsImageModalOpen(false)}
+                className="absolute top-4 right-4 bg-white bg-opacity-80 hover:bg-opacity-100 p-2 rounded-full"
+              >
+                ✕
+              </button>
+
+              {/* Navigation arrows in modal */}
+              {work.images.length > 1 && (
+                <>
+                  <button
+                    onClick={() =>
+                      goToImage1(
+                        currentIndexMdscreens > 0
+                          ? currentIndexMdscreens - 1
+                          : work.images.length - 1
+                      )
+                    }
+                    className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 p-3 rounded-full"
+                  >
+                    <FaChevronLeft className="text-gray-700" />
+                  </button>
+                  <button
+                    onClick={() =>
+                      goToImage1(
+                        currentIndexMdscreens < work.images.length - 1
+                          ? currentIndexMdscreens + 1
+                          : 0
+                      )
+                    }
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 p-3 rounded-full"
+                  >
+                    <FaChevronRight className="text-gray-700" />
+                  </button>
+                </>
+              )}
+
+              {/* Image counter */}
+              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white bg-opacity-80 px-3 py-1 rounded-full text-sm">
+                {currentIndexMdscreens + 1} / {work.images.length}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

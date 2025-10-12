@@ -4,18 +4,21 @@ import { motion } from 'framer-motion';
 import { FaStar, FaArrowLeft } from 'react-icons/fa';
 import axios from 'axios';
 import StarRating from '../components/StarRating';
-import { AppContext } from '../contexts/contexts';
+
 import NadaHelmet from '../components/NadaHelmet';
+import { useArtwork, useArtworkReviews } from '../hooks/useArtworkData';
 
 const Reviews = () => {
   const { workId } = useParams();
   const navigate = useNavigate();
-  const { backendUrl } = useContext(AppContext);
 
-  const [reviews, setReviews] = useState([]);
-  const [work, setWork] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const {
+    data: work,
+    isLoading: isLoadingWork,
+    error: errorLoadingWork,
+  } = useArtwork(workId);
+  const { data: reviews = [], isLoading: isLoadingReviews } =
+    useArtworkReviews(workId);
 
   // Calculate rating statistics
   const calculateRatingStats = () => {
@@ -34,34 +37,7 @@ const Reviews = () => {
 
   const stats = calculateRatingStats();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const [workResponse, reviewsResponse] = await Promise.all([
-          axios.get(backendUrl + `/api/artworks/${workId}`),
-          axios.get(backendUrl + `/api/artworks/${workId}/reviews`),
-        ]);
-
-        if (workResponse.data.status === 'success') {
-          setWork(workResponse.data.data.data);
-        }
-
-        if (reviewsResponse.data.status === 'success') {
-          setReviews(reviewsResponse.data.data.reviews);
-        }
-      } catch (err) {
-        setError('Failed to load reviews');
-        console.error('Error fetching reviews:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [workId, backendUrl]);
-
-  if (loading) {
+  if (isLoadingWork || isLoadingReviews) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-lg">Loading reviews...</div>
@@ -69,10 +45,10 @@ const Reviews = () => {
     );
   }
 
-  if (error) {
+  if (errorLoadingWork) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-lg text-red-500">{error}</div>
+        <div className="text-lg text-red-500">{errorLoadingWork.message}</div>
       </div>
     );
   }
@@ -95,10 +71,10 @@ const Reviews = () => {
           onClick={() => {
             navigate(-1);
           }}
-          className="flex items-center gap-2 text-gray-600 hover:text-gray-800 mb-4"
+          className="flex items-center underline gap-2 text-brand hover:text-brand-dark mb-4"
         >
           <FaArrowLeft />
-          <span>Back to artwork</span>
+          <span>Back to {work.title}</span>
         </button>
 
         {work && (

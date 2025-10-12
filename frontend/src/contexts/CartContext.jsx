@@ -1,12 +1,14 @@
 import { useCallback, useContext, useState } from 'react';
-import { AppContext, AuthContext, CartContext } from './contexts.js';
+import { AuthContext, CartContext } from './contexts.js';
 
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useEffect } from 'react';
 import { getErrorMessage } from '../../utils/errorHandler.js';
+import { useQueryClient } from '@tanstack/react-query';
 const CartContextProvider = (props) => {
   const { user, setUser } = useContext(AuthContext);
+  const queryClient = useQueryClient();
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [cart, setCart] = useState(
     JSON.parse(localStorage.getItem('artworksCart')) || []
@@ -34,11 +36,9 @@ const CartContextProvider = (props) => {
           if (data.status === 'success') {
             setCart(data.data.cart);
             console.log(data.data.cart);
-
-            // localStorage.setItem(
-            //   'artworkCart',
-            //   JSON.stringify(data.updatedCart.cart)
-            // );
+            
+            // Invalidate cart-related queries
+            queryClient.invalidateQueries(['cart']);
           }
         } catch (err) {
           console.log(err);
@@ -67,35 +67,44 @@ const CartContextProvider = (props) => {
         const { data } = await axios.get(backendUrl + '/api/users/me/cart');
 
         if (data.status === 'success') {
-          // setCart(data.cart);
-          // localStorage.setItem('artworkCart', JSON.stringify(data.cart));
-          const localCart =
-            JSON.parse(localStorage.getItem('artworksCart')) || [];
+          const localCart = JSON.parse(localStorage.getItem('artworksCart')) || [];
           console.log('server cart:', data.cart);
+          console.log('local cart:', localCart);
 
+          // Merge local cart with server cart
           const merged = [...data.cart];
           if (localCart.length) {
             localCart.forEach((localItem) => {
-              if (
-                !merged.some(
-                  (item) => item.artwork._id === localItem.artwork._id
-                )
-              ) {
+              // Check if local item already exists in server cart
+              const existsInServer = merged.some(
+                (item) => item.artwork._id === localItem.artwork._id
+              );
+              
+              if (!existsInServer) {
+                // Add local item to merged cart
                 merged.push({
                   artwork: localItem.artwork._id,
-                  createdAt: localItem.createdAt,
+                  addedAt: localItem.addedAt || localItem.createdAt,
                 });
               }
             });
           }
-          console.log('mergedcart:', merged);
-          await updateCartData(merged);
+          
+          console.log('merged cart:', merged);
+          
+          // Update server with merged cart
+          if (merged.length !== data.cart.length) {
+            await updateCartData(merged);
+          } else {
+            setCart(merged);
+          }
+          
+          // Clear local cart after successful merge
           localStorage.removeItem('artworksCart');
         }
       } catch (err) {
         console.log(err);
         setErrorGetCart(err.message);
-
         setIsLoadingCart(false);
       } finally {
         setIsLoadingCart(false);
@@ -113,10 +122,14 @@ const CartContextProvider = (props) => {
           const newLocalCart = [...cart, { artwork, addedAt: Date.now() }];
           localStorage.setItem('artworksCart', JSON.stringify(newLocalCart));
           setCart(newLocalCart);
+          
+          // Invalidate cart-related queries
+          queryClient.invalidateQueries(['cart']);
           toast.success('Item added to cart');
         }
       } catch (err) {
         console.log(err);
+        toast.error(getErrorMessage(err));
       } finally {
         setIsUpdatingCart(false);
       }
@@ -128,7 +141,6 @@ const CartContextProvider = (props) => {
       console.log(newartworkCart);
       try {
         await updateCartData(newartworkCart);
-
         toast.success('Item added to cart');
       } catch (err) {
         console.log(err);
@@ -141,6 +153,9 @@ const CartContextProvider = (props) => {
       const newLocalCart = cart.filter((item) => item.artwork._id !== artID);
       localStorage.setItem('artworksCart', JSON.stringify(newLocalCart));
       setCart(newLocalCart);
+      
+      // Invalidate cart-related queries
+      queryClient.invalidateQueries(['cart']);
       toast.success('Item removed from cart');
       return;
     }
@@ -149,7 +164,6 @@ const CartContextProvider = (props) => {
 
       try {
         await updateCartData(newartworkCart);
-
         toast.success('Item removed from cart');
       } catch (err) {
         console.log(err);

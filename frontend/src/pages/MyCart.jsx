@@ -18,7 +18,7 @@ import {
   FiShield,
   FiCreditCard,
 } from 'react-icons/fi';
-import { AppContext, CartContext } from '../contexts/contexts';
+import { CartContext } from '../contexts/contexts';
 import axios from 'axios';
 import { getErrorMessage } from '../../utils/errorHandler';
 import MyCartSkeleton from '../skeletons/MyCartSkeleton';
@@ -28,7 +28,7 @@ const MyCart = () => {
   const { cart, errorGetCart, isLoadingCart, removeFromCart } =
     useContext(CartContext);
   // Mock cart data - in a real app, this would come from context or API
-  const { backendUrl } = useContext(AppContext);
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [isLoading, setIsLoading] = useState(false);
 
   const [promoCode, setPromoCode] = useState('');

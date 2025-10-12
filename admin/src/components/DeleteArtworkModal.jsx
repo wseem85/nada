@@ -78,3 +78,5 @@ const DeleteArtworkModal = ({ open, artworkTitle, artworkId, onClose }) => {
 };
 
 export default DeleteArtworkModal;
+
+
